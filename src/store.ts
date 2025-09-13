@@ -103,7 +103,8 @@ export const usePlaygroundStore = create<PlaygroundStore>()(
       hasStorage: false,
       setHasStorage: (hasStorage) => set(() => ({ hasStorage })),
       chatInputRef: { current: null },
-      selectedEndpoint: 'https://health-research-api.niceground-23078755.westeurope.azurecontainerapps.io/',
+      selectedEndpoint:
+        'https://health-research-api.niceground-23078755.westeurope.azurecontainerapps.io/',
       setSelectedEndpoint: (selectedEndpoint) =>
         set(() => ({ selectedEndpoint })),
       agents: [],

@@ -6,7 +6,7 @@ import React from 'react'
 const ChatBlankState = () => {
   return (
     <section
-      className="font-geist flex flex-col items-center text-center"
+      className="flex flex-col items-center text-center font-geist"
       aria-label="Welcome message"
     >
       <div className="flex max-w-3xl flex-col gap-y-8">
