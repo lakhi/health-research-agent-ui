@@ -28,8 +28,7 @@ const ChatBlankState = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="text-muted-foreground max-w-2xl text-center text-lg"
         >
-          Discover the members at the Health Research Network, along with their
-          expertise and research interests!
+          Discover the members at the Health Research Network, and explore their research interests!
         </motion.p>
       </div>
     </section>

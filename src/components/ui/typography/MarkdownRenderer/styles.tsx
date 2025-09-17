@@ -116,14 +116,14 @@ const DeletedText = ({ className, ...props }: DeletedTextProps) => (
 
 const HorizontalRule = ({ className, ...props }: HorizontalRuleProps) => (
   <hr
-    className={cn(className, 'mx-auto w-48 border-b border-border')}
+    className={cn(className, 'border-border mx-auto w-48 border-b')}
     {...filterProps(props)}
   />
 )
 
 const InlineCode: FC<PreparedTextProps> = ({ children }) => {
   return (
-    <code className="relative whitespace-pre-wrap rounded-sm bg-background-secondary/50 p-1">
+    <code className="bg-background-secondary/50 relative whitespace-pre-wrap rounded-sm p-1">
       {children}
     </code>
   )
@@ -178,12 +178,12 @@ const Heading6 = ({ className, ...props }: HeadingProps) => (
 const Img = ({ src, alt }: ImgProps) => {
   const [error, setError] = useState(false)
 
-  if (!src) return null
+  if (!src || typeof src !== 'string') return null
 
   return (
     <div className="w-full max-w-xl">
       {error ? (
-        <div className="flex h-40 flex-col items-center justify-center gap-2 rounded-md bg-secondary/50 text-muted">
+        <div className="bg-secondary/50 text-muted flex h-40 flex-col items-center justify-center gap-2 rounded-md">
           <Paragraph className="text-primary">Image unavailable</Paragraph>
           <Link
             href={src}
@@ -209,7 +209,7 @@ const Img = ({ src, alt }: ImgProps) => {
 }
 
 const Table = ({ className, ...props }: TableProps) => (
-  <div className="w-full max-w-[560px] overflow-hidden rounded-md border border-border">
+  <div className="border-border w-full max-w-[560px] overflow-hidden rounded-md border">
     <div className="w-full overflow-x-auto">
       <table className={cn(className, 'w-full')} {...filterProps(props)} />
     </div>
@@ -220,7 +220,7 @@ const TableHead = ({ className, ...props }: TableHeaderProps) => (
   <thead
     className={cn(
       className,
-      'rounded-md border-b border-border bg-transparent p-2 text-left text-sm font-[600]'
+      'border-border rounded-md border-b bg-transparent p-2 text-left text-sm font-[600]'
     )}
     {...filterProps(props)}
   />
@@ -239,7 +239,7 @@ const TableBody = ({ className, ...props }: TableBodyProps) => (
 
 const TableRow = ({ className, ...props }: TableRowProps) => (
   <tr
-    className={cn(className, 'border-b border-border last:border-b-0')}
+    className={cn(className, 'border-border border-b last:border-b-0')}
     {...filterProps(props)}
   />
 )
