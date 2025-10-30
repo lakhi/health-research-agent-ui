@@ -27,6 +27,7 @@ const SessionItem = ({
   const [teamId] = useQueryState('team')
   const [dbId] = useQueryState('db_id')
   const [, setSessionId] = useQueryState('session')
+  const authToken = useStore((state) => state.authToken)
   const { getSession } = useSessionLoader()
   const { selectedEndpoint, sessionsData, setSessionsData, mode } = useStore()
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -56,7 +57,8 @@ const SessionItem = ({
       const response = await deleteSessionAPI(
         selectedEndpoint,
         dbId ?? '',
-        session_id
+        session_id,
+        authToken
       )
 
       if (response?.ok && sessionsData) {

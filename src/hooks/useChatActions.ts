@@ -10,6 +10,7 @@ import { useQueryState } from 'nuqs'
 const useChatActions = () => {
   const { chatInputRef } = useStore()
   const selectedEndpoint = useStore((state) => state.selectedEndpoint)
+  const authToken = useStore((state) => state.authToken)
   const [, setSessionId] = useQueryState('session')
   const setMessages = useStore((state) => state.setMessages)
   const setIsEndpointActive = useStore((state) => state.setIsEndpointActive)
@@ -24,32 +25,32 @@ const useChatActions = () => {
 
   const getStatus = useCallback(async () => {
     try {
-      const status = await getStatusAPI(selectedEndpoint)
+      const status = await getStatusAPI(selectedEndpoint, authToken)
       return status
     } catch {
       return 503
     }
-  }, [selectedEndpoint])
+  }, [selectedEndpoint, authToken])
 
   const getAgents = useCallback(async () => {
     try {
-      const agents = await getAgentsAPI(selectedEndpoint)
+      const agents = await getAgentsAPI(selectedEndpoint, authToken)
       return agents
     } catch {
       toast.error('Error fetching agents')
       return []
     }
-  }, [selectedEndpoint])
+  }, [selectedEndpoint, authToken])
 
   const getTeams = useCallback(async () => {
     try {
-      const teams = await getTeamsAPI(selectedEndpoint)
+      const teams = await getTeamsAPI(selectedEndpoint, authToken)
       return teams
     } catch {
       toast.error('Error fetching teams')
       return []
     }
-  }, [selectedEndpoint])
+  }, [selectedEndpoint, authToken])
 
   const clearChat = useCallback(() => {
     setMessages([])
@@ -81,11 +82,9 @@ const useChatActions = () => {
         setIsEndpointActive(true)
         teams = await getTeams()
         agents = await getAgents()
-        console.log(' is active', teams, agents)
 
         if (!agentId && !teamId) {
           const currentMode = useStore.getState().mode
-          console.log('Current mode:', currentMode)
 
           if (currentMode === 'team' && teams.length > 0) {
             const firstTeam = teams[0]
