@@ -20,7 +20,7 @@ const ENDPOINT_PLACEHOLDER = 'NO ENDPOINT ADDED'
 const SidebarHeader = () => (
   <div className="flex items-center gap-2">
     <Icon type="agno" size="xs" />
-    <span className="text-xs font-medium uppercase text-white">Agent UI</span>
+    <span className="text-xs font-medium uppercase text-white">Research Studies Chatbot</span>
   </div>
 )
 
@@ -208,7 +208,7 @@ const Sidebar = ({
   hasEnvToken?: boolean
   envToken?: string
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(true)
   const { clearChat, focusChatInput, initialize } = useChatActions()
   const {
     messages,
