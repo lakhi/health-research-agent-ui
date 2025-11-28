@@ -18,7 +18,7 @@ const ChatBlankState = () => {
         >
           <div className="flex items-center justify-center gap-x-2 whitespace-nowrap font-medium">
             <span className="flex items-center font-[600]">
-              The Health Research Network Agent
+              Research Studies Chatbot
             </span>
           </div>
         </motion.h1>
@@ -28,7 +28,7 @@ const ChatBlankState = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="text-muted-foreground max-w-2xl text-center text-lg"
         >
-          Discover the members at the Health Research Network, and explore their research interests!
+          Your dedicated assistant for understanding the Marhinovirus. Explore comprehensive information on its transmission, symptoms, and effective prevention strategies to stay informed and safe.
         </motion.p>
       </div>
     </section>
