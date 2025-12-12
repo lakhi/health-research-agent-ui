@@ -81,7 +81,7 @@ export const useStore = create<Store>()(
             typeof messages === 'function' ? messages(state.messages) : messages
         })),
       chatInputRef: { current: null },
-      selectedEndpoint: process.env.BACKEND_API_ENDPOINT || '',
+      selectedEndpoint: process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT || '',
       setSelectedEndpoint: (selectedEndpoint) =>
         set(() => ({ selectedEndpoint })),
       authToken: '',
