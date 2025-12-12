@@ -81,9 +81,7 @@ export const useStore = create<Store>()(
             typeof messages === 'function' ? messages(state.messages) : messages
         })),
       chatInputRef: { current: null },
-      selectedEndpoint:
-        process.env.HRN_API_ENDPOINT ||
-        'https://health-research-api.niceground-23078755.westeurope.azurecontainerapps.io/',
+      selectedEndpoint: process.env.BACKEND_API_ENDPOINT || '',
       setSelectedEndpoint: (selectedEndpoint) =>
         set(() => ({ selectedEndpoint })),
       authToken: '',
