@@ -81,7 +81,10 @@ export const useStore = create<Store>()(
             typeof messages === 'function' ? messages(state.messages) : messages
         })),
       chatInputRef: { current: null },
-      selectedEndpoint: process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT || '',
+      // TODO: the environment variable approach does not work - find a solution
+      selectedEndpoint:
+        process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT ||
+        'https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io',
       setSelectedEndpoint: (selectedEndpoint) =>
         set(() => ({ selectedEndpoint })),
       authToken: '',
