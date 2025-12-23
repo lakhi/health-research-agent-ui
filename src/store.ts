@@ -7,6 +7,7 @@ import {
   TeamDetails,
   type ChatMessage
 } from '@/types/os'
+import { getDefaultEndpoint } from '@/config/endpoints'
 
 interface Store {
   hydrated: boolean
@@ -81,10 +82,7 @@ export const useStore = create<Store>()(
             typeof messages === 'function' ? messages(state.messages) : messages
         })),
       chatInputRef: { current: null },
-      // TODO: the environment variable approach does not work - find a solution
-      selectedEndpoint:
-        process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT ||
-        'https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io',
+      selectedEndpoint: getDefaultEndpoint(),
       setSelectedEndpoint: (selectedEndpoint) =>
         set(() => ({ selectedEndpoint })),
       authToken: '',
