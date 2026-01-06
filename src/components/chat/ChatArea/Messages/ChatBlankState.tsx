@@ -2,11 +2,14 @@
 
 import { motion } from 'framer-motion'
 import React from 'react'
+import { getProjectConfig } from '@/config/projects'
+
+const projectConfig = getProjectConfig()
 
 const ChatBlankState = () => {
   return (
     <section
-      className="flex flex-col items-center text-center font-geist"
+      className="font-geist flex flex-col items-center text-center"
       aria-label="Welcome message"
     >
       <div className="flex max-w-3xl flex-col gap-y-8">
@@ -18,7 +21,7 @@ const ChatBlankState = () => {
         >
           <div className="flex items-center justify-center gap-x-2 whitespace-nowrap font-medium">
             <span className="flex items-center font-[600]">
-              Research Studies Chatbot
+              {projectConfig.name}
             </span>
           </div>
         </motion.h1>
@@ -28,7 +31,7 @@ const ChatBlankState = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="text-muted-foreground max-w-2xl text-center text-lg"
         >
-          Your dedicated assistant for understanding the Marhinovirus. Explore comprehensive information on its transmission, symptoms, and effective prevention strategies to stay informed and safe.
+          {projectConfig.description}
         </motion.p>
       </div>
     </section>

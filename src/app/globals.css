@@ -4,8 +4,35 @@
 
 @layer base {
   :root {
+    /* Border */
     --color-border-default: 255, 255, 255, 0.2;
     --scrollbar-width: 0.1rem;
+
+    /* Default theme colors (vax-study-chatbot & ssc-psych-chatbot - Orange theme) */
+    --color-brand: 255 64 23;
+    --color-primary: 250 250 250;
+    --color-primary-accent: 24 24 27;
+    --color-background: 17 17 19;
+    --color-background-secondary: 39 39 42;
+    --color-secondary: 245 245 245;
+    --color-accent: 39 39 42;
+    --color-muted: 161 161 170;
+    --color-destructive: 229 57 53;
+    --color-positive: 34 197 94;
+  }
+
+  /* HealthSoc Network Chatbot - Blue/White theme */
+  [data-project='healthsoc-network-chatbot'] {
+    --color-brand: 37 99 235;
+    --color-primary: 255 255 255;
+    --color-primary-accent: 30 58 138;
+    --color-background: 15 23 42;
+    --color-background-secondary: 30 41 59;
+    --color-secondary: 241 245 249;
+    --color-accent: 51 65 85;
+    --color-muted: 148 163 184;
+    --color-destructive: 229 57 53;
+    --color-positive: 34 197 94;
   }
 
   body {

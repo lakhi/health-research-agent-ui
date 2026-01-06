@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { DM_Mono, Geist } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from '@/components/ui/sonner'
+import { getProjectConfig } from '@/config/projects'
 import './globals.css'
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   weight: '400',
@@ -15,10 +17,12 @@ const dmMono = DM_Mono({
   weight: '400'
 })
 
+// Get project-specific metadata
+const projectConfig = getProjectConfig()
+
 export const metadata: Metadata = {
-  title: 'Research Studies Chatbot',
-  description:
-    'Your dedicated assistant for understanding the Marhinovirus. Explore comprehensive information on its transmission, symptoms, and effective prevention strategies.'
+  title: projectConfig.metadata.title,
+  description: projectConfig.metadata.description
 }
 
 export default function RootLayout({
@@ -28,7 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${dmMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${dmMono.variable} antialiased`}
+        data-project={projectConfig.id}
+      >
         <NuqsAdapter>{children}</NuqsAdapter>
         <Toaster />
       </body>

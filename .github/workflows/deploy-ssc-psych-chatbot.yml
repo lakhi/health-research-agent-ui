@@ -1,0 +1,74 @@
+name: Deploy SSC Psychology Chatbot
+
+on:
+  workflow_dispatch: # Manual trigger only
+
+env:
+  PROJECT_ID: ssc-psych-chatbot
+  IMAGE_NAME: ssc-psych-chatbot-ui
+  RESOURCE_GROUP: ssc_psychology
+  BICEP_PARAM_FILE: infrastructure/ssc-psych-chatbot.bicepparam
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Step 3: Login to Azure Container Registry
+      - name: Login to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.SSC_PSYCH_CHATBOT_ACR_LOGIN_SERVER }}
+          username: ${{ secrets.SSC_PSYCH_CHATBOT_ACR_USERNAME }}
+          password: ${{ secrets.SSC_PSYCH_CHATBOT_ACR_PASSWORD }}
+
+      # Step 4: Build and push Docker image with project-specific configuration
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          platforms: linux/amd64
+          build-args: |
+            NEXT_PUBLIC_PROJECT_ID=${{ env.PROJECT_ID }}
+          tags: |
+            ${{ secrets.SSC_PSYCH_CHATBOT_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
+            ${{ secrets.SSC_PSYCH_CHATBOT_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      # Step 5: Login to Azure
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.SSC_PSYCH_CHATBOT_AZURE_CREDENTIALS }}
+
+      # Step 6: Deploy to Azure Container Apps
+      - name: Deploy to Azure Container Apps
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az deployment group create \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --template-file infrastructure/main.bicep \
+              --parameters ${{ env.BICEP_PARAM_FILE }}
+
+      # Step 7: Get deployment URL
+      - name: Get Container App URL
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            FQDN=$(az containerapp show \
+              --name ssc-psych-chatbot-ui \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --query properties.configuration.ingress.fqdn \
+              --output tsv)
+            echo "✅ SSC Psychology Chatbot deployed successfully!"
+            echo "🌐 URL: https://${FQDN}"
