@@ -69,7 +69,7 @@ const AgentMessage = ({ message }: MessageProps) => {
   }
 
   return (
-    <div className="flex flex-row items-start gap-4 font-geist">
+    <div className="font-primary flex flex-row items-start gap-4">
       <div className="flex-shrink-0">
         <Icon type="agent" size="sm" />
       </div>
@@ -84,7 +84,7 @@ const UserMessage = memo(({ message }: MessageProps) => {
       <div className="flex-shrink-0">
         <Icon type="user" size="sm" />
       </div>
-      <div className="text-md rounded-lg font-geist text-secondary">
+      <div className="text-md font-primary text-secondary rounded-lg">
         {message.content}
       </div>
     </div>

@@ -8,6 +8,9 @@
     --color-border-default: 255, 255, 255, 0.2;
     --scrollbar-width: 0.1rem;
 
+    /* Font - Theme-aware primary font */
+    --font-primary: var(--font-geist-sans);
+
     /* Default theme colors (vax-study-chatbot & ssc-psych-chatbot - Orange theme) */
     --color-brand: 255 64 23;
     --color-primary: 250 250 250;
@@ -19,24 +22,85 @@
     --color-muted: 161 161 170;
     --color-destructive: 229 57 53;
     --color-positive: 34 197 94;
+
+    /* Badge colors - Theme-aware */
+    --color-badge-bg: 39 39 42; /* #27272A - Dark gray for dark theme */
+    --color-badge-text: 161 161 170; /* #A1A1AA - Light gray text */
   }
 
-  /* HealthSoc Network Chatbot - Blue/White theme */
+  /* HealthSoc Network Chatbot - Light Blue/Purple Academic theme */
   [data-project='healthsoc-network-chatbot'] {
-    --color-brand: 37 99 235;
-    --color-primary: 255 255 255;
-    --color-primary-accent: 30 58 138;
-    --color-background: 15 23 42;
-    --color-background-secondary: 30 41 59;
-    --color-secondary: 241 245 249;
-    --color-accent: 51 65 85;
-    --color-muted: 148 163 184;
-    --color-destructive: 229 57 53;
-    --color-positive: 34 197 94;
+    /* Font - Use Inter for modern academic aesthetic */
+    --font-primary: var(--font-inter);
+
+    --color-border-default: 30, 64, 175, 0.15; /* Blue-tinted border */
+    --color-brand: 30 64 175; /* #1E40AF - University blue */
+    --color-primary: 30 41 59; /* #1E293B - Dark headings/strong text */
+    --color-primary-accent: 255 255 255; /* #FFFFFF - Input backgrounds */
+    --color-background: 248 250 252; /* #F8FAFC - Subtle gray main bg */
+    --color-background-secondary: 238 242 246; /* #EEF2F6 - Sidebar/cards */
+    --color-secondary: 51 65 85; /* #334155 - Body text (readable!) */
+    --color-accent: 30 64 175; /* #1E40AF - Borders, focus rings */
+    --color-accent-secondary: 139 92 246; /* #8B5CF6 - Purple accent */
+    --color-muted: 100 116 139; /* #64748B - Placeholders, subtle text */
+    --color-surface: 255 255 255; /* #FFFFFF - Elevated surfaces */
+    --color-destructive: 220 38 38; /* #DC2626 - Red */
+    --color-positive: 5 150 105; /* #059669 - Green */
+
+    /* Badge colors - Light theme */
+    --color-badge-bg: 219 234 254; /* #DBEAFE - Blue-100 */
+    --color-badge-text: 30 64 175; /* #1E40AF - Brand blue */
   }
 
   body {
     @apply bg-background/80 text-secondary;
+  }
+}
+
+/* HealthSoc Network Chatbot - Component Overrides */
+[data-project='healthsoc-network-chatbot'] {
+  /* Font weight hierarchy */
+  & h1,
+  & .text-3xl {
+    font-weight: 700; /* Bold for main headings */
+  }
+  & h2 {
+    font-weight: 600; /* Semibold for subheadings */
+  }
+  & .text-sm.font-medium {
+    font-weight: 600; /* Semibold for emphasized small text */
+  }
+  & .font-\[600\] {
+    font-weight: 600; /* Explicit semibold */
+  }
+  & .uppercase {
+    font-weight: 500; /* Medium for uppercase labels */
+  }
+
+  /* ChatInput textarea styling */
+  & textarea {
+    background-color: rgb(255 255 255) !important;
+    border-color: rgb(30 64 175 / 0.3) !important;
+    color: rgb(30 41 59) !important;
+  }
+  & textarea:focus {
+    border-color: rgb(30 64 175) !important;
+    box-shadow: 0 0 0 2px rgb(30 64 175 / 0.1);
+  }
+  & textarea::placeholder {
+    color: rgb(100 116 139);
+  }
+
+  /* Send button styling */
+  & button[class*='bg-primary'] {
+    background-color: rgb(30 64 175) !important;
+    color: rgb(255 255 255) !important;
+  }
+  & button[class*='bg-primary']:hover {
+    background-color: rgb(29 78 216) !important;
+  }
+  & button[class*='bg-primary'] svg {
+    color: rgb(255 255 255) !important;
   }
 }
 

@@ -20,13 +20,23 @@ export default {
         },
         secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
         border: 'rgba(var(--color-border-default))',
-        accent: 'rgb(var(--color-accent) / <alpha-value>)',
+        accent: {
+          DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
+          secondary: 'rgb(var(--color-accent-secondary) / <alpha-value>)'
+        },
+        badge: {
+          DEFAULT: 'rgb(var(--color-badge-bg) / <alpha-value>)',
+          text: 'rgb(var(--color-badge-text) / <alpha-value>)'
+        },
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
         muted: 'rgb(var(--color-muted) / <alpha-value>)',
         destructive: 'rgb(var(--color-destructive) / <alpha-value>)',
         positive: 'rgb(var(--color-positive) / <alpha-value>)'
       },
       fontFamily: {
+        primary: 'var(--font-primary)',
         geist: 'var(--font-geist-sans)',
+        lora: 'var(--font-lora)',
         dmmono: 'var(--font-dm-mono)'
       },
       borderRadius: {

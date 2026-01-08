@@ -26,6 +26,8 @@ export interface ProjectTheme {
     }
     secondary: string
     accent: string
+    accentSecondary?: string
+    surface?: string
     muted: string
     destructive: string
     positive: string
@@ -51,34 +53,37 @@ export interface ProjectConfig {
 const projects: Record<ProjectId, ProjectConfig> = {
   'healthsoc-network-chatbot': {
     id: 'healthsoc-network-chatbot',
-    name: 'Health Research Network Chatbot',
+    name: 'Health in Society Research Network Chatbot',
     description:
-      'Your AI assistant for navigating health and society research networks, connecting researchers, and exploring collaborative opportunities.',
+      'Discover the members at the Health Research Network, and explore their research interests!',
     apiEndpoint:
       'https://health-research-api.niceground-23078755.westeurope.azurecontainerapps.io/',
     theme: {
       colors: {
-        brand: '#2563EB', // Blue
-        primary: '#FFFFFF',
-        primaryAccent: '#1E3A8A',
+        brand: '#1E40AF', // University blue
+        primary: '#1E293B', // Dark headings/strong text
+        primaryAccent: '#FFFFFF', // Input backgrounds
         background: {
-          default: '#0F172A', // Dark blue background
-          secondary: '#1E293B'
+          default: '#F8FAFC', // Subtle gray main bg
+          secondary: '#EEF2F6' // Sidebar/cards
         },
-        secondary: '#F1F5F9',
-        accent: '#334155',
-        muted: '#94A3B8',
-        destructive: '#E53935',
-        positive: '#22C55E'
+        secondary: '#334155', // Body text (readable!)
+        accent: '#1E40AF', // Borders, focus rings
+        accentSecondary: '#8B5CF6', // Purple accent
+        surface: '#FFFFFF', // Elevated surfaces
+        muted: '#64748B', // Placeholders, subtle text
+        destructive: '#DC2626', // Red
+        positive: '#059669' // Green
       },
       fonts: {
-        primary: 'Geist',
+        primary: 'Inter',
         mono: 'DM Mono'
       }
     },
     metadata: {
-      title: 'Health Research Network Chatbot',
-      description: 'AI assistant for health and society research collaboration'
+      title: 'Health in Society Research Network Chatbot',
+      description:
+        'Discover the members at the Health Research Network, and explore their research interests!'
     }
   },
   'vax-study-chatbot': {

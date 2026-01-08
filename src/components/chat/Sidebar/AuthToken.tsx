@@ -61,7 +61,7 @@ const AuthToken = ({
 
   return (
     <div className="flex flex-col items-start gap-2">
-      <div className="text-xs font-medium uppercase text-primary">
+      <div className="text-primary text-xs font-medium uppercase">
         Auth Token
       </div>
       {isEditing ? (
@@ -72,7 +72,7 @@ const AuthToken = ({
             onChange={(e) => setTokenValue(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Enter authentication token..."
-            className="flex h-9 w-full items-center text-ellipsis rounded-xl border border-primary/15 bg-accent p-3 text-xs font-medium text-muted placeholder:text-muted/50"
+            className="border-primary/15 bg-badge text-badge-text placeholder:text-badge-text/50 flex h-9 w-full items-center text-ellipsis rounded-xl border p-3 text-xs font-medium"
             autoFocus
           />
           <Button
@@ -87,7 +87,7 @@ const AuthToken = ({
       ) : (
         <div className="flex w-full items-center gap-1">
           <motion.div
-            className="relative flex h-9 w-full cursor-pointer items-center justify-between rounded-xl border border-primary/15 bg-accent p-3 uppercase"
+            className="border-primary/15 bg-badge relative flex h-9 w-full cursor-pointer items-center justify-between rounded-xl border p-3 uppercase"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
             onClick={() => setIsEditing(true)}
@@ -103,7 +103,7 @@ const AuthToken = ({
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <p className="flex items-center gap-2 whitespace-nowrap text-xs font-medium text-primary">
+                  <p className="text-primary flex items-center gap-2 whitespace-nowrap text-xs font-medium">
                     <Icon type="edit" size="xxs" /> EDIT TOKEN
                   </p>
                 </motion.div>
@@ -116,7 +116,7 @@ const AuthToken = ({
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <p className="text-xs font-medium text-muted">
+                  <p className="text-muted text-xs font-medium">
                     {isMounted ? displayValue : 'NO TOKEN SET'}
                   </p>
                 </motion.div>

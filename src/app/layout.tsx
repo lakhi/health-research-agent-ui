@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { DM_Mono, Geist } from 'next/font/google'
+import { DM_Mono, Geist, Inter } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from '@/components/ui/sonner'
 import { getProjectConfig } from '@/config/projects'
@@ -8,6 +8,12 @@ import './globals.css'
 const geistSans = Geist({
   variable: '--font-geist-sans',
   weight: '400',
+  subsets: ['latin']
+})
+
+const inter = Inter({
+  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin']
 })
 
@@ -30,10 +36,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const isHealthSoc = projectConfig.id === 'healthsoc-network-chatbot'
+  const fontVariables = isHealthSoc
+    ? `${inter.variable} ${dmMono.variable}`
+    : `${geistSans.variable} ${dmMono.variable}`
+
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${dmMono.variable} antialiased`}
+        className={`${fontVariables} antialiased`}
         data-project={projectConfig.id}
       >
         <NuqsAdapter>{children}</NuqsAdapter>

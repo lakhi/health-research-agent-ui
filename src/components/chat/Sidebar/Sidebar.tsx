@@ -48,7 +48,7 @@ const NewChatButton = ({
 )
 
 const ModelDisplay = ({ model }: { model: string }) => (
-  <div className="border-primary/15 bg-accent text-muted flex h-9 w-full items-center gap-3 rounded-xl border p-3 text-xs font-medium uppercase">
+  <div className="border-primary/15 bg-badge text-badge-text flex h-9 w-full items-center gap-3 rounded-xl border p-3 text-xs font-medium uppercase">
     {(() => {
       const icon = getProviderIcon(model)
       return icon ? <Icon type={icon} className="shrink-0" size="xs" /> : null
@@ -129,7 +129,7 @@ const Endpoint = () => {
             value={endpointValue}
             onChange={(e) => setEndpointValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="border-primary/15 bg-accent text-muted flex h-9 w-full items-center text-ellipsis rounded-xl border p-3 text-xs font-medium"
+            className="border-primary/15 bg-badge text-badge-text flex h-9 w-full items-center text-ellipsis rounded-xl border p-3 text-xs font-medium"
             autoFocus
           />
           <Button
@@ -144,7 +144,7 @@ const Endpoint = () => {
       ) : (
         <div className="flex w-full items-center gap-1">
           <motion.div
-            className="border-primary/15 bg-accent relative flex h-9 w-full cursor-pointer items-center justify-between rounded-xl border p-3 uppercase"
+            className="border-primary/15 bg-badge relative flex h-9 w-full cursor-pointer items-center justify-between rounded-xl border p-3 uppercase"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
             onClick={() => setIsEditing(true)}

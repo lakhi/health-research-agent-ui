@@ -9,7 +9,7 @@ const projectConfig = getProjectConfig()
 const ChatBlankState = () => {
   return (
     <section
-      className="font-geist flex flex-col items-center text-center"
+      className="font-primary flex flex-col items-center text-center"
       aria-label="Welcome message"
     >
       <div className="flex max-w-3xl flex-col gap-y-8">
