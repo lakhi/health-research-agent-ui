@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { DM_Mono, Geist, Inter } from 'next/font/google'
+import { DM_Mono, Geist, Inter, Open_Sans } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from '@/components/ui/sonner'
 import { getProjectConfig } from '@/config/projects'
@@ -13,6 +13,12 @@ const geistSans = Geist({
 
 const inter = Inter({
   variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin']
+})
+
+const openSans = Open_Sans({
+  variable: '--font-open-sans',
   weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin']
 })
@@ -37,9 +43,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   const isHealthSoc = projectConfig.id === 'healthsoc-network-chatbot'
+  const isVaxStudy = projectConfig.id === 'vax-study-chatbot'
+
   const fontVariables = isHealthSoc
     ? `${inter.variable} ${dmMono.variable}`
-    : `${geistSans.variable} ${dmMono.variable}`
+    : isVaxStudy
+      ? `${openSans.variable} ${dmMono.variable}`
+      : `${geistSans.variable} ${dmMono.variable}`
 
   return (
     <html lang="en">

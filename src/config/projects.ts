@@ -90,26 +90,28 @@ const projects: Record<ProjectId, ProjectConfig> = {
     id: 'vax-study-chatbot',
     name: 'Research Studies Chatbot',
     description:
-      'Your dedicated assistant for understanding the Marhinovirus. Explore comprehensive information on its transmission, symptoms, and effective prevention strategies to stay informed and safe.',
+      'Hello! Im a Chatbot designed to help you understand the marhinovirus and its vaccination. I am also here to help you with the choice to either vaccinate or not. Ask me anything you want. If you don’t know where to start, just ask me “what is the marhinovirus?”',
     apiEndpoint:
       'https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io',
     theme: {
       colors: {
-        brand: '#FF4017', // Orange
-        primary: '#FAFAFA',
-        primaryAccent: '#18181B',
+        brand: '#1E40AF', // University blue
+        primary: '#1E293B', // Dark headings/strong text
+        primaryAccent: '#FFFFFF', // Input backgrounds
         background: {
-          default: '#111113',
-          secondary: '#27272A'
+          default: '#F8FAFC', // Subtle gray main bg
+          secondary: '#EEF2F6' // Sidebar/cards
         },
-        secondary: '#F5F5F5',
-        accent: '#27272A',
-        muted: '#A1A1AA',
-        destructive: '#E53935',
-        positive: '#22C55E'
+        secondary: '#334155', // Body text (readable!)
+        accent: '#1E40AF', // Borders, focus rings
+        accentSecondary: '#8B5CF6', // Purple accent
+        surface: '#FFFFFF', // Elevated surfaces
+        muted: '#64748B', // Placeholders, subtle text
+        destructive: '#DC2626', // Red
+        positive: '#059669' // Green
       },
       fonts: {
-        primary: 'Geist',
+        primary: 'Open Sans',
         mono: 'DM Mono'
       }
     },
