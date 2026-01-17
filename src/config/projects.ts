@@ -76,7 +76,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
         positive: '#059669' // Green
       },
       fonts: {
-        primary: 'Inter',
+        primary: 'Poppins',
         mono: 'DM Mono'
       }
     },
@@ -111,7 +111,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
         positive: '#059669' // Green
       },
       fonts: {
-        primary: 'Open Sans',
+        primary: 'Poppins',
         mono: 'DM Mono'
       }
     },
@@ -143,7 +143,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
         positive: '#22C55E'
       },
       fonts: {
-        primary: 'Geist',
+        primary: 'Poppins',
         mono: 'DM Mono'
       }
     },

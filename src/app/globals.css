@@ -28,10 +28,10 @@
     --color-badge-text: 161 161 170; /* #A1A1AA - Light gray text */
   }
 
-  /* HealthSoc Network Chatbot - Light Blue/Purple Academic theme */
+  /* HealthSoc Network Chatbot - Light Blue/Purple Academic theme with Poppins */
   [data-project='healthsoc-network-chatbot'] {
-    /* Font - Use Inter for modern academic aesthetic */
-    --font-primary: var(--font-inter);
+    /* Font - Use Poppins for friendly, readable academic aesthetic */
+    --font-primary: var(--font-poppins);
 
     --color-border-default: 30, 64, 175, 0.15; /* Blue-tinted border */
     --color-brand: 30 64 175; /* #1E40AF - University blue */
@@ -52,10 +52,10 @@
     --color-badge-text: 30 64 175; /* #1E40AF - Brand blue */
   }
 
-  /* Vax Study Chatbot - Light Blue/Purple Academic theme with Open Sans */
+  /* Vax Study Chatbot - Light Blue/Purple Academic theme with Poppins */
   [data-project='vax-study-chatbot'] {
-    /* Font - Use Open Sans for academic aesthetic */
-    --font-primary: var(--font-open-sans);
+    /* Font - Use Poppins for friendly, readable academic aesthetic */
+    --font-primary: var(--font-poppins);
 
     --color-border-default: 30, 64, 175, 0.15; /* Blue-tinted border */
     --color-brand: 30 64 175; /* #1E40AF - University blue */

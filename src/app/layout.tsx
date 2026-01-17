@@ -1,24 +1,12 @@
 import type { Metadata } from 'next'
-import { DM_Mono, Geist, Inter, Open_Sans } from 'next/font/google'
+import { DM_Mono, Poppins } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from '@/components/ui/sonner'
 import { getProjectConfig } from '@/config/projects'
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  weight: '400',
-  subsets: ['latin']
-})
-
-const inter = Inter({
-  variable: '--font-inter',
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin']
-})
-
-const openSans = Open_Sans({
-  variable: '--font-open-sans',
+const poppins = Poppins({
+  variable: '--font-poppins',
   weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin']
 })
@@ -42,19 +30,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const isHealthSoc = projectConfig.id === 'healthsoc-network-chatbot'
-  const isVaxStudy = projectConfig.id === 'vax-study-chatbot'
-
-  const fontVariables = isHealthSoc
-    ? `${inter.variable} ${dmMono.variable}`
-    : isVaxStudy
-      ? `${openSans.variable} ${dmMono.variable}`
-      : `${geistSans.variable} ${dmMono.variable}`
+  const fontVariables = `${poppins.variable} ${dmMono.variable}`
 
   return (
-    <html lang="en">
+    <html lang="en" className={fontVariables}>
       <body
-        className={`${fontVariables} antialiased`}
+        className="bg-background text-secondary"
         data-project={projectConfig.id}
       >
         <NuqsAdapter>{children}</NuqsAdapter>
