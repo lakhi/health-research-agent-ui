@@ -2,7 +2,7 @@
 // This single template supports all three chatbot projects through .bicepparam files
 
 @description('Name of the Container App')
-param containerAppName string
+param containerAppName string 
 
 @description('Azure region for deployment')
 param location string = 'West Europe'
