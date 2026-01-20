@@ -92,7 +92,8 @@ const projects: Record<ProjectId, ProjectConfig> = {
     description:
       'Hello! Im a Chatbot designed to help you understand the marhinovirus and its vaccination. I am also here to help you with the choice to either vaccinate or not. Ask me anything you want. If you don’t know where to start, just ask me “what is the marhinovirus?”',
     apiEndpoint:
-      'https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io',
+      process.env.NEXT_PUBLIC_API_ENDPOINT || '',
+      // 'https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io',
     theme: {
       colors: {
         brand: '#1E40AF', // University blue
