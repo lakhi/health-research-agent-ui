@@ -70,7 +70,10 @@ param cpuAllocation string = '0.25'
 @description('Memory allocation (e.g., 0.5Gi, 1Gi, 2Gi)')
 param memoryAllocation string = '0.5Gi'
 
-resource containerApp 'Microsoft.App/containerapps@2025-02-02-preview' = {
+@description('Revision suffix for the container app')
+param revisionSuffix string
+
+resource containerApp 'Microsoft.App/containerapps@2025-10-02-preview' = {
   name: containerAppName
   location: location
   tags: {
@@ -82,7 +85,6 @@ resource containerApp 'Microsoft.App/containerapps@2025-02-02-preview' = {
     type: identityType
   }
   properties: {
-    managedEnvironmentId: managedEnvironmentId
     environmentId: managedEnvironmentId
     workloadProfileName: 'Consumption'
     configuration: {
@@ -113,6 +115,7 @@ resource containerApp 'Microsoft.App/containerapps@2025-02-02-preview' = {
       maxInactiveRevisions: 100
     }
     template: {
+      revisionSuffix: revisionSuffix
       containers: [
         {
           image: containerImage
