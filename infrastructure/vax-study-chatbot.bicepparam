@@ -20,4 +20,4 @@ param pollingInterval = 30
 param concurrentRequests = '10'
 param cpuAllocation = '0.25'
 param memoryAllocation = '0.5Gi'
-param revisionSuffix = 'v1-a'
+param revisionSuffix = 'v1-1a'
