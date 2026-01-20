@@ -1,9 +1,10 @@
 name: Build and Push to Azure Container Registry
 
+# TODO: consider adding Azure Container Apps deployment
 # When to run this workflow
 on:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [main]
   workflow_dispatch: # Keep manual trigger for testing
 
 # Environment variables available to all jobs
@@ -40,6 +41,8 @@ jobs:
           file: ./Dockerfile # Use your Dockerfile
           push: true # Push to registry
           platforms: linux/amd64 # Platform for Azure
+          build-args: |
+            NEXT_PUBLIC_PROJECT_ID=${{ secrets.NEXT_PUBLIC_PROJECT_ID }}
           tags: |
             ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
