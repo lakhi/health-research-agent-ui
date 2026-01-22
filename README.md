@@ -25,27 +25,7 @@ az deployment group create \
     --resource-group socialeconpsyresearch \
     --output table
 
-
-4. set mode to multiple:
-az containerapp revision set-mode \
-  --name marhinovirus-study-ui \
-  --resource-group socialeconpsyresearch \
-  --mode multiple
-
-command to check it:
-az containerapp show \
-  --name marhinovirus-study-ui \
-  --resource-group socialeconpsyresearch \
-  --query 'properties.configuration.activeRevisionsMode' \
-  --output tsv
-
-5. activate original:
-az containerapp revision activate \
-  --name marhinovirus-study-ui \
-  --resource-group socialeconpsyresearch \
-  --revision marhinovirus-study-ui--0000006
-
-6. reroute traffic to original:
+4. reroute traffic to original:
 az containerapp ingress traffic set \
   --name marhinovirus-study-ui \
   --resource-group socialeconpsyresearch \
