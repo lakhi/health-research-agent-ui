@@ -73,6 +73,13 @@ param memoryAllocation string = '0.5Gi'
 @description('Revision suffix for the container app')
 param revisionSuffix string
 
+@description('Active revisions mode - Single or Multiple')
+@allowed([
+  'Single'
+  'Multiple'
+])
+param activeRevisionsMode string = 'Single'
+
 resource containerApp 'Microsoft.App/containerapps@2025-10-02-preview' = {
   name: containerAppName
   location: location
@@ -88,7 +95,7 @@ resource containerApp 'Microsoft.App/containerapps@2025-10-02-preview' = {
     environmentId: managedEnvironmentId
     workloadProfileName: 'Consumption'
     configuration: {
-      activeRevisionsMode: 'Single'
+      activeRevisionsMode: activeRevisionsMode
       ingress: {
         external: true
         targetPort: 3000
