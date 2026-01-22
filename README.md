@@ -32,6 +32,13 @@ az containerapp revision set-mode \
   --resource-group socialeconpsyresearch \
   --mode multiple
 
+command to check it:
+az containerapp show \
+  --name marhinovirus-study-ui \
+  --resource-group socialeconpsyresearch \
+  --query 'properties.configuration.activeRevisionsMode' \
+  --output tsv
+
 5. activate original:
 az containerapp revision activate \
   --name marhinovirus-study-ui \
