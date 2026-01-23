@@ -21,5 +21,3 @@ param pollingInterval = 30
 param concurrentRequests = '10'
 param cpuAllocation = '0.25'
 param memoryAllocation = '0.5Gi'
-// TODO: Update revisionSuffix with appropriate version tag (placeholder)
-param revisionSuffix = ''

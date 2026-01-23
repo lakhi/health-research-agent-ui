@@ -11,10 +11,10 @@ This project is licensed under the [MIT License](./LICENSE).
 
 
 1. Update the API endpoints in projects.ts and the vax study bicep
+
 2. deploy using bicep param:
 
 az deployment group create \
-  --name marhinovirus-study-ui-v1-1a \
   --resource-group socialeconpsyresearch \
   --template-file infrastructure/main.bicep \
   --parameters infrastructure/vax-study-chatbot.bicepparam
@@ -30,5 +30,3 @@ az containerapp ingress traffic set \
   --name marhinovirus-study-ui \
   --resource-group socialeconpsyresearch \
   --revision-weight marhinovirus-study-ui--v1-a1=0 marhinovirus-study-ui--0000006=100
-
-7. 
