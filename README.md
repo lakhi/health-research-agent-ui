@@ -2,6 +2,10 @@
 
 A modern chat interface for the Health Research Network agent at Uni Wien built with Next.js, Tailwind CSS, and TypeScript. Cloned and modified from Agno Agent UI: https://docs.agno.com/agent-os/agent-ui
 
+# Open-source client libraries for building Agno frontends:
+1. https://reddit.com/r/agno
+2. https://github.com/antipopp/agno-client
+
 
 ## License
 
