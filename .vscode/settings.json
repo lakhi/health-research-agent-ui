@@ -4,5 +4,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "workbench.preferredDarkColorTheme": "Abyss"
+  "workbench.preferredDarkColorTheme": "Abyss",
+  "workbench.preferredLightColorTheme": "Experimental Light"
 }

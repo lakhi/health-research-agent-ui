@@ -57,7 +57,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
     description:
       'Discover the members at the Health Research Network, and explore their research interests!',
     apiEndpoint:
-      'https://health-research-api.niceground-23078755.westeurope.azurecontainerapps.io/',
+      'http://localhost:8000',
     theme: {
       colors: {
         brand: '#1E40AF', // University blue

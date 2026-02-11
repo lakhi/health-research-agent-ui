@@ -9,14 +9,17 @@ import { getProjectConfig } from './projects'
  *
  * This replaces the old hardcoded fallback and NEXT_PUBLIC_BACKEND_API_ENDPOINT
  */
+const normalizeEndpoint = (endpoint: string): string =>
+  endpoint.trim().replace(/\/+$/, '')
+
 export function getDefaultEndpoint(): string {
   // First priority: explicit environment variable
   const envEndpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
   if (envEndpoint) {
-    return envEndpoint
+    return normalizeEndpoint(envEndpoint)
   }
 
   // Second priority: project configuration
   const projectConfig = getProjectConfig()
-  return projectConfig.apiEndpoint
+  return normalizeEndpoint(projectConfig.apiEndpoint)
 }
