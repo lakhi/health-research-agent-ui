@@ -1,11 +1,11 @@
 # Agent UI
 
-A modern chat interface for the Health Research Network agent at Uni Wien built with Next.js, Tailwind CSS, and TypeScript. Cloned and modified from Agno Agent UI: https://docs.agno.com/agent-os/agent-ui
+A modern chat interface for the Health Research Network agent at Uni Wien built with Next.js, Tailwind CSS, and TypeScript. Cloned and modified from Agno Agent UI: <https://docs.agno.com/agent-os/agent-ui>
 
-# Open-source client libraries for building Agno frontends:
+# Open-source client libraries for building Agno frontends
 
-1. https://reddit.com/r/agno
-2. https://github.com/antipopp/agno-client
+1. <https://reddit.com/r/agno>
+2. <https://github.com/antipopp/agno-client>
 
 ## License
 
@@ -25,20 +25,20 @@ The following files had their hardcoded production API endpoint replaced with lo
 
 1. Update the API endpoints in projects.ts and the vax study bicep
 
-2. deploy using bicep param:
+2. deploy using bicep param (below seems to not release and deploy a new version):
 
 az deployment group create \
  --resource-group socialeconpsyresearch \
  --template-file infrastructure/main.bicep \
  --parameters infrastructure/vax-study-chatbot.bicepparam
 
-3. verify the revisions are healthy
+1. verify the revisions are healthy
    az containerapp revision list \
     --name marhinovirus-study-ui \
     --resource-group socialeconpsyresearch \
     --output table
 
-4. reroute traffic to original:
+2. reroute traffic to original:
    az containerapp ingress traffic set \
     --name marhinovirus-study-ui \
     --resource-group socialeconpsyresearch \
