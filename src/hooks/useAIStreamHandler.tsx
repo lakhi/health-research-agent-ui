@@ -10,6 +10,10 @@ import useAIResponseStream from './useAIResponseStream'
 import { ToolCall } from '@/types/os'
 import { useQueryState } from 'nuqs'
 import { getJsonMarkdown } from '@/lib/utils'
+import {
+  buildBudgetExceededMessage,
+  getDailyBudgetExceededPayloadFromError
+} from '@/lib/budget'
 
 const useAIChatStreamHandler = () => {
   const setMessages = useStore((state) => state.setMessages)
@@ -102,6 +106,7 @@ const useAIChatStreamHandler = () => {
   const handleStreamResponse = useCallback(
     async (input: string | FormData) => {
       setIsStreaming(true)
+      setStreamingErrorMessage('')
 
       const formData = input instanceof FormData ? input : new FormData()
       if (typeof input === 'string') {
@@ -139,6 +144,46 @@ const useAIChatStreamHandler = () => {
 
       let lastContent = ''
       let newSessionId = sessionId
+      let hasHandledDailyBudgetExceeded = false
+
+      const handleDailyBudgetExceededError = (error: unknown): boolean => {
+        if (hasHandledDailyBudgetExceeded) {
+          return true
+        }
+
+        const payload = getDailyBudgetExceededPayloadFromError(error)
+
+        if (!payload) {
+          return false
+        }
+
+        hasHandledDailyBudgetExceeded = true
+        const budgetExceededMessage = buildBudgetExceededMessage(
+          payload.reset_time_utc
+        )
+
+        setMessages((prevMessages) => {
+          const nextMessages = [...prevMessages]
+          const lastMessage = nextMessages[nextMessages.length - 1]
+
+          if (lastMessage?.role === 'agent') {
+            nextMessages.pop()
+          }
+
+          nextMessages.push({
+            role: 'agent',
+            content: budgetExceededMessage,
+            tool_calls: [],
+            streamingError: false,
+            created_at: Math.floor(Date.now() / 1000)
+          })
+
+          return nextMessages
+        })
+
+        return true
+      }
+
       try {
         const endpointUrl = constructEndpointUrl(selectedEndpoint)
 
@@ -396,6 +441,10 @@ const useAIChatStreamHandler = () => {
             }
           },
           onError: (error) => {
+            if (handleDailyBudgetExceededError(error)) {
+              return
+            }
+
             updateMessagesWithErrorState()
             setStreamingErrorMessage(error.message)
             if (newSessionId) {
@@ -410,6 +459,10 @@ const useAIChatStreamHandler = () => {
           onComplete: () => {}
         })
       } catch (error) {
+        if (handleDailyBudgetExceededError(error)) {
+          return
+        }
+
         updateMessagesWithErrorState()
         setStreamingErrorMessage(
           error instanceof Error ? error.message : String(error)

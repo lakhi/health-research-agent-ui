@@ -35,6 +35,18 @@ interface NewFormatData {
   data: string | Record<string, unknown>
 }
 
+class HttpStatusError extends Error {
+  status: number
+  payload: unknown
+
+  constructor(status: number, payload: unknown, message: string) {
+    super(message)
+    this.name = 'HttpStatusError'
+    this.status = status
+    this.payload = payload
+  }
+}
+
 type LegacyEventFormat = RunResponseContent & { event: string }
 
 function convertNewFormatToLegacy(
@@ -214,8 +226,26 @@ export default function useAIResponseStream() {
         })
 
         if (!response.ok) {
-          const errorData = await response.json()
-          throw errorData
+          let errorPayload: unknown = null
+
+          try {
+            errorPayload = await response.json()
+          } catch {
+            try {
+              errorPayload = await response.text()
+            } catch {
+              errorPayload = null
+            }
+          }
+
+          const errorMessage =
+            typeof errorPayload === 'object' &&
+            errorPayload !== null &&
+            'detail' in errorPayload
+              ? String(errorPayload.detail)
+              : `HTTP ${response.status}`
+
+          throw new HttpStatusError(response.status, errorPayload, errorMessage)
         }
         if (!response.body) {
           throw new Error('No response body')
@@ -242,11 +272,22 @@ export default function useAIResponseStream() {
         }
         await processStream()
       } catch (error) {
+        if (error instanceof HttpStatusError) {
+          onError(error)
+          return
+        }
+
+        if (error instanceof Error) {
+          onError(error)
+          return
+        }
+
         if (typeof error === 'object' && error !== null && 'detail' in error) {
           onError(new Error(String(error.detail)))
-        } else {
-          onError(new Error(String(error)))
+          return
         }
+
+        onError(new Error(String(error)))
       }
     },
     []
