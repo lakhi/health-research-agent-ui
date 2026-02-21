@@ -4,7 +4,7 @@ const VIENNA_TIMEZONE = 'Europe/Vienna'
 interface DailyBudgetExceededPayload {
   error: string
   reset_time_utc?: string
-  remaining_eur?: number
+  daily_budget_eur?: number
 }
 
 interface HttpErrorLike {
@@ -30,8 +30,10 @@ const getPayload = (value: unknown): DailyBudgetExceededPayload | null => {
       typeof value.reset_time_utc === 'string'
         ? value.reset_time_utc
         : undefined,
-    remaining_eur:
-      typeof value.remaining_eur === 'number' ? value.remaining_eur : undefined
+    daily_budget_eur:
+      typeof value.daily_budget_eur === 'number'
+        ? value.daily_budget_eur
+        : undefined
   }
 }
 

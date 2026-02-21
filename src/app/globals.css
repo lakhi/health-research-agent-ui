@@ -9,7 +9,7 @@
     --scrollbar-width: 0.1rem;
 
     /* Font - Theme-aware primary font */
-    --font-primary: var(--font-geist-sans);
+    --font-primary: var(--font-poppins);
 
     /* Default theme colors (vax-study-chatbot & ssc-psych-chatbot - Orange theme) */
     --color-brand: 255 64 23;
