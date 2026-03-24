@@ -6,7 +6,7 @@ This repository now supports three chatbot projects using a unified codebase wit
 
 ## Projects
 
-1. **HealthSoc Network Chatbot** (`healthsoc-network-chatbot`) - Blue/white theme
+1. **NEX Agent UI** (`nex`) - Blue/white theme
 2. **VaxStudy Chatbot** (`vax-study-chatbot`) - Orange theme
 3. **SSC Psychology Chatbot** (`ssc-psych-chatbot`) - Orange theme
 
@@ -15,8 +15,8 @@ This repository now supports three chatbot projects using a unified codebase wit
 ### Testing Different Projects Locally
 
 ```bash
-# Test HealthSoc Network Chatbot
-NEXT_PUBLIC_PROJECT_ID=healthsoc-network-chatbot pnpm dev
+# Test NEX Agent UI
+NEXT_PUBLIC_PROJECT_ID=nex pnpm dev
 
 # Test VaxStudy Chatbot (default)
 NEXT_PUBLIC_PROJECT_ID=vax-study-chatbot pnpm dev
@@ -28,8 +28,8 @@ NEXT_PUBLIC_PROJECT_ID=ssc-psych-chatbot pnpm dev
 ### Building for Production
 
 ```bash
-# Build HealthSoc Network Chatbot
-NEXT_PUBLIC_PROJECT_ID=healthsoc-network-chatbot pnpm build
+# Build NEX Agent UI
+NEXT_PUBLIC_PROJECT_ID=nex pnpm build
 
 # Build VaxStudy Chatbot
 NEXT_PUBLIC_PROJECT_ID=vax-study-chatbot pnpm build
@@ -42,12 +42,12 @@ NEXT_PUBLIC_PROJECT_ID=ssc-psych-chatbot pnpm build
 
 You need to configure secrets for each project in GitHub Settings > Secrets and Variables > Actions:
 
-### HealthSoc Network Chatbot
+### NEX Agent UI
 
-- `HEALTHSOC_NETWORK_CHATBOT_ACR_LOGIN_SERVER` = `hrndev.azurecr.io`
-- `HEALTHSOC_NETWORK_CHATBOT_ACR_USERNAME` = (ACR username)
-- `HEALTHSOC_NETWORK_CHATBOT_ACR_PASSWORD` = (ACR password)
-- `HEALTHSOC_NETWORK_CHATBOT_AZURE_CREDENTIALS` = (Azure service principal JSON)
+- `NEX_AGENT_UI_ACR_LOGIN_SERVER` = `nex-acr.azurecr.io`
+- `NEX_AGENT_UI_ACR_USERNAME` = (ACR username)
+- `NEX_AGENT_UI_ACR_PASSWORD` = (ACR password)
+- `NEX_AGENT_UI_AZURE_CREDENTIALS` = (Azure service principal JSON)
 
 ### VaxStudy Chatbot
 
@@ -69,7 +69,7 @@ You need to configure secrets for each project in GitHub Settings > Secrets and 
 
 1. Go to **Actions** tab in GitHub
 2. Select the workflow for the project you want to deploy:
-   - Deploy HealthSoc Network Chatbot
+   - Deploy NEX Agent UI
    - Deploy VaxStudy Chatbot
    - Deploy SSC Psychology Chatbot
 3. Click **Run workflow** > **Run workflow**
@@ -129,12 +129,12 @@ src/
     globals.css        # Theme CSS variables
 infrastructure/
   main.bicep          # Parameterized Azure template
-  healthsoc-network-chatbot.bicepparam
+  nex-agent-ui.bicepparam
   vax-study-chatbot.bicepparam
   ssc-psych-chatbot.bicepparam
 .github/
   workflows/
-    deploy-healthsoc-network-chatbot.yml
+    deploy-nex-agent-ui.yml
     deploy-vax-study-chatbot.yml
     deploy-ssc-psych-chatbot.yml
 ```

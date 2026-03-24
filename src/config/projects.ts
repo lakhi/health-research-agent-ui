@@ -11,7 +11,7 @@
  */
 
 export type ProjectId =
-  | 'healthsoc-network-chatbot'
+  | 'nex'
   | 'vax-study-chatbot'
   | 'ssc-psych-chatbot'
 
@@ -51,11 +51,11 @@ export interface ProjectConfig {
 }
 
 const projects: Record<ProjectId, ProjectConfig> = {
-  'healthsoc-network-chatbot': {
-    id: 'healthsoc-network-chatbot',
-    name: 'Health in Society Research Network Chatbot',
+  'nex': {
+    id: 'nex',
+    name: 'Network Explorer (NEX)',
     description:
-      'Discover the members at the Health Research Network, and explore their research interests!',
+      'Discover members of the Health in Society Research Network and explore their research interests with the Network Explorer.',
     apiEndpoint:
       'http://localhost:8000',
     theme: {
@@ -81,9 +81,9 @@ const projects: Record<ProjectId, ProjectConfig> = {
       }
     },
     metadata: {
-      title: 'Health in Society Research Network Chatbot',
+      title: 'Network Explorer (NEX)',
       description:
-        'Discover the members at the Health Research Network, and explore their research interests!'
+        'Discover members of the Health in Society Research Network and explore their research interests with the Network Explorer.'
     }
   },
   'vax-study-chatbot': {

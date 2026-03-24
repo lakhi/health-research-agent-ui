@@ -1,13 +1,13 @@
-name: Deploy HealthSoc Network Chatbot
+name: Deploy NEX Agent UI
 
 on:
   workflow_dispatch: # Manual trigger only
 
 env:
-  PROJECT_ID: healthsoc-network-chatbot
-  IMAGE_NAME: healthsoc-network-chatbot-ui
-  RESOURCE_GROUP: health_research_network
-  BICEP_PARAM_FILE: infrastructure/healthsoc-network-chatbot.bicepparam
+  PROJECT_ID: nex
+  IMAGE_NAME: nex-agent-ui
+  RESOURCE_GROUP: healthsociety
+  BICEP_PARAM_FILE: infrastructure/nex-agent-ui.bicepparam
 
 jobs:
   build-and-deploy:
@@ -26,9 +26,9 @@ jobs:
       - name: Login to ACR
         uses: docker/login-action@v3
         with:
-          registry: ${{ secrets.HEALTHSOC_NETWORK_CHATBOT_ACR_LOGIN_SERVER }}
-          username: ${{ secrets.HEALTHSOC_NETWORK_CHATBOT_ACR_USERNAME }}
-          password: ${{ secrets.HEALTHSOC_NETWORK_CHATBOT_ACR_PASSWORD }}
+          registry: ${{ secrets.NEX_AGENT_UI_ACR_LOGIN_SERVER }}
+          username: ${{ secrets.NEX_AGENT_UI_ACR_USERNAME }}
+          password: ${{ secrets.NEX_AGENT_UI_ACR_PASSWORD }}
 
       # Step 4: Build and push Docker image with project-specific configuration
       - name: Build and push Docker image
@@ -41,14 +41,14 @@ jobs:
           build-args: |
             NEXT_PUBLIC_PROJECT_ID=${{ env.PROJECT_ID }}
           tags: |
-            ${{ secrets.HEALTHSOC_NETWORK_CHATBOT_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
-            ${{ secrets.HEALTHSOC_NETWORK_CHATBOT_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ secrets.NEX_AGENT_UI_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
+            ${{ secrets.NEX_AGENT_UI_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
       # Step 5: Login to Azure
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.HEALTHSOC_NETWORK_CHATBOT_AZURE_CREDENTIALS }}
+          creds: ${{ secrets.NEX_AGENT_UI_AZURE_CREDENTIALS }}
 
       # Step 6: Deploy to Azure Container Apps
       - name: Deploy to Azure Container Apps
@@ -66,9 +66,9 @@ jobs:
         with:
           inlineScript: |
             FQDN=$(az containerapp show \
-              --name hrn-agent-ui \
+              --name nex-agent-ui \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --query properties.configuration.ingress.fqdn \
               --output tsv)
-            echo "✅ HealthSoc Network Chatbot deployed successfully!"
+            echo "✅ NEX Agent UI deployed successfully!"
             echo "🌐 URL: https://${FQDN}"

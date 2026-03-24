@@ -10,10 +10,10 @@ param location string = 'West Europe'
 @description('Resource ID of the managed environment')
 param managedEnvironmentId string
 
-@description('Container registry server (e.g., hrndev.azurecr.io)')
+@description('Container registry server (e.g., nex-acr.azurecr.io)')
 param containerRegistryServer string
 
-@description('Container image name with tag (e.g., healthsoc-network-chatbot-ui:latest)')
+@description('Container image name with tag (e.g., nex-agent-ui:latest)')
 param containerImage string
 
 @description('API endpoint URL for the backend')
