@@ -10,10 +10,7 @@
  * Projects are selected at build time via NEXT_PUBLIC_PROJECT_ID environment variable
  */
 
-export type ProjectId =
-  | 'nex'
-  | 'vax-study-chatbot'
-  | 'ssc-psych-chatbot'
+export type ProjectId = 'nex' | 'vax-study-chatbot' | 'ssc-psych-chatbot'
 
 export interface ProjectTheme {
   colors: {
@@ -51,13 +48,12 @@ export interface ProjectConfig {
 }
 
 const projects: Record<ProjectId, ProjectConfig> = {
-  'nex': {
+  nex: {
     id: 'nex',
     name: 'Network Explorer (NEX)',
     description:
       'Discover members of the Health in Society Research Network and explore their research interests with the Network Explorer.',
-    apiEndpoint:
-      'http://localhost:8000',
+    apiEndpoint: 'http://localhost:8000',
     theme: {
       colors: {
         brand: '#1E40AF', // University blue
