@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { DM_Mono, Poppins } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from '@/components/ui/sonner'
@@ -19,6 +19,11 @@ const dmMono = DM_Mono({
 
 // Get project-specific metadata
 const projectConfig = getProjectConfig()
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1
+}
 
 export const metadata: Metadata = {
   title: projectConfig.metadata.title,

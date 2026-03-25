@@ -21,6 +21,7 @@ const ChatInput = () => {
 
     const currentMessage = inputMessage
     setInputMessage('')
+    chatInputRef.current?.blur()
 
     try {
       await handleStreamResponse(currentMessage)
