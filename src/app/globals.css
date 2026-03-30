@@ -11,7 +11,7 @@
     /* Font - Theme-aware primary font */
     --font-primary: var(--font-poppins);
 
-    /* Default theme colors (vax-study-chatbot & ssc-psych-chatbot - Orange theme) */
+    /* Default theme colors (ssc-psych-chatbot - Orange theme) */
     --color-brand: 255 64 23;
     --color-primary: 250 250 250;
     --color-primary-accent: 24 24 27;
@@ -28,8 +28,8 @@
     --color-badge-text: 161 161 170; /* #A1A1AA - Light gray text */
   }
 
-  /* HealthSoc Network Chatbot - Light Blue/Purple Academic theme with Poppins */
-  [data-project='healthsoc-network-chatbot'] {
+  /* NEX - Light Blue/Purple Academic theme with Poppins */
+  [data-project='nex'] {
     /* Font - Use Poppins for friendly, readable academic aesthetic */
     --font-primary: var(--font-poppins);
 
@@ -81,8 +81,8 @@
   }
 }
 
-/* HealthSoc Network Chatbot - Component Overrides */
-[data-project='healthsoc-network-chatbot'] {
+/* NEX - Component Overrides */
+[data-project='nex'] {
   /* Font weight hierarchy */
   & h1,
   & .text-3xl {
