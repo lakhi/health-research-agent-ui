@@ -50,7 +50,7 @@ export interface ProjectConfig {
 const projects: Record<ProjectId, ProjectConfig> = {
   nex: {
     id: 'nex',
-    name: 'Network Explorer (NEX)',
+    name: 'Network Explorer (NeX)',
     description:
       'Discover members of the Health in Society Research Network and explore their research interests with the Network Explorer.',
     apiEndpoint: 'http://localhost:8000',
@@ -77,7 +77,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
       }
     },
     metadata: {
-      title: 'Network Explorer (NEX)',
+      title: 'Network Explorer (NeX)',
       description:
         'Discover members of the Health in Society Research Network and explore their research interests with the Network Explorer.'
     }
