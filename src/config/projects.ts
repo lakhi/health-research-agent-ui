@@ -45,6 +45,7 @@ export interface ProjectConfig {
     title: string
     description: string
   }
+  icon?: string
 }
 
 const projects: Record<ProjectId, ProjectConfig> = {
@@ -80,7 +81,8 @@ const projects: Record<ProjectId, ProjectConfig> = {
       title: 'Network Explorer (NeX)',
       description:
         'Discover members of the Health in Society Research Network and explore their research interests with the Network Explorer.'
-    }
+    },
+    icon: 'nex'
   },
   'vax-study-chatbot': {
     id: 'vax-study-chatbot',

@@ -7,6 +7,7 @@ import { useStore } from '@/store'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import Icon from '@/components/ui/icon'
+import { type IconType } from '@/components/ui/icon/types'
 import { getProviderIcon } from '@/lib/modelProvider'
 import Sessions from './Sessions'
 import AuthToken from './AuthToken'
@@ -22,7 +23,7 @@ const projectConfig = getProjectConfig()
 
 const SidebarHeader = () => (
   <div className="flex items-center gap-2">
-    <Icon type="agno" size="xs" />
+    <Icon type={(projectConfig.icon ?? 'agno') as IconType} size="xs" />
     <span className="text-xs font-medium uppercase text-white">
       {projectConfig.name}
     </span>
