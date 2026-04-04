@@ -83,24 +83,6 @@
 
 /* NEX - Component Overrides */
 [data-project='nex'] {
-  /* Font weight hierarchy */
-  & h1,
-  & .text-3xl {
-    font-weight: 700; /* Bold for main headings */
-  }
-  & h2 {
-    font-weight: 600; /* Semibold for subheadings */
-  }
-  & .text-sm.font-medium {
-    font-weight: 600; /* Semibold for emphasized small text */
-  }
-  & .font-\[600\] {
-    font-weight: 600; /* Explicit semibold */
-  }
-  & .uppercase {
-    font-weight: 500; /* Medium for uppercase labels */
-  }
-
   /* ChatInput textarea styling */
   & textarea {
     background-color: rgb(255 255 255) !important;
