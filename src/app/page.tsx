@@ -8,6 +8,7 @@ import { SplashScreen } from '@/components/SplashScreen'
 export default function Home() {
   const hasEnvToken = !!process.env.NEXT_PUBLIC_OS_SECURITY_KEY
   const envToken = process.env.NEXT_PUBLIC_OS_SECURITY_KEY || ''
+  const sidebarEnabled = process.env.NEXT_PUBLIC_SIDEBAR_VIEW_ACCESS !== 'false'
   const [showSplash, setShowSplash] = useState(true)
 
   useEffect(() => {
@@ -20,7 +21,9 @@ export default function Home() {
       <AnimatePresence>{showSplash && <SplashScreen />}</AnimatePresence>
       <Suspense fallback={null}>
         <div className="flex h-screen bg-background/80">
-          <Sidebar hasEnvToken={hasEnvToken} envToken={envToken} />
+          {sidebarEnabled && (
+            <Sidebar hasEnvToken={hasEnvToken} envToken={envToken} />
+          )}
           <ChatArea />
         </div>
       </Suspense>
