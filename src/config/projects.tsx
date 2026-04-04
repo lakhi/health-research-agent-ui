@@ -10,6 +10,8 @@
  * Projects are selected at build time via NEXT_PUBLIC_PROJECT_ID environment variable
  */
 
+import React from 'react'
+
 export type ProjectId = 'nex' | 'vax-study-chatbot' | 'ssc-psych-chatbot'
 
 export interface ProjectTheme {
@@ -38,7 +40,7 @@ export interface ProjectTheme {
 export interface ProjectConfig {
   id: ProjectId
   name: string
-  description: string
+  description: string | React.ReactNode
   apiEndpoint: string
   theme: ProjectTheme
   metadata: {
@@ -52,8 +54,30 @@ const projects: Record<ProjectId, ProjectConfig> = {
   nex: {
     id: 'nex',
     name: 'Network Explorer (NeX)',
-    description:
-      'Discover members of the Health in Society Research Network and explore their research interests with the Network Explorer.',
+    description: (
+      <>
+        Explore the research expertise of the Health in Society Research Network
+        members through their{' '}
+        <a
+          href="https://ucloud.univie.ac.at/index.php/s/Aey6ydCDrBfigyX"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:opacity-80"
+        >
+          self-selected publications in health
+        </a>
+        , and stay informed with the latest{' '}
+        <a
+          href="https://gig.univie.ac.at/en/about-us/news"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:opacity-80"
+        >
+          news
+        </a>{' '}
+        from the network.
+      </>
+    ),
     apiEndpoint: 'http://localhost:8000',
     theme: {
       colors: {
@@ -80,7 +104,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
     metadata: {
       title: 'Network Explorer (NeX)',
       description:
-        'Discover members of the Health in Society Research Network and explore their research interests with the Network Explorer.'
+        'Explore the research expertise of the Health in Society Research Network members through their self-selected publications in health, and stay informed with the latest news regarding the activities of the network.'
     },
     icon: 'nex'
   },
@@ -88,7 +112,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
     id: 'vax-study-chatbot',
     name: 'Research Studies Chatbot',
     description:
-      'Hello! Im a Chatbot designed to help you understand the marhinovirus and its vaccination. I am also here to help you with the choice to either vaccinate or not. Ask me anything you want. If you don’t know where to start, just ask me “what is the marhinovirus?”',
+      'Hello! Im a Chatbot designed to help you understand the marhinovirus and its vaccination. I am also here to help you with the choice to either vaccinate or not. Ask me anything you want. If you don\'t know where to start, just ask me "what is the marhinovirus?"',
     apiEndpoint:
       // process.env.NEXT_PUBLIC_API_ENDPOINT || TODO: doesn't work, fix it!
       'https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io',
