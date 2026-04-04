@@ -40,6 +40,7 @@ jobs:
           platforms: linux/amd64
           build-args: |
             NEXT_PUBLIC_PROJECT_ID=${{ env.PROJECT_ID }}
+            NEXT_PUBLIC_SIDEBAR_VIEW_ACCESS=false
           tags: |
             ${{ secrets.NEX_AGENT_UI_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
             ${{ secrets.NEX_AGENT_UI_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
