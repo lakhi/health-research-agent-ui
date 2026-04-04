@@ -13,20 +13,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This repo builds 3 distinct chatbot UIs from a single codebase, selected at **build time** via `NEXT_PUBLIC_PROJECT_ID`:
 
-| Project ID | Theme |
-|---|---|
-| `nex` | Blue/white |
-| `vax-study-chatbot` | Orange |
-| `ssc-psych-chatbot` | Orange |
+| Project ID          | Theme      |
+| ------------------- | ---------- |
+| `nex`               | Blue/white |
+| `vax-study-chatbot` | Orange     |
+| `ssc-psych-chatbot` | Orange     |
 
 Per-project config (API endpoint, metadata, theme colors) lives in `src/config/projects.ts`. CSS variables are defined in `src/app/globals.css` and scoped with `[data-project='nex']` selectors. **Cannot switch projects at runtime** — it's a build-time arg.
 
 ## Local Development
 
 Create `.env.local`:
+
 ```
 NEXT_PUBLIC_PROJECT_ID=nex
 ```
+
 Valid values: `nex`, `vax-study-chatbot`, `ssc-psych-chatbot`. Then run `pnpm dev` (port 3000).
 
 ## Code Style
@@ -55,3 +57,7 @@ pnpm validate     # lint + format check + typecheck (run before marking work don
 ## Testing
 
 No test framework is configured. `pnpm validate` is the primary correctness check.
+
+## Git Workflow
+
+Always push directly to `main` unless explicitly told to use a different branch. Do not create feature branches by default.
