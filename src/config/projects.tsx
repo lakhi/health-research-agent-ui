@@ -56,8 +56,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
     name: 'Network Explorer (NeX)',
     description: (
       <>
-        Represents the research expertise of the
-        members through their{' '}
+        Represents the research expertise of the members through their{' '}
         <a
           href="https://ucloud.univie.ac.at/index.php/s/Aey6ydCDrBfigyX"
           target="_blank"

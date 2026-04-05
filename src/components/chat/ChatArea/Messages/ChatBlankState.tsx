@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import React from 'react'
 import { getProjectConfig } from '@/config/projects'
+import Icon from '@/components/ui/icon/Icon'
+import { type IconType } from '@/components/ui/icon/types'
 
 const projectConfig = getProjectConfig()
 
@@ -20,6 +22,13 @@ const ChatBlankState = () => {
           className="text-3xl font-[600] tracking-tight"
         >
           <div className="flex items-center justify-center gap-x-2 whitespace-nowrap font-medium">
+            {projectConfig.icon && (
+              <Icon
+                type={projectConfig.icon as IconType}
+                size="default"
+                className="size-8"
+              />
+            )}
             <span className="flex items-center font-[600]">
               {projectConfig.name}
             </span>
