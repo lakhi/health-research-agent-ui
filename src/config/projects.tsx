@@ -56,25 +56,26 @@ const projects: Record<ProjectId, ProjectConfig> = {
     name: 'Network Explorer (NeX)',
     description: (
       <>
-        Represents the research expertise of the members through their{' '}
+        NeX captures the expertise of Health in Society Research Network members
+        through their{' '}
         <a
           href="https://ucloud.univie.ac.at/index.php/s/Aey6ydCDrBfigyX"
           target="_blank"
           rel="noopener noreferrer"
           className="underline hover:opacity-80"
         >
-          self-selected publications in health
+          publications in health
         </a>
-        , and the latest{' '}
+        , and knows about the network&apos;s current{' '}
         <a
           href="https://gig.univie.ac.at/en/about-us/news"
           target="_blank"
           rel="noopener noreferrer"
           className="underline hover:opacity-80"
         >
-          news and activities
-        </a>{' '}
-        of the network!
+          activities
+        </a>
+        !
       </>
     ),
     apiEndpoint: 'http://localhost:8000',
@@ -101,7 +102,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
       }
     },
     metadata: {
-      title: 'Network Explorer (NeX)',
+      title: 'NeX',
       description:
         'Explore the research expertise of the Health in Society Research Network members through their self-selected publications in health, and stay informed with the latest news regarding the activities of the network.'
     },
