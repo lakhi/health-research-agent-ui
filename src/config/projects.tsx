@@ -56,7 +56,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
     name: 'Network Explorer (NeX)',
     description: (
       <>
-        NeX captures the expertise of Health in Society Research Network members
+        NeX captures the expertise of the Health in Society Research Network members
         through their{' '}
         <a
           href="https://ucloud.univie.ac.at/index.php/s/Aey6ydCDrBfigyX"
