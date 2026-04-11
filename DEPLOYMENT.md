@@ -44,10 +44,10 @@ You need to configure secrets for each project in GitHub Settings > Secrets and 
 
 ### NEX Agent UI
 
-- `NEX_AGENT_UI_ACR_LOGIN_SERVER` = `nex-acr.azurecr.io`
-- `NEX_AGENT_UI_ACR_USERNAME` = (ACR username)
-- `NEX_AGENT_UI_ACR_PASSWORD` = (ACR password)
-- `NEX_AGENT_UI_AZURE_CREDENTIALS` = (Azure service principal JSON)
+- `NEX_ACR_LOGIN_SERVER` = `nexacr.azurecr.io`
+- `NEX_ACR_USERNAME` = (ACR username)
+- `NEX_ACR_PASSWORD` = (ACR password)
+- `NEX_AZURE_CREDENTIALS` = (Azure service principal JSON)
 
 ### VaxStudy Chatbot
 

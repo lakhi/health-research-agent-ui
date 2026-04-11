@@ -2,10 +2,10 @@ using './main.bicep'
 
 // NEX Agent UI - Network Explorer Project
 param containerAppName = 'nex-agent-ui'
-param location = 'West Europe'
+param location = 'Sweden Central'
 param managedEnvironmentId = '/subscriptions/444c1e5c-ac0d-4420-94ea-d4a5414d20e1/resourceGroups/healthsociety/providers/Microsoft.App/managedEnvironments/nex-apps-env'
-param containerRegistryServer = 'nex-acr.azurecr.io'
-param containerImage = 'nex-acr.azurecr.io/nex-agent-ui:latest'
+param containerRegistryServer = 'nexacr.azurecr.io'
+param containerImage = 'nexacr.azurecr.io/nex-agent-ui:latest'
 param apiEndpoint = 'https://nex-agent-api.thankfulcliff-e4e3da3e.swedencentral.azurecontainerapps.io/'
 param projectId = 'nex'
 param costCenter = 'FG473001'
