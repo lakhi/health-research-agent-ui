@@ -1,7 +1,9 @@
 name: Deploy NEX Agent UI
 
 on:
-  workflow_dispatch: # Manual trigger only
+  push:
+    branches: [main]
+  workflow_dispatch: # Manual trigger for on-demand builds
 
 env:
   PROJECT_ID: nex
@@ -10,7 +12,7 @@ env:
   BICEP_PARAM_FILE: infrastructure/nex-agent-ui.bicepparam
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +28,11 @@ jobs:
       - name: Login to ACR
         uses: docker/login-action@v3
         with:
-          registry: ${{ secrets.NEX_AGENT_UI_ACR_LOGIN_SERVER }}
-          username: ${{ secrets.NEX_AGENT_UI_ACR_USERNAME }}
-          password: ${{ secrets.NEX_AGENT_UI_ACR_PASSWORD }}
+          registry: ${{ secrets.NEX_ACR_LOGIN_SERVER }}
+          username: ${{ secrets.NEX_ACR_USERNAME }}
+          password: ${{ secrets.NEX_ACR_PASSWORD }}
 
-      # Step 4: Build and push Docker image with project-specific configuration
+      # Step 4: Build and push Docker image
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -42,34 +44,48 @@ jobs:
             NEXT_PUBLIC_PROJECT_ID=${{ env.PROJECT_ID }}
             NEXT_PUBLIC_SIDEBAR_VIEW_ACCESS=false
           tags: |
-            ${{ secrets.NEX_AGENT_UI_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
-            ${{ secrets.NEX_AGENT_UI_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ secrets.NEX_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
+            ${{ secrets.NEX_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-      # Step 5: Login to Azure
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.NEX_AGENT_UI_AZURE_CREDENTIALS }}
-
-      # Step 6: Deploy to Azure Container Apps
-      - name: Deploy to Azure Container Apps
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az deployment group create \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --template-file infrastructure/main.bicep \
-              --parameters ${{ env.BICEP_PARAM_FILE }}
-
-      # Step 7: Get deployment URL
-      - name: Get Container App URL
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            FQDN=$(az containerapp show \
-              --name nex-agent-ui \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --query properties.configuration.ingress.fqdn \
-              --output tsv)
-            echo "✅ NEX Agent UI deployed successfully!"
-            echo "🌐 URL: https://${FQDN}"
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build-and-push
+  #   if: github.event_name == 'workflow_dispatch'
+  #
+  #   steps:
+  #     # Step 1: Checkout code (needed for Bicep template)
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     # Step 2: Login to Azure (requires NEX_AZURE_CREDENTIALS service principal)
+  #     # To create: az ad sp create-for-rbac --name "nex-agent-ui-deploy"
+  #     #   --role contributor
+  #     #   --scopes /subscriptions/444c1e5c-ac0d-4420-94ea-d4a5414d20e1/resourceGroups/healthsociety
+  #     #   --sdk-auth
+  #     - name: Azure Login
+  #       uses: azure/login@v1
+  #       with:
+  #         creds: ${{ secrets.NEX_AZURE_CREDENTIALS }}
+  #
+  #     # Step 3: Deploy to Azure Container Apps via Bicep
+  #     - name: Deploy to Azure Container Apps
+  #       uses: azure/cli@v1
+  #       with:
+  #         inlineScript: |
+  #           az deployment group create \
+  #             --resource-group ${{ env.RESOURCE_GROUP }} \
+  #             --template-file infrastructure/main.bicep \
+  #             --parameters ${{ env.BICEP_PARAM_FILE }}
+  #
+  #     # Step 4: Print deployed URL
+  #     - name: Get Container App URL
+  #       uses: azure/cli@v1
+  #       with:
+  #         inlineScript: |
+  #           FQDN=$(az containerapp show \
+  #             --name nex-agent-ui \
+  #             --resource-group ${{ env.RESOURCE_GROUP }} \
+  #             --query properties.configuration.ingress.fqdn \
+  #             --output tsv)
+  #           echo "✅ NEX Agent UI deployed successfully!"
+  #           echo "🌐 URL: https://${FQDN}"

@@ -56,8 +56,8 @@ const projects: Record<ProjectId, ProjectConfig> = {
     name: 'Network Explorer (NeX)',
     description: (
       <>
-        NeX captures the expertise of the Health in Society Research Network members
-        through their{' '}
+        NeX captures the expertise of the Health in Society Research Network
+        members through their{' '}
         <a
           href="https://ucloud.univie.ac.at/index.php/s/Aey6ydCDrBfigyX"
           target="_blank"
@@ -78,7 +78,8 @@ const projects: Record<ProjectId, ProjectConfig> = {
         !
       </>
     ),
-    apiEndpoint: 'http://localhost:8000',
+    apiEndpoint:
+      'https://nex-agent-api.thankfulcliff-e4e3da3e.swedencentral.azurecontainerapps.io',
     theme: {
       colors: {
         brand: '#1E40AF', // University blue

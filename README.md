@@ -13,6 +13,8 @@ This project is licensed under the [MIT License](./LICENSE).
 
 ## API Endpoint Configuration Changes
 
+### vax-study-chatbot (local dev swap)
+
 The following files had their hardcoded production API endpoint replaced with localhost for local development:
 
 1. [src/config/projects.ts](src/config/projects.ts#L96) - Line 96
@@ -20,6 +22,17 @@ The following files had their hardcoded production API endpoint replaced with lo
 
 **Changed from:** `https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io`  
 **Changed to:** `http://localhost:8000`
+
+### nex (production endpoint set for deployment)
+
+The following file had its localhost placeholder replaced with the production API endpoint for deployment:
+
+1. [src/config/projects.tsx](src/config/projects.tsx#L81) - Line 81
+
+**Changed from:** `http://localhost:8000`  
+**Changed to:** `https://nex-agent-api.thankfulcliff-e4e3da3e.swedencentral.azurecontainerapps.io`
+
+> **Note:** `NEXT_PUBLIC_*` env vars must be baked in at `next build` time — Container Apps runtime env vars alone don't work. The Dockerfile now declares `ARG NEXT_PUBLIC_PROJECT_ID` in the builder stage so the workflow build arg is correctly forwarded to the Next.js build.
 
 ## Steps to Deploy to Azure (Vax-Study-Daily Release)
 

@@ -23,6 +23,9 @@ RUN npm install -g pnpm
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+ARG NEXT_PUBLIC_PROJECT_ID
+ENV NEXT_PUBLIC_PROJECT_ID=$NEXT_PUBLIC_PROJECT_ID
+
 RUN pnpm run build
 
 # Production image, copy all the files and run next
