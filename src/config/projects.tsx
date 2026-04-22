@@ -116,7 +116,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
       'Hello! Im a Chatbot designed to help you understand the marhinovirus and its vaccination. I am also here to help you with the choice to either vaccinate or not. Ask me anything you want. If you don\'t know where to start, just ask me "what is the marhinovirus?"',
     apiEndpoint:
       // process.env.NEXT_PUBLIC_API_ENDPOINT || TODO: doesn't work, fix it!
-      'https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io',
+      'https://marhinovirus-api.wittywave-d78264d4.swedencentral.azurecontainerapps.io',
     theme: {
       colors: {
         brand: '#1E40AF', // University blue

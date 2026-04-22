@@ -1,18 +1,17 @@
-using './main.bicep'
+using './vax-ui.bicep'
 
-// VaxStudy Chatbot - Marhinovirus Research Study Project
-param containerAppName = 'marhinovirus-study-ui'
-param location = 'West Europe'
-param managedEnvironmentId = '/subscriptions/444c1e5c-ac0d-4420-94ea-d4a5414d20e1/resourceGroups/socialeconpsyresearch/providers/Microsoft.App/managedEnvironments/socialeconpsy-env'
-param containerRegistryServer = 'socialeconpsy-drdfgfb2g7aadtgk.azurecr.io'
-param containerImage = 'socialeconpsy-drdfgfb2g7aadtgk.azurecr.io/agent-ui:latest'
-param apiEndpoint = 'https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io'
+param containerAppName = 'marhinovirus-infobot'
+param location = 'Sweden Central'
+param managedEnvironmentId = '/subscriptions/44365843-c70c-4844-a430-ad0193819039/resourceGroups/vax-study/providers/Microsoft.App/managedEnvironments/vax-env'
+param containerRegistryServer = 'vaxacr.azurecr.io'
+param acrUsername = 'vaxacr'
+param acrPassword = '34W4otQUHjz0gwmz0qAERFb22RUJD2YNjZ34zDiNiHcQtaxF5L00JQQJ99CDACfhMk5Eqg7NAAACAZCRf4Ot'
+param containerImage = 'vaxacr.azurecr.io/vax-study-chatbot-ui:latest'
+param apiEndpoint = 'https://marhinovirus-api.wittywave-d78264d4.swedencentral.azurecontainerapps.io'
 param projectId = 'vax-study-chatbot'
 param costCenter = 'FG473001'
 param environmentTag = 'Test'
 param responsiblePerson = 'Akshay'
-param identityType = 'None'
-param registryIdentity = 'system-environment'
 param minReplicas = 1
 param maxReplicas = 2
 param cooldownPeriod = 300
