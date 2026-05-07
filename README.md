@@ -1,6 +1,6 @@
 # Agent UI
 
-A modern multi-project chat interface for the Health in Society Research Network (NEX) and VAX Study agents at Uni Wien built with Next.js, Tailwind CSS, and TypeScript. Cloned and modified from Agno Agent UI: <https://docs.agno.com/agent-os/agent-ui>
+A modern multi-project chat interface for the Health in Society Research Network (HeX-GiG) and VAX Study agents at Uni Wien built with Next.js, Tailwind CSS, and TypeScript. Cloned and modified from Agno Agent UI: <https://docs.agno.com/agent-os/agent-ui>
 
 # Open-source client libraries for building Agno frontends
 
@@ -23,7 +23,7 @@ The following files had their hardcoded production API endpoint replaced with lo
 **Changed from:** `https://marhinovirus-study-api.whitedesert-10483e06.westeurope.azurecontainerapps.io`  
 **Changed to:** `http://localhost:8000`
 
-### nex (production endpoint set for deployment)
+### hex-gig (production endpoint set for deployment)
 
 The following file had its localhost placeholder replaced with the production API endpoint for deployment:
 

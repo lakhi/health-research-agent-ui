@@ -13,7 +13,7 @@ export type IconType =
   | 'ollama'
   | 'xai'
   | 'agno'
-  | 'nex'
+  | 'hex-gig'
   | 'user'
   | 'agent'
   | 'open-ai'

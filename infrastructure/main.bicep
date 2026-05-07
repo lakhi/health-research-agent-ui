@@ -10,10 +10,10 @@ param location string = 'West Europe'
 @description('Resource ID of the managed environment')
 param managedEnvironmentId string
 
-@description('Container registry server (e.g., nexacr.azurecr.io)')
+@description('Container registry server (e.g., hexgigacr.azurecr.io)')
 param containerRegistryServer string
 
-@description('Container image name with tag (e.g., nex-agent-ui:latest)')
+@description('Container image name with tag (e.g., hex-gig-agent-ui:latest)')
 param containerImage string
 
 @description('API endpoint URL for the backend')

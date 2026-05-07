@@ -956,7 +956,7 @@ export const ReasoningIcon: FC = ({ ...props }) => (
   </svg>
 )
 
-export const NexIcon: FC = ({ ...props }) => (
+export const HexIcon: FC = ({ ...props }) => (
   <svg
     width="16"
     height="16"

@@ -6,7 +6,7 @@ This repository now supports three chatbot projects using a unified codebase wit
 
 ## Projects
 
-1. **NEX Agent UI** (`nex`) - Blue/white theme
+1. **HeX-GiG Agent UI** (`hex-gig`) - Blue/white theme
 2. **VaxStudy Chatbot** (`vax-study-chatbot`) - Orange theme
 3. **SSC Psychology Chatbot** (`ssc-psych-chatbot`) - Orange theme
 
@@ -15,8 +15,8 @@ This repository now supports three chatbot projects using a unified codebase wit
 ### Testing Different Projects Locally
 
 ```bash
-# Test NEX Agent UI
-NEXT_PUBLIC_PROJECT_ID=nex pnpm dev
+# Test HeX-GiG Agent UI
+NEXT_PUBLIC_PROJECT_ID=hex-gig pnpm dev
 
 # Test VaxStudy Chatbot (default)
 NEXT_PUBLIC_PROJECT_ID=vax-study-chatbot pnpm dev
@@ -28,8 +28,8 @@ NEXT_PUBLIC_PROJECT_ID=ssc-psych-chatbot pnpm dev
 ### Building for Production
 
 ```bash
-# Build NEX Agent UI
-NEXT_PUBLIC_PROJECT_ID=nex pnpm build
+# Build HeX-GiG Agent UI
+NEXT_PUBLIC_PROJECT_ID=hex-gig pnpm build
 
 # Build VaxStudy Chatbot
 NEXT_PUBLIC_PROJECT_ID=vax-study-chatbot pnpm build
@@ -42,12 +42,12 @@ NEXT_PUBLIC_PROJECT_ID=ssc-psych-chatbot pnpm build
 
 You need to configure secrets for each project in GitHub Settings > Secrets and Variables > Actions:
 
-### NEX Agent UI
+### HeX-GiG Agent UI
 
-- `NEX_ACR_LOGIN_SERVER` = `nexacr.azurecr.io`
-- `NEX_ACR_USERNAME` = (ACR username)
-- `NEX_ACR_PASSWORD` = (ACR password)
-- `NEX_AZURE_CREDENTIALS` = (Azure service principal JSON)
+- `HEX_GIG_ACR_LOGIN_SERVER` = `hexgigacr.azurecr.io`
+- `HEX_GIG_ACR_USERNAME` = (ACR username)
+- `HEX_GIG_ACR_PASSWORD` = (ACR password)
+- `HEX_GIG_AZURE_CREDENTIALS` = (Azure service principal JSON)
 
 ### VaxStudy Chatbot
 
@@ -69,7 +69,7 @@ You need to configure secrets for each project in GitHub Settings > Secrets and 
 
 1. Go to **Actions** tab in GitHub
 2. Select the workflow for the project you want to deploy:
-   - Deploy NEX Agent UI
+   - Deploy HeX-GiG Agent UI
    - Deploy VaxStudy Chatbot
    - Deploy SSC Psychology Chatbot
 3. Click **Run workflow** > **Run workflow**
@@ -129,12 +129,12 @@ src/
     globals.css        # Theme CSS variables
 infrastructure/
   main.bicep          # Parameterized Azure template
-  nex-agent-ui.bicepparam
+  hex-gig-agent-ui.bicepparam
   vax-study-chatbot.bicepparam
   ssc-psych-chatbot.bicepparam
 .github/
   workflows/
-    deploy-nex-agent-ui.yml
+    deploy-hex-gig-agent-ui.yml
     deploy-vax-study-chatbot.yml
     deploy-ssc-psych-chatbot.yml
 ```

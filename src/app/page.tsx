@@ -6,16 +6,16 @@ import { ChatArea } from '@/components/chat/ChatArea'
 import { SplashScreen } from '@/components/SplashScreen'
 import { getProjectConfig } from '@/config/projects'
 
-const isNex = getProjectConfig().id === 'nex'
+const isHexGig = getProjectConfig().id === 'hex-gig'
 
 export default function Home() {
   const hasEnvToken = !!process.env.NEXT_PUBLIC_OS_SECURITY_KEY
   const envToken = process.env.NEXT_PUBLIC_OS_SECURITY_KEY || ''
   const sidebarEnabled = process.env.NEXT_PUBLIC_SIDEBAR_VIEW_ACCESS !== 'false'
-  const [showSplash, setShowSplash] = useState(isNex)
+  const [showSplash, setShowSplash] = useState(isHexGig)
 
   useEffect(() => {
-    if (!isNex) return
+    if (!isHexGig) return
     const t = setTimeout(() => setShowSplash(false), 1200)
     return () => clearTimeout(t)
   }, [])

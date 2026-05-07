@@ -12,7 +12,7 @@
 
 import React from 'react'
 
-export type ProjectId = 'nex' | 'vax-study-chatbot' | 'ssc-psych-chatbot'
+export type ProjectId = 'hex-gig' | 'vax-study-chatbot' | 'ssc-psych-chatbot'
 
 export interface ProjectTheme {
   colors: {
@@ -51,13 +51,13 @@ export interface ProjectConfig {
 }
 
 const projects: Record<ProjectId, ProjectConfig> = {
-  nex: {
-    id: 'nex',
-    name: 'Network Explorer (NeX)',
+  'hex-gig': {
+    id: 'hex-gig',
+    name: "HeX-GiG (GiG's Health Explorer)",
     description: (
       <>
-        NeX captures the expertise of the Health in Society Research Network
-        members through their{' '}
+        HeX-GiG captures the expertise of the Health in Society Research
+        Network members through their{' '}
         <a
           href="https://ucloud.univie.ac.at/index.php/s/Aey6ydCDrBfigyX"
           target="_blank"
@@ -78,6 +78,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
         !
       </>
     ),
+    // TODO: update to the new BE FQDN once hex-gig-agent-api Container App is provisioned (Phase 2 of rename plan)
     apiEndpoint:
       'https://nex-agent-api.thankfulcliff-e4e3da3e.swedencentral.azurecontainerapps.io',
     theme: {
@@ -103,11 +104,11 @@ const projects: Record<ProjectId, ProjectConfig> = {
       }
     },
     metadata: {
-      title: 'NeX',
+      title: 'HeX-GiG',
       description:
-        'Explore the research expertise of the Health in Society Research Network members through their self-selected publications in health, and stay informed with the latest news regarding the activities of the network.'
+        'Explore the research expertise of the Health in Society Research Network (GiG) members through their self-selected publications in health, and stay informed with the latest news regarding the activities of the network.'
     },
-    icon: 'nex'
+    icon: 'hex-gig'
   },
   'vax-study-chatbot': {
     id: 'vax-study-chatbot',

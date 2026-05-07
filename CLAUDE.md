@@ -15,21 +15,21 @@ This repo builds 3 distinct chatbot UIs from a single codebase, selected at **bu
 
 | Project ID          | Theme      |
 | ------------------- | ---------- |
-| `nex`               | Blue/white |
+| `hex-gig`           | Blue/white |
 | `vax-study-chatbot` | Orange     |
 | `ssc-psych-chatbot` | Orange     |
 
-Per-project config (API endpoint, metadata, theme colors) lives in `src/config/projects.ts`. CSS variables are defined in `src/app/globals.css` and scoped with `[data-project='nex']` selectors. **Cannot switch projects at runtime** — it's a build-time arg.
+Per-project config (API endpoint, metadata, theme colors) lives in `src/config/projects.tsx`. CSS variables are defined in `src/app/globals.css` and scoped with `[data-project='hex-gig']` selectors. **Cannot switch projects at runtime** — it's a build-time arg.
 
 ## Local Development
 
 Create `.env.local`:
 
 ```
-NEXT_PUBLIC_PROJECT_ID=nex
+NEXT_PUBLIC_PROJECT_ID=hex-gig
 ```
 
-Valid values: `nex`, `vax-study-chatbot`, `ssc-psych-chatbot`. Then run `pnpm dev` (port 3000).
+Valid values: `hex-gig`, `vax-study-chatbot`, `ssc-psych-chatbot`. Then run `pnpm dev` (port 3000).
 
 ## Code Style
 

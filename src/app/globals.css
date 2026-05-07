@@ -28,8 +28,8 @@
     --color-badge-text: 161 161 170; /* #A1A1AA - Light gray text */
   }
 
-  /* NEX - Light Blue/Purple Academic theme with Poppins */
-  [data-project='nex'] {
+  /* HeX-GiG - Light Blue/Purple Academic theme with Poppins */
+  [data-project='hex-gig'] {
     /* Font - Use Poppins for friendly, readable academic aesthetic */
     --font-primary: var(--font-poppins);
 
@@ -81,8 +81,8 @@
   }
 }
 
-/* NEX - Component Overrides */
-[data-project='nex'] {
+/* HeX-GiG - Component Overrides */
+[data-project='hex-gig'] {
   /* ChatInput textarea styling */
   & textarea {
     background-color: rgb(255 255 255) !important;
