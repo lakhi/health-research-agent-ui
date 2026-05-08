@@ -78,9 +78,8 @@ const projects: Record<ProjectId, ProjectConfig> = {
         !
       </>
     ),
-    // TODO: update to the new BE FQDN once hex-gig-agent-api Container App is provisioned (Phase 2 of rename plan)
     apiEndpoint:
-      'https://nex-agent-api.thankfulcliff-e4e3da3e.swedencentral.azurecontainerapps.io',
+      'https://hex-gig-agent-api.bravemeadow-0cb4208f.swedencentral.azurecontainerapps.io',
     theme: {
       colors: {
         brand: '#1E40AF', // University blue
