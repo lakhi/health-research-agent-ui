@@ -1,4 +1,5 @@
 import { type FC } from 'react'
+import Image from 'next/image'
 
 export const AgnoIcon: FC = ({ ...props }) => {
   return (
@@ -956,58 +957,14 @@ export const ReasoningIcon: FC = ({ ...props }) => (
   </svg>
 )
 
-export const HexIcon: FC = ({ ...props }) => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <rect width="16" height="16" rx="3" fill="#1E40AF" />
-    <circle cx="4" cy="4" r="1.5" fill="white" />
-    <circle cx="12" cy="4" r="1.5" fill="white" />
-    <circle cx="4" cy="12" r="1.5" fill="white" />
-    <circle cx="12" cy="12" r="1.5" fill="white" />
-    <line
-      x1="4"
-      y1="4"
-      x2="12"
-      y2="4"
-      stroke="white"
-      strokeWidth="1"
-      strokeLinecap="round"
-    />
-    <line
-      x1="12"
-      y1="4"
-      x2="12"
-      y2="12"
-      stroke="white"
-      strokeWidth="1"
-      strokeLinecap="round"
-    />
-    <line
-      x1="4"
-      y1="12"
-      x2="12"
-      y2="12"
-      stroke="white"
-      strokeWidth="1"
-      strokeLinecap="round"
-    />
-    <line
-      x1="4"
-      y1="4"
-      x2="12"
-      y2="12"
-      stroke="white"
-      strokeWidth="1"
-      strokeLinecap="round"
-      strokeOpacity="0.7"
-    />
-  </svg>
+export const HexIcon: FC = () => (
+  <Image
+    src="/hex-gig-logo.png"
+    width={16}
+    height={16}
+    alt="HeX-GiG"
+    className="rounded-full"
+  />
 )
 
 export const ReferencesIcon: FC = ({ ...props }) => (

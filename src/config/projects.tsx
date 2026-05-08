@@ -56,8 +56,9 @@ const projects: Record<ProjectId, ProjectConfig> = {
     name: "HeX-GiG (GiG's Health Explorer)",
     description: (
       <>
-        HeX-GiG captures the expertise of the Health in Society Research
-        Network members through their{' '}
+        HeX-GiG is an AI-powered knowledge assistant which captures the
+        expertise of the Health in Society Research Network members through
+        their{' '}
         <a
           href="https://ucloud.univie.ac.at/index.php/s/Aey6ydCDrBfigyX"
           target="_blank"
