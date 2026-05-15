@@ -37,6 +37,13 @@ export interface ProjectTheme {
   }
 }
 
+export interface ProjectSplash {
+  logo: string
+  displayName: string
+  bg: string
+  fg: string
+}
+
 export interface ProjectConfig {
   id: ProjectId
   name: string
@@ -48,6 +55,7 @@ export interface ProjectConfig {
     description: string
   }
   icon?: string
+  splash?: ProjectSplash
 }
 
 const projects: Record<ProjectId, ProjectConfig> = {
@@ -108,7 +116,13 @@ const projects: Record<ProjectId, ProjectConfig> = {
       description:
         'Explore the research expertise of the Health in Society Research Network (GiG) members through their self-selected publications in health, and stay informed with the latest news regarding the activities of the network.'
     },
-    icon: 'hex-gig'
+    icon: 'hex-gig',
+    splash: {
+      logo: '/hex-gig-logo.png',
+      displayName: 'HeX-GiG',
+      bg: '#F8FAFC',
+      fg: '#1E293B'
+    }
   },
   'vax-study-chatbot': {
     id: 'vax-study-chatbot',
@@ -148,24 +162,26 @@ const projects: Record<ProjectId, ProjectConfig> = {
   },
   'ssc-psych-chatbot': {
     id: 'ssc-psych-chatbot',
-    name: 'SSC Psychology Chatbot',
+    name: 'SSC Psychology Assistant',
     description:
-      'Your intelligent assistant for psychology resources at the SSC (Student Service Center). Get help with study materials, research guidance, and academic support.',
-    apiEndpoint: '', // To be configured when SSC project is deployed
+      'AI assistant for the Psychology Student Service Center at the University of Vienna. Ask about applications, curricula, exam regulations, and study organization — answers are linked to their source pages.',
+    apiEndpoint: '', // To be configured when SSC backend Container App is deployed
     theme: {
       colors: {
-        brand: '#FF4017', // Orange (same as vax-study)
-        primary: '#FAFAFA',
-        primaryAccent: '#18181B',
+        brand: '#0063A6', // UV brand blue
+        primary: '#1E293B', // Dark headings/strong text
+        primaryAccent: '#FFFFFF', // Input backgrounds
         background: {
-          default: '#111113',
-          secondary: '#27272A'
+          default: '#F8FAFC', // Subtle gray main bg
+          secondary: '#EEF2F6' // Sidebar/cards
         },
-        secondary: '#F5F5F5',
-        accent: '#27272A',
-        muted: '#A1A1AA',
-        destructive: '#E53935',
-        positive: '#22C55E'
+        secondary: '#334155', // Body text
+        accent: '#0063A6', // Borders, focus rings
+        accentSecondary: '#8B5CF6',
+        surface: '#FFFFFF',
+        muted: '#64748B',
+        destructive: '#DC2626',
+        positive: '#059669'
       },
       fonts: {
         primary: 'Poppins',
@@ -173,9 +189,16 @@ const projects: Record<ProjectId, ProjectConfig> = {
       }
     },
     metadata: {
-      title: 'SSC Psychology Chatbot',
+      title: 'SSC Psychology Assistant',
       description:
-        'AI assistant for psychology resources and academic support at the Student Service Center'
+        'AI assistant for the Psychology Student Service Center at the University of Vienna, with answers traceable to their source pages.'
+    },
+    icon: 'ssc-psych',
+    splash: {
+      logo: '/ssc-psych-logo.svg',
+      displayName: 'SSC Psychologie',
+      bg: '#F8FAFC',
+      fg: '#0063A6'
     }
   }
 }

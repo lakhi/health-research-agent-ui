@@ -967,6 +967,16 @@ export const HexIcon: FC = () => (
   />
 )
 
+export const SscPsychIcon: FC = () => (
+  <Image
+    src="/ssc-psych-logo.svg"
+    width={16}
+    height={16}
+    alt="SSC Psychologie"
+    className="rounded-full"
+  />
+)
+
 export const ReferencesIcon: FC = ({ ...props }) => (
   <svg
     width="24"

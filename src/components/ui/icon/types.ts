@@ -14,6 +14,7 @@ export type IconType =
   | 'xai'
   | 'agno'
   | 'hex-gig'
+  | 'ssc-psych'
   | 'user'
   | 'agent'
   | 'open-ai'

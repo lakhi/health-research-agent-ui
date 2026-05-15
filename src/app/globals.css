@@ -4,28 +4,52 @@
 
 @layer base {
   :root {
-    /* Border */
-    --color-border-default: 255, 255, 255, 0.2;
     --scrollbar-width: 0.1rem;
 
     /* Font - Theme-aware primary font */
     --font-primary: var(--font-poppins);
 
-    /* Default theme colors (ssc-psych-chatbot - Orange theme) */
-    --color-brand: 255 64 23;
-    --color-primary: 250 250 250;
-    --color-primary-accent: 24 24 27;
-    --color-background: 17 17 19;
-    --color-background-secondary: 39 39 42;
-    --color-secondary: 245 245 245;
-    --color-accent: 39 39 42;
-    --color-muted: 161 161 170;
-    --color-destructive: 229 57 53;
-    --color-positive: 34 197 94;
+    /* Neutral defaults (overridden per [data-project] block below) */
+    --color-border-default: 30, 64, 175, 0.15;
+    --color-brand: 30 64 175;
+    --color-primary: 30 41 59;
+    --color-primary-accent: 255 255 255;
+    --color-background: 248 250 252;
+    --color-background-secondary: 238 242 246;
+    --color-secondary: 51 65 85;
+    --color-accent: 30 64 175;
+    --color-accent-secondary: 139 92 246;
+    --color-muted: 100 116 139;
+    --color-surface: 255 255 255;
+    --color-destructive: 220 38 38;
+    --color-positive: 5 150 105;
 
     /* Badge colors - Theme-aware */
-    --color-badge-bg: 39 39 42; /* #27272A - Dark gray for dark theme */
-    --color-badge-text: 161 161 170; /* #A1A1AA - Light gray text */
+    --color-badge-bg: 219 234 254;
+    --color-badge-text: 30 64 175;
+  }
+
+  /* SSC Psychology Assistant - U.Vienna brand blue theme */
+  [data-project='ssc-psych-chatbot'] {
+    --font-primary: var(--font-poppins);
+
+    --color-border-default: 0, 99, 166, 0.15; /* UV-blue-tinted border */
+    --color-brand: 0 99 166; /* #0063A6 - UV brand blue */
+    --color-primary: 30 41 59; /* #1E293B - Dark headings */
+    --color-primary-accent: 255 255 255;
+    --color-background: 248 250 252; /* #F8FAFC */
+    --color-background-secondary: 238 242 246; /* #EEF2F6 */
+    --color-secondary: 51 65 85; /* #334155 - Body text */
+    --color-accent: 0 99 166; /* #0063A6 - Borders, focus rings */
+    --color-accent-secondary: 139 92 246;
+    --color-muted: 100 116 139;
+    --color-surface: 255 255 255;
+    --color-destructive: 220 38 38;
+    --color-positive: 5 150 105;
+
+    /* Badge colors - UV blue tint */
+    --color-badge-bg: 219 234 254;
+    --color-badge-text: 0 99 166;
   }
 
   /* HeX-GiG - Light Blue/Purple Academic theme with Poppins */
@@ -78,6 +102,35 @@
 
   body {
     @apply bg-background/80 text-secondary;
+  }
+}
+
+/* SSC Psychology Assistant - Component Overrides */
+[data-project='ssc-psych-chatbot'] {
+  /* ChatInput textarea styling */
+  & textarea {
+    background-color: rgb(255 255 255) !important;
+    border-color: rgb(0 99 166 / 0.3) !important;
+    color: rgb(30 41 59) !important;
+  }
+  & textarea:focus {
+    border-color: rgb(0 99 166) !important;
+    box-shadow: 0 0 0 2px rgb(0 99 166 / 0.1);
+  }
+  & textarea::placeholder {
+    color: rgb(100 116 139);
+  }
+
+  /* Send button styling */
+  & button[class*='bg-primary'] {
+    background-color: rgb(0 99 166) !important;
+    color: rgb(255 255 255) !important;
+  }
+  & button[class*='bg-primary']:hover {
+    background-color: rgb(0 82 138) !important;
+  }
+  & button[class*='bg-primary'] svg {
+    color: rgb(255 255 255) !important;
   }
 }
 

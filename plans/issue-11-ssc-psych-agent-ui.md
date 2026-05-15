@@ -30,11 +30,14 @@ Most of the per-project scaffolding (config entry, deploy workflow, bicepparam f
 
 ### B. Citation rendering (the quality-check feature)
 
-The backend will deliver (per `future-feat/ssc-psych-inline-citation-excerpts.md`):
+The backend will deliver (per `future-feat/ssc-psych-inline-citation-excerpts.md`, implemented in api-apps commit `d1d3db5` referencing issue #37):
 
-- A top-level `citations: Citation[]` field on the JSON response.
-- A final `event: citations` SSE frame on streamed responses.
+- A top-level `citations: Citation[]` field on the JSON response (gated to SSC-Psych; field is absent — not just `[]` — for other agents).
+- A final `event: Citations` SSE frame on streamed responses (PascalCase, matching Agno's existing wire convention — `RunStarted`, `RunContent`, etc. — so the FE `RunEvent` enum stays internally consistent with `Citations = 'Citations'`).
 - `Citation = { source_url, title, source_type, language, excerpt, score }`.
+- The array is already deduplicated by `source_url` (first-seen wins, which matches highest-scoring because Agno returns chunks in relevance order). The FE doesn't need to dedup again.
+- `score` is **rank-derived** (`1.0 - rank/total`), not the raw retrieval score — Agno's `Document.to_dict()` doesn't surface the retrieval/reranking score, so the BE approximates from list position. Top-ranked citation = `1.0`; scores decrease. Don't use this for thresholding; ordering is the only reliable signal.
+- Empty case: when the SSC agent retrieves no chunks (refusal, out-of-scope), the JSON payload still carries `citations: []` and the stream still emits a terminal `event: Citations` frame with `{"citations": []}` — so the FE handler doesn't need to special-case a missing event.
 
 UI work:
 

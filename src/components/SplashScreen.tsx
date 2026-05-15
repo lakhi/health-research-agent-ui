@@ -1,11 +1,16 @@
 'use client'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { getProjectConfig } from '@/config/projects'
 
 export function SplashScreen() {
+  const splash = getProjectConfig().splash
+  if (!splash) return null
+
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#F8FAFC]"
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ background: splash.bg }}
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.35, ease: 'easeInOut' }}
@@ -17,17 +22,17 @@ export function SplashScreen() {
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
         <Image
-          src="/hex-gig-logo.png"
+          src={splash.logo}
           width={64}
           height={64}
-          alt="HeX-GiG logo"
+          alt={`${splash.displayName} logo`}
           className="rounded-full"
         />
         <span
-          className="text-5xl font-semibold tracking-tight text-[#1E293B]"
-          style={{ fontFamily: 'var(--font-poppins)' }}
+          className="text-5xl font-semibold tracking-tight"
+          style={{ color: splash.fg, fontFamily: 'var(--font-poppins)' }}
         >
-          HeX-GiG
+          {splash.displayName}
         </span>
       </motion.div>
     </motion.div>
