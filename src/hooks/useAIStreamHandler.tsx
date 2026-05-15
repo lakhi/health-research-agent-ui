@@ -332,6 +332,19 @@ const useAIChatStreamHandler = () => {
                 }
                 return newMessages
               })
+            } else if (chunk.event === RunEvent.Citations) {
+              setMessages((prevMessages) => {
+                const newMessages = [...prevMessages]
+                const lastMessage = newMessages[newMessages.length - 1]
+                if (
+                  lastMessage &&
+                  lastMessage.role === 'agent' &&
+                  chunk.citations
+                ) {
+                  lastMessage.citations = chunk.citations
+                }
+                return newMessages
+              })
             } else if (
               chunk.event === RunEvent.ReasoningStep ||
               chunk.event === RunEvent.TeamReasoningStep
@@ -424,6 +437,7 @@ const useAIChatStreamHandler = () => {
                       videos: chunk.videos ?? message.videos,
                       response_audio: chunk.response_audio,
                       created_at: chunk.created_at ?? message.created_at,
+                      citations: chunk.citations ?? message.citations,
                       extra_data: {
                         reasoning_steps:
                           chunk.extra_data?.reasoning_steps ??

@@ -29,7 +29,9 @@ const AgentMessage = ({ message }: MessageProps) => {
   } else if (message.content) {
     messageContent = (
       <div className="flex w-full flex-col gap-4">
-        <MarkdownRenderer>{message.content}</MarkdownRenderer>
+        <MarkdownRenderer citations={message.citations}>
+          {message.content}
+        </MarkdownRenderer>
         {message.videos && message.videos.length > 0 && (
           <Videos videos={message.videos} />
         )}
@@ -51,7 +53,7 @@ const AgentMessage = ({ message }: MessageProps) => {
     } else {
       messageContent = (
         <div className="flex w-full flex-col gap-4">
-          <MarkdownRenderer>
+          <MarkdownRenderer citations={message.citations}>
             {message.response_audio.transcript}
           </MarkdownRenderer>
           {message.response_audio.content && message.response_audio && (

@@ -8,11 +8,14 @@ import {
   type ImgHTMLAttributes
 } from 'react'
 
+import type { Citation } from '@/types/os'
+
 interface MarkdownRendererProps {
   children?: string
   classname?: string
 
   inline?: boolean
+  citations?: Citation[]
 }
 
 type DefaultHTMLElement = DetailedHTMLProps<

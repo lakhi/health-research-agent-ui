@@ -87,6 +87,7 @@ export enum RunEvent {
   RunStarted = 'RunStarted',
   RunContent = 'RunContent',
   RunCompleted = 'RunCompleted',
+  Citations = 'Citations',
   RunError = 'RunError',
   RunOutput = 'RunOutput',
   UpdatingMemory = 'UpdatingMemory',
@@ -169,6 +170,16 @@ export interface RunResponse {
   videos?: VideoData[]
   audio?: AudioData[]
   response_audio?: ResponseAudio
+  citations?: Citation[]
+}
+
+export interface Citation {
+  source_url: string
+  title: string
+  source_type: string
+  language: string
+  excerpt: string
+  score: number
 }
 
 export interface AgentExtraData {
@@ -209,6 +220,7 @@ export interface ChatMessage {
   videos?: VideoData[]
   audio?: AudioData[]
   response_audio?: ResponseAudio
+  citations?: Citation[]
 }
 
 export interface AgentDetails {
