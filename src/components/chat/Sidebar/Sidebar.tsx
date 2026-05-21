@@ -23,7 +23,7 @@ const projectConfig = getProjectConfig()
 
 const SidebarHeader = () => (
   <div className="flex items-center gap-2">
-    <Icon type={(projectConfig.icon ?? 'agno') as IconType} size="xs" />
+    <Icon type={(projectConfig.icon ?? 'agno') as IconType} size="sm" />
     <span className="text-xs font-medium uppercase text-white">
       {projectConfig.name}
     </span>

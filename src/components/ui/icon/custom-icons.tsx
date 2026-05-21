@@ -1,6 +1,8 @@
 import { type FC } from 'react'
 import Image from 'next/image'
 
+import { cn } from '@/lib/utils'
+
 export const AgnoIcon: FC = ({ ...props }) => {
   return (
     <svg
@@ -957,13 +959,13 @@ export const ReasoningIcon: FC = ({ ...props }) => (
   </svg>
 )
 
-export const HexIcon: FC = () => (
+export const HexIcon: FC<{ className?: string }> = ({ className }) => (
   <Image
     src="/hex-gig-logo.png"
-    width={16}
-    height={16}
+    width={64}
+    height={64}
     alt="HeX-GiG"
-    className="rounded-full"
+    className={cn('rounded-full', className)}
   />
 )
 
