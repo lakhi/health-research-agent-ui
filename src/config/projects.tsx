@@ -56,6 +56,8 @@ export interface ProjectConfig {
   }
   icon?: string
   splash?: ProjectSplash
+  /** Persistent notice rendered under the chat input (e.g. accuracy caveat) */
+  disclaimer?: string
 }
 
 const projects: Record<ProjectId, ProjectConfig> = {
@@ -194,6 +196,8 @@ const projects: Record<ProjectId, ProjectConfig> = {
         'AI assistant for the Psychology Student Service Center at the University of Vienna, with answers traceable to their source pages.'
     },
     icon: 'ssc-psych',
+    disclaimer:
+      'The assistant may give incomplete or, in rare cases, incorrect information. Always verify answers via the linked source pages, or contact the SSC Psychologie directly.',
     splash: {
       logo: '/ssc-psych-logo.svg',
       displayName: 'SSC Psychologie',
