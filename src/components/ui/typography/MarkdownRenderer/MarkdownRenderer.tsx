@@ -1,5 +1,5 @@
 import { type FC, useMemo } from 'react'
-import ReactMarkdown, { type Components } from 'react-markdown'
+import ReactMarkdown, { type Components, type ExtraProps } from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize from 'rehype-sanitize'
 import remarkGfm from 'remark-gfm'
@@ -20,19 +20,40 @@ const SourceChip: FC<{ citation: Citation }> = ({ citation }) => (
   </span>
 )
 
-const buildCitationComponents = (citations: Citation[]) => {
+const buildCitationComponents = (citations: Citation[], source: string) => {
   const citationMap = new Map<string, Citation>()
   for (const c of citations) {
     if (!citationMap.has(c.source_url)) citationMap.set(c.source_url, c)
   }
-  const seen = new Set<string>()
+
+  // A chip belongs to the anchor whose markdown-source span contains the first
+  // textual occurrence of its URL. Render output must stay a pure function of
+  // (source, citations): a mutable seen-set would stay populated across React
+  // re-renders and make chips vanish.
+  const firstOffsets = new Map<string, number>()
+  for (const url of citationMap.keys()) {
+    const idx = source.indexOf(url)
+    if (idx !== -1) firstOffsets.set(url, idx)
+  }
+
   const OriginalAnchor = components.a
 
-  const CitationAnchor: FC<AnchorLinkProps> = (props) => {
+  const CitationAnchor: FC<AnchorLinkProps & ExtraProps> = ({
+    node,
+    ...props
+  }) => {
     const href = props.href
     const citation = href ? citationMap.get(href) : undefined
-    const showChip = !!citation && !seen.has(href as string)
-    if (showChip) seen.add(href as string)
+    const firstIdx = href ? firstOffsets.get(href) : undefined
+    const start = node?.position?.start?.offset
+    const end = node?.position?.end?.offset
+    const showChip =
+      citation !== undefined &&
+      firstIdx !== undefined &&
+      start !== undefined &&
+      end !== undefined &&
+      firstIdx >= start &&
+      firstIdx < end
     return (
       <>
         <OriginalAnchor {...props} />
@@ -53,8 +74,8 @@ const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   const resolvedComponents = useMemo(() => {
     if (inline) return inlineComponents
     if (!citations || citations.length === 0) return components
-    return buildCitationComponents(citations)
-  }, [inline, citations])
+    return buildCitationComponents(citations, children ?? '')
+  }, [inline, citations, children])
 
   return (
     <ReactMarkdown
