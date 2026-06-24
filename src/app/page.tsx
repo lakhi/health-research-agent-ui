@@ -5,6 +5,7 @@ import Sidebar from '@/components/chat/Sidebar/Sidebar'
 import { ChatArea } from '@/components/chat/ChatArea'
 import { SplashScreen } from '@/components/SplashScreen'
 import { getProjectConfig } from '@/config/projects'
+import { useStore } from '@/store'
 
 const hasSplash = !!getProjectConfig().splash
 
@@ -13,6 +14,7 @@ export default function Home() {
   const envToken = process.env.NEXT_PUBLIC_OS_SECURITY_KEY || ''
   const sidebarEnabled = process.env.NEXT_PUBLIC_SIDEBAR_VIEW_ACCESS !== 'false'
   const [showSplash, setShowSplash] = useState(hasSplash)
+  const chatInputRef = useStore((s) => s.chatInputRef)
 
   useEffect(() => {
     if (!hasSplash) return
@@ -22,7 +24,9 @@ export default function Home() {
 
   return (
     <>
-      <AnimatePresence>{showSplash && <SplashScreen />}</AnimatePresence>
+      <AnimatePresence onExitComplete={() => chatInputRef.current?.focus()}>
+        {showSplash && <SplashScreen />}
+      </AnimatePresence>
       <Suspense fallback={null}>
         <div className="flex h-screen bg-background/80">
           {sidebarEnabled && (

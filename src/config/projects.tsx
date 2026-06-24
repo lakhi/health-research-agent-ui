@@ -60,6 +60,8 @@ export interface ProjectConfig {
   disclaimer?: string
   /** Short privacy reassurance shown as its own line under the description (blank state) */
   privacyNotice?: string | React.ReactNode
+  /** Placeholder text for the chat input (defaults to 'Ask anything') */
+  inputPlaceholder?: string
 }
 
 const projects: Record<ProjectId, ProjectConfig> = {
@@ -98,6 +100,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
         share personal, sensitive, or confidential information.
       </>
     ),
+    inputPlaceholder: 'What would you like to explore?',
     apiEndpoint:
       'https://hex-gig-agent-api.bravemeadow-0cb4208f.swedencentral.azurecontainerapps.io',
     theme: {

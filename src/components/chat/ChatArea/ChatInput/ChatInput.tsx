@@ -7,9 +7,11 @@ import { useStore } from '@/store'
 import useAIChatStreamHandler from '@/hooks/useAIStreamHandler'
 import { useQueryState } from 'nuqs'
 import Icon from '@/components/ui/icon'
+import { getProjectConfig } from '@/config/projects'
 
 const ChatInput = () => {
   const { chatInputRef } = useStore()
+  const { inputPlaceholder } = getProjectConfig()
 
   const { handleStreamResponse } = useAIChatStreamHandler()
   const [selectedAgent] = useQueryState('agent')
@@ -37,7 +39,7 @@ const ChatInput = () => {
   return (
     <div className="relative mx-auto mb-1 flex w-full max-w-2xl items-end justify-center gap-x-2 font-primary">
       <TextArea
-        placeholder={'Ask anything'}
+        placeholder={inputPlaceholder ?? 'Ask anything'}
         value={inputMessage}
         onChange={(e) => setInputMessage(e.target.value)}
         onKeyDown={(e) => {
