@@ -93,9 +93,9 @@ const projects: Record<ProjectId, ProjectConfig> = {
     ),
     privacyNotice: (
       <>
-        <strong>We don&apos;t store your conversations.</strong> As a
-        precaution, please avoid entering personal, sensitive, or confidential
-        information.
+        <strong>Your privacy comes first.</strong> We don&apos;t store your
+        conversations and never ask who you are — so there&apos;s no need to
+        share personal, sensitive, or confidential information.
       </>
     ),
     apiEndpoint:
