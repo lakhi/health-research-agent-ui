@@ -42,6 +42,16 @@ const ChatBlankState = () => {
         >
           {projectConfig.description}
         </motion.p>
+        {projectConfig.privacyNotice && (
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+            className="max-w-2xl text-center text-sm text-muted"
+          >
+            {projectConfig.privacyNotice}
+          </motion.p>
+        )}
       </div>
     </section>
   )

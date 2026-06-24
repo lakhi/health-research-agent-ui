@@ -58,6 +58,8 @@ export interface ProjectConfig {
   splash?: ProjectSplash
   /** Persistent notice rendered under the chat input (e.g. accuracy caveat) */
   disclaimer?: string
+  /** Short privacy reassurance shown as its own line under the description (blank state) */
+  privacyNotice?: string | React.ReactNode
 }
 
 const projects: Record<ProjectId, ProjectConfig> = {
@@ -87,6 +89,13 @@ const projects: Record<ProjectId, ProjectConfig> = {
           activities
         </a>
         !
+      </>
+    ),
+    privacyNotice: (
+      <>
+        <strong>We don&apos;t store your conversations.</strong> As a
+        precaution, please avoid entering personal, sensitive, or confidential
+        information.
       </>
     ),
     apiEndpoint:
