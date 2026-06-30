@@ -1,4 +1,5 @@
 import { useQueryState } from 'nuqs'
+import { useAgentId } from '@/hooks/useAgentId'
 import { SessionEntry } from '@/types/os'
 import { Button } from '../../../ui/button'
 import useSessionLoader from '@/hooks/useSessionLoader'
@@ -23,7 +24,7 @@ const SessionItem = ({
   currentSessionId,
   onSessionClick
 }: SessionItemProps) => {
-  const [agentId] = useQueryState('agent')
+  const [agentId] = useAgentId()
   const [teamId] = useQueryState('team')
   const [dbId] = useQueryState('db_id')
   const [, setSessionId] = useQueryState('session')

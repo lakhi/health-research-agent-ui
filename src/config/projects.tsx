@@ -62,6 +62,14 @@ export interface ProjectConfig {
   privacyNotice?: string | React.ReactNode
   /** Placeholder text for the chat input (defaults to 'Ask anything') */
   inputPlaceholder?: string
+  /**
+   * Pre-selected agent id used as the DEFAULT value of the `?agent=` URL param.
+   * When set, the chat input is enabled on first paint (no network wait) and the param
+   * is kept out of the URL (writing the default clears it; nuqs clearOnDefault). MUST
+   * exactly equal the backend agent id returned by /agents, else initialize() will write
+   * the real id into the URL. Leave undefined for projects that auto-select an agent.
+   */
+  defaultAgentId?: string
 }
 
 const projects: Record<ProjectId, ProjectConfig> = {
@@ -101,6 +109,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
       </>
     ),
     inputPlaceholder: 'What would you like to explore?',
+    defaultAgentId: 'hex',
     apiEndpoint:
       'https://hex-gig-agent-api.bravemeadow-0cb4208f.swedencentral.azurecontainerapps.io',
     theme: {
@@ -180,6 +189,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
     description:
       'AI assistant for the Psychology Student Service Center at the University of Vienna. Ask about applications, curricula, exam regulations, and study organization — answers are linked to their source pages.',
     apiEndpoint: '', // To be configured when SSC backend Container App is deployed
+    defaultAgentId: 'ssc',
     theme: {
       colors: {
         brand: '#0063A6', // UV brand blue

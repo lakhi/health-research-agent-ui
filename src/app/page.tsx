@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion'
 import Sidebar from '@/components/chat/Sidebar/Sidebar'
 import { ChatArea } from '@/components/chat/ChatArea'
 import { SplashScreen } from '@/components/SplashScreen'
+import { AgentParamNormalizer } from '@/components/AgentParamNormalizer'
 import { getProjectConfig } from '@/config/projects'
 import { useStore } from '@/store'
 
@@ -28,6 +29,7 @@ export default function Home() {
         {showSplash && <SplashScreen />}
       </AnimatePresence>
       <Suspense fallback={null}>
+        <AgentParamNormalizer />
         <div className="flex h-screen bg-background/80">
           {sidebarEnabled && (
             <Sidebar hasEnvToken={hasEnvToken} envToken={envToken} />

@@ -17,6 +17,7 @@ import { useQueryState } from 'nuqs'
 import { truncateText } from '@/lib/utils'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getProjectConfig } from '@/config/projects'
+import { useAgentId } from '@/hooks/useAgentId'
 
 const ENDPOINT_PLACEHOLDER = 'NO ENDPOINT ADDED'
 const projectConfig = getProjectConfig()
@@ -73,7 +74,7 @@ const Endpoint = () => {
   const [isMounted, setIsMounted] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const [isRotating, setIsRotating] = useState(false)
-  const [, setAgentId] = useQueryState('agent')
+  const [, setAgentId] = useAgentId()
   const [, setSessionId] = useQueryState('session')
 
   useEffect(() => {
@@ -226,7 +227,7 @@ const Sidebar = ({
     mode
   } = useStore()
   const [isMounted, setIsMounted] = useState(false)
-  const [agentId] = useQueryState('agent')
+  const [agentId] = useAgentId()
   const [teamId] = useQueryState('team')
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import { useStore } from '../store'
 import { AgentDetails, TeamDetails, type ChatMessage } from '@/types/os'
 import { getAgentsAPI, getStatusAPI, getTeamsAPI } from '@/api/os'
 import { useQueryState } from 'nuqs'
+import { useAgentId } from '@/hooks/useAgentId'
 
 const useChatActions = () => {
   const { chatInputRef } = useStore()
@@ -19,7 +20,7 @@ const useChatActions = () => {
   const setTeams = useStore((state) => state.setTeams)
   const setSelectedModel = useStore((state) => state.setSelectedModel)
   const setMode = useStore((state) => state.setMode)
-  const [agentId, setAgentId] = useQueryState('agent')
+  const [agentId, setAgentId] = useAgentId()
   const [teamId, setTeamId] = useQueryState('team')
   const [, setDbId] = useQueryState('db_id')
 

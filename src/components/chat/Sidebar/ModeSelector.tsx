@@ -11,11 +11,12 @@ import {
 import { useStore } from '@/store'
 import { useQueryState } from 'nuqs'
 import useChatActions from '@/hooks/useChatActions'
+import { useAgentId } from '@/hooks/useAgentId'
 
 export function ModeSelector() {
   const { mode, setMode, setMessages, setSelectedModel } = useStore()
   const { clearChat } = useChatActions()
-  const [, setAgentId] = useQueryState('agent')
+  const [, setAgentId] = useAgentId()
   const [, setTeamId] = useQueryState('team')
   const [, setSessionId] = useQueryState('session')
 

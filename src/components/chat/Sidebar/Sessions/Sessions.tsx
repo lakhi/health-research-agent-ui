@@ -4,6 +4,7 @@ import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useQueryState } from 'nuqs'
 
 import { useStore } from '@/store'
+import { useAgentId } from '@/hooks/useAgentId'
 import useSessionLoader from '@/hooks/useSessionLoader'
 
 import SessionItem from './SessionItem'
@@ -32,10 +33,7 @@ const SkeletonList: FC<SkeletonListProps> = ({ skeletonCount }) => {
 }
 
 const Sessions = () => {
-  const [agentId] = useQueryState('agent', {
-    parse: (v: string | null) => v || undefined,
-    history: 'push'
-  })
+  const [agentId] = useAgentId()
   const [teamId] = useQueryState('team')
   const [sessionId] = useQueryState('session')
   const [dbId] = useQueryState('db_id')

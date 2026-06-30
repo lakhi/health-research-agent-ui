@@ -8,13 +8,14 @@ import useAIChatStreamHandler from '@/hooks/useAIStreamHandler'
 import { useQueryState } from 'nuqs'
 import Icon from '@/components/ui/icon'
 import { getProjectConfig } from '@/config/projects'
+import { useAgentId } from '@/hooks/useAgentId'
 
 const ChatInput = () => {
   const { chatInputRef } = useStore()
   const { inputPlaceholder } = getProjectConfig()
 
   const { handleStreamResponse } = useAIChatStreamHandler()
-  const [selectedAgent] = useQueryState('agent')
+  const [selectedAgent] = useAgentId()
   const [teamId] = useQueryState('team')
   const [inputMessage, setInputMessage] = useState('')
   const isStreaming = useStore((state) => state.isStreaming)

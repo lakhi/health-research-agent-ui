@@ -13,15 +13,13 @@ import { useQueryState } from 'nuqs'
 import Icon from '@/components/ui/icon'
 import { useEffect } from 'react'
 import useChatActions from '@/hooks/useChatActions'
+import { useAgentId } from '@/hooks/useAgentId'
 
 export function EntitySelector() {
   const { mode, agents, teams, setMessages, setSelectedModel } = useStore()
 
   const { focusChatInput } = useChatActions()
-  const [agentId, setAgentId] = useQueryState('agent', {
-    parse: (value) => value || undefined,
-    history: 'push'
-  })
+  const [agentId, setAgentId] = useAgentId()
   const [teamId, setTeamId] = useQueryState('team', {
     parse: (value) => value || undefined,
     history: 'push'
@@ -56,9 +54,9 @@ export function EntitySelector() {
 
     if (mode === 'team') {
       setTeamId(newValue)
-      setAgentId(null)
+      setAgentId(null, { history: 'push' })
     } else {
-      setAgentId(newValue)
+      setAgentId(newValue, { history: 'push' })
       setTeamId(null)
     }
 

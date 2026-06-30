@@ -9,6 +9,7 @@ import { constructEndpointUrl } from '@/lib/constructEndpointUrl'
 import useAIResponseStream from './useAIResponseStream'
 import { ToolCall } from '@/types/os'
 import { useQueryState } from 'nuqs'
+import { useAgentId } from '@/hooks/useAgentId'
 import { getJsonMarkdown } from '@/lib/utils'
 import {
   buildBudgetExceededMessage,
@@ -18,7 +19,7 @@ import {
 const useAIChatStreamHandler = () => {
   const setMessages = useStore((state) => state.setMessages)
   const { addMessage, focusChatInput } = useChatActions()
-  const [agentId] = useQueryState('agent')
+  const [agentId] = useAgentId()
   const [teamId] = useQueryState('team')
   const [sessionId, setSessionId] = useQueryState('session')
   const selectedEndpoint = useStore((state) => state.selectedEndpoint)

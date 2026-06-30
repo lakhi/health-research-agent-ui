@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStore } from '@/store'
-import { useQueryState } from 'nuqs'
+import { useAgentId } from '@/hooks/useAgentId'
 
 const HistoryBlankStateIcon = () => (
   <svg
@@ -87,7 +87,7 @@ const HistoryBlankStateIcon = () => (
 
 const SessionBlankState = () => {
   const { selectedEndpoint, isEndpointActive } = useStore()
-  const [agentId] = useQueryState('agent')
+  const [agentId] = useAgentId()
 
   const errorMessage = (() => {
     switch (true) {
