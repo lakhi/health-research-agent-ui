@@ -11,6 +11,7 @@ import { ToolCall } from '@/types/os'
 import { useQueryState } from 'nuqs'
 import { useAgentId } from '@/hooks/useAgentId'
 import { getJsonMarkdown } from '@/lib/utils'
+import { getAnonymousUserId } from '@/lib/anonymousUserId'
 import {
   buildBudgetExceededMessage,
   getDailyBudgetExceededPayloadFromError
@@ -208,6 +209,11 @@ const useAIChatStreamHandler = () => {
 
         formData.append('stream', 'true')
         formData.append('session_id', sessionId ?? '')
+
+        const anonymousUserId = getAnonymousUserId()
+        if (anonymousUserId) {
+          formData.append('user_id', anonymousUserId)
+        }
 
         // Create headers with auth token if available
         const headers: Record<string, string> = {}
