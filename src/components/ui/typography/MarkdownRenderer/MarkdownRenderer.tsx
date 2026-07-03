@@ -27,12 +27,17 @@ const buildCitationComponents = (citations: Citation[], source: string) => {
   }
 
   // A chip belongs to the anchor whose markdown-source span contains the first
-  // textual occurrence of its URL. Render output must stay a pure function of
+  // occurrence of its URL as a complete link target — matching `](url)` rather
+  // than the bare URL, because one citation URL can be a prefix of another
+  // (e.g. …/bachelorstudium-psychologie/ inside …/bachelorstudium-psychologie/
+  // zulassung-und-aufnahmeverfahren/), which would strand the chip inside the
+  // longer link's anchor. Render output must stay a pure function of
   // (source, citations): a mutable seen-set would stay populated across React
   // re-renders and make chips vanish.
   const firstOffsets = new Map<string, number>()
   for (const url of citationMap.keys()) {
-    const idx = source.indexOf(url)
+    const linkIdx = source.indexOf(`](${url})`)
+    const idx = linkIdx !== -1 ? linkIdx + 2 : source.indexOf(url)
     if (idx !== -1) firstOffsets.set(url, idx)
   }
 
