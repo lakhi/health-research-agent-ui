@@ -19,14 +19,14 @@ const ChatBlankState = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-3xl font-[600] tracking-tight"
+          className="font-display text-3xl font-[600] tracking-tight"
         >
-          <div className="flex items-center justify-center gap-x-2 whitespace-nowrap font-medium">
+          <div className="flex items-center justify-center gap-x-3 whitespace-nowrap font-medium">
             {projectConfig.icon && (
               <Icon
                 type={projectConfig.icon as IconType}
                 size="default"
-                className="size-8"
+                className={projectConfig.landingIconClassName ?? 'size-8'}
               />
             )}
             <span className="flex items-center font-[600]">

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Mono, Poppins } from 'next/font/google'
+import { DM_Mono, Inter, Poppins, Source_Serif_4 } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from '@/components/ui/sonner'
 import { getProjectConfig } from '@/config/projects'
@@ -15,6 +15,20 @@ const dmMono = DM_Mono({
   subsets: ['latin'],
   variable: '--font-dm-mono',
   weight: '400'
+})
+
+/* Uni Wien CD web fonts (CD-Manual §5.2): Inter for UI/body,
+ * Source Serif 4 for display/headlines. Applied per-project via
+ * --font-primary / --font-display in globals.css. */
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin']
+})
+
+const sourceSerif = Source_Serif_4({
+  variable: '--font-source-serif',
+  weight: ['400', '600'],
+  subsets: ['latin']
 })
 
 // Get project-specific metadata
@@ -35,7 +49,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const fontVariables = `${poppins.variable} ${dmMono.variable}`
+  const fontVariables = `${poppins.variable} ${dmMono.variable} ${inter.variable} ${sourceSerif.variable}`
 
   return (
     <html lang="en" className={fontVariables}>

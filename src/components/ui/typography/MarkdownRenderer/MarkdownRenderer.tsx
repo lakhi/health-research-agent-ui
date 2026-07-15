@@ -12,8 +12,8 @@ import { inlineComponents } from './inlineStyles'
 import { components } from './styles'
 
 const SourceChip: FC<{ citation: Citation }> = ({ citation }) => (
-  <span className="my-1 ml-4 block max-w-prose rounded-md border-l-2 border-accent/40 bg-background-secondary/60 px-3 py-2 text-sm italic text-muted">
-    <span className="mr-2 inline-block rounded bg-accent/10 px-1.5 py-0.5 text-xs font-medium uppercase not-italic text-accent">
+  <span className="source-chip my-1 ml-4 block max-w-prose rounded-md border-l-2 border-accent/40 bg-background-secondary/60 px-3 py-2 text-sm italic text-muted">
+    <span className="source-chip-lang mr-2 inline-block rounded bg-accent/10 px-1.5 py-0.5 text-xs font-medium uppercase not-italic text-accent">
       {citation.language}
     </span>
     ↳ {citation.excerpt}

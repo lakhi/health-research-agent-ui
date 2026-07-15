@@ -29,27 +29,31 @@
     --color-badge-text: 30 64 175;
   }
 
-  /* SSC Psychology Assistant - U.Vienna brand blue theme */
+  /* SSC Psychology Assistant - Uni Wien CD-Manual (Frühling 2026) theme.
+   * Web fonts per §5.2 (Inter + Source Serif 4); text ramp per §5.1/5.2
+   * (Blauschwarz + Grau 1/2); warm accents from the secondary palette
+   * (§2.2) as tints with dark text only. */
   [data-project='ssc-psych-chatbot'] {
-    --font-primary: var(--font-poppins);
+    --font-primary: var(--font-inter);
+    --font-display: var(--font-source-serif);
 
     --color-border-default: 0, 99, 166, 0.15; /* UV-blue-tinted border */
-    --color-brand: 0 99 166; /* #0063A6 - UV brand blue */
-    --color-primary: 30 41 59; /* #1E293B - Dark headings */
+    --color-brand: 0 99 166; /* #0063A6 - Universitätsblau */
+    --color-primary: 3 33 56; /* #032138 - Blauschwarz headings */
     --color-primary-accent: 255 255 255;
     --color-background: 248 250 252; /* #F8FAFC */
     --color-background-secondary: 238 242 246; /* #EEF2F6 */
-    --color-secondary: 51 65 85; /* #334155 - Body text */
-    --color-accent: 0 99 166; /* #0063A6 - Borders, focus rings */
-    --color-accent-secondary: 139 92 246;
-    --color-muted: 100 116 139;
+    --color-secondary: 28 55 76; /* #1C374C - Grau 1 body text */
+    --color-accent: 0 99 166; /* #0063A6 - Links, buttons, focus rings */
+    --color-accent-secondary: 255 133 82; /* #FF8552 - Orange warm accent */
+    --color-muted: 53 77 96; /* #354D60 - Grau 2 captions/placeholders */
     --color-surface: 255 255 255;
     --color-destructive: 220 38 38;
     --color-positive: 5 150 105;
 
-    /* Badge colors - UV blue tint */
-    --color-badge-bg: 219 234 254;
-    --color-badge-text: 0 99 166;
+    /* Badge colors - warm Gelb tint, Blauschwarz text (WCAG per §5.1) */
+    --color-badge-bg: 255 248 219; /* #FFF8DB - Gelb ~15% */
+    --color-badge-text: 3 33 56; /* #032138 */
   }
 
   /* HeX-GiG - Light Blue/Purple Academic theme with Poppins */
@@ -131,6 +135,17 @@
   }
   & button[class*='bg-primary'] svg {
     color: rgb(255 255 255) !important;
+  }
+
+  /* Source citation chips - warm Gelb/Orange tints, Blauschwarz text */
+  & .source-chip {
+    border-left-color: rgb(255 133 82 / 0.7); /* Orange */
+    background-color: rgb(255 248 219 / 0.6); /* Gelb tint */
+    color: rgb(53 77 96); /* Grau 2 */
+  }
+  & .source-chip-lang {
+    background-color: rgb(255 243 233); /* Orange ~10% */
+    color: rgb(3 33 56); /* Blauschwarz */
   }
 }
 

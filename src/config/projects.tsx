@@ -42,6 +42,8 @@ export interface ProjectSplash {
   displayName: string
   bg: string
   fg: string
+  /** Size/rounding for the splash logo (defaults to 'size-16 rounded-full') */
+  logoClassName?: string
 }
 
 export interface ProjectConfig {
@@ -62,6 +64,8 @@ export interface ProjectConfig {
   privacyNotice?: string | React.ReactNode
   /** Placeholder text for the chat input (defaults to 'Ask anything') */
   inputPlaceholder?: string
+  /** Size classes for the landing-page title icon (defaults to 'size-8') */
+  landingIconClassName?: string
   /**
    * Pre-selected agent id used as the DEFAULT value of the `?agent=` URL param.
    * When set, the chat input is enabled on first paint (no network wait) and the param
@@ -190,25 +194,36 @@ const projects: Record<ProjectId, ProjectConfig> = {
       'AI assistant for the Psychology Student Service Center at the University of Vienna. Ask about applications, curricula, exam regulations, and study organization — answers are linked to their source pages.',
     apiEndpoint: '', // To be configured when SSC backend Container App is deployed
     defaultAgentId: 'ssc',
+    privacyNotice: (
+      <>
+        <strong>Your privacy comes first.</strong> We don&apos;t store your
+        conversations and never ask who you are — so there&apos;s no need to
+        share personal, sensitive, or confidential information.
+      </>
+    ),
+    inputPlaceholder: 'Ask about your psychology studies…',
+    landingIconClassName: 'size-12',
     theme: {
+      // Uni Wien CD-Manual (Frühling 2026): Universitätsblau actions,
+      // Blauschwarz/Grau text ramp, Orange/Gelb warm accents (§2.2, §5.1-5.2)
       colors: {
-        brand: '#0063A6', // UV brand blue
-        primary: '#1E293B', // Dark headings/strong text
+        brand: '#0063A6', // Universitätsblau
+        primary: '#032138', // Blauschwarz - headings/strong text
         primaryAccent: '#FFFFFF', // Input backgrounds
         background: {
           default: '#F8FAFC', // Subtle gray main bg
           secondary: '#EEF2F6' // Sidebar/cards
         },
-        secondary: '#334155', // Body text
-        accent: '#0063A6', // Borders, focus rings
-        accentSecondary: '#8B5CF6',
+        secondary: '#1C374C', // Grau 1 - body text
+        accent: '#0063A6', // Links, buttons, focus rings
+        accentSecondary: '#FF8552', // Orange - warm accent
         surface: '#FFFFFF',
-        muted: '#64748B',
+        muted: '#354D60', // Grau 2 - captions/placeholders
         destructive: '#DC2626',
         positive: '#059669'
       },
       fonts: {
-        primary: 'Poppins',
+        primary: 'Inter',
         mono: 'DM Mono'
       }
     },
@@ -219,12 +234,13 @@ const projects: Record<ProjectId, ProjectConfig> = {
     },
     icon: 'ssc-psych',
     disclaimer:
-      'The assistant may give incomplete or, in rare cases, incorrect information. Always verify answers via the linked source pages, or contact the SSC Psychologie directly.',
+      'AI can make mistakes — that’s why every answer links to its official source page, so you can check for yourself. Still unsure? The SSC Psychologie team is happy to help.',
     splash: {
       logo: '/ssc-psych-logo.svg',
       displayName: 'SSC Psychologie',
       bg: '#F8FAFC',
-      fg: '#0063A6'
+      fg: '#0063A6',
+      logoClassName: 'size-24 rounded-2xl'
     }
   }
 }

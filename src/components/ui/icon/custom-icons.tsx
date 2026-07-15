@@ -969,13 +969,13 @@ export const HexIcon: FC<{ className?: string }> = ({ className }) => (
   />
 )
 
-export const SscPsychIcon: FC = () => (
+export const SscPsychIcon: FC<{ className?: string }> = ({ className }) => (
   <Image
     src="/ssc-psych-logo.svg"
-    width={16}
-    height={16}
+    width={64}
+    height={64}
     alt="SSC Psychologie"
-    className="rounded-full"
+    className={cn('rounded-lg', className)}
   />
 )
 

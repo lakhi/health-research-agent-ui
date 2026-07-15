@@ -35,6 +35,7 @@ export default {
       },
       fontFamily: {
         primary: 'var(--font-primary)',
+        display: 'var(--font-display, var(--font-primary))',
         geist: 'var(--font-geist-sans)',
         lora: 'var(--font-lora)',
         dmmono: 'var(--font-dm-mono)'

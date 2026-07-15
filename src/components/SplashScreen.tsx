@@ -23,14 +23,17 @@ export function SplashScreen() {
       >
         <Image
           src={splash.logo}
-          width={64}
-          height={64}
+          width={96}
+          height={96}
           alt={`${splash.displayName} logo`}
-          className="rounded-full"
+          className={splash.logoClassName ?? 'size-16 rounded-full'}
         />
         <span
           className="text-5xl font-semibold tracking-tight"
-          style={{ color: splash.fg, fontFamily: 'var(--font-poppins)' }}
+          style={{
+            color: splash.fg,
+            fontFamily: 'var(--font-display, var(--font-primary))'
+          }}
         >
           {splash.displayName}
         </span>
