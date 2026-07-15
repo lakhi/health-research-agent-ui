@@ -6,11 +6,12 @@ on:
 env:
   PROJECT_ID: ssc-psych-chatbot
   IMAGE_NAME: ssc-psych-chatbot-ui
-  RESOURCE_GROUP: ssc_psychology
-  BICEP_PARAM_FILE: infrastructure/ssc-psych-chatbot.bicepparam
 
+# CI builds and pushes the image only. The Container App deploy runs locally
+# (az deployment group create with infrastructure/ssc-psych-chatbot.bicepparam)
+# because no service principal with RG permissions exists — same pattern as VAX.
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -45,31 +46,6 @@ jobs:
             ${{ secrets.SSC_PSYCH_CHATBOT_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
             ${{ secrets.SSC_PSYCH_CHATBOT_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-      # Step 5: Login to Azure
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.SSC_PSYCH_CHATBOT_AZURE_CREDENTIALS }}
-
-      # Step 6: Deploy to Azure Container Apps
-      - name: Deploy to Azure Container Apps
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az deployment group create \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --template-file infrastructure/main.bicep \
-              --parameters ${{ env.BICEP_PARAM_FILE }}
-
-      # Step 7: Get deployment URL
-      - name: Get Container App URL
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            FQDN=$(az containerapp show \
-              --name ssc-psych-chatbot-ui \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --query properties.configuration.ingress.fqdn \
-              --output tsv)
-            echo "✅ SSC Psychology Chatbot deployed successfully!"
-            echo "🌐 URL: https://${FQDN}"
+      - name: Image pushed successfully
+        run: |
+          echo "✅ Image pushed to ${{ secrets.SSC_PSYCH_CHATBOT_ACR_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest"

@@ -192,7 +192,8 @@ const projects: Record<ProjectId, ProjectConfig> = {
     name: 'SSC Psychology Assistant',
     description:
       'AI assistant for the Psychology Student Service Center at the University of Vienna. Ask about applications, curricula, exam regulations, and study organization — answers are linked to their source pages.',
-    apiEndpoint: '', // To be configured when SSC backend Container App is deployed
+    apiEndpoint:
+      'https://ssc-psych-api.politesmoke-3283667d.swedencentral.azurecontainerapps.io',
     defaultAgentId: 'ssc',
     privacyNotice: (
       <>
