@@ -1,11 +1,15 @@
 using './vax-ui.bicep'
 
+// VaxStudy Chatbot — Marburg/Marhinovirus study project
+// Credential-based ACR auth (vax-ui.bicep): no managed-identity role grant needed.
+// acrPassword is read from the environment at deploy time — never commit it:
+//   export VAX_ACR_PASSWORD=$(az acr credential show -g vax-study -n vaxacr --query 'passwords[0].value' -o tsv)
 param containerAppName = 'marhinovirus-infobot'
 param location = 'Sweden Central'
 param managedEnvironmentId = '/subscriptions/44365843-c70c-4844-a430-ad0193819039/resourceGroups/vax-study/providers/Microsoft.App/managedEnvironments/vax-env'
 param containerRegistryServer = 'vaxacr.azurecr.io'
 param acrUsername = 'vaxacr'
-param acrPassword = '34W4otQUHjz0gwmz0qAERFb22RUJD2YNjZ34zDiNiHcQtaxF5L00JQQJ99CDACfhMk5Eqg7NAAACAZCRf4Ot'
+param acrPassword = readEnvironmentVariable('VAX_ACR_PASSWORD', '')
 param containerImage = 'vaxacr.azurecr.io/vax-study-chatbot-ui:latest'
 param apiEndpoint = 'https://marhinovirus-api.wittywave-d78264d4.swedencentral.azurecontainerapps.io'
 param projectId = 'vax-study-chatbot'
