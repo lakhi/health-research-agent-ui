@@ -7,14 +7,17 @@
 # Pull-based deploy: the OpenShift API and SFTP are firewalled, so the pod fetches the
 # build from GitHub rather than us pushing to it. Mirrors the StatsBot deploy pattern.
 #
-#   BASE_PATH=/hexgig-test bash scripts/publish-static.sh
+# Do NOT set BASE_PATH for production — the app is served from the root of its own
+# vHost (hex-gig.univie.ac.at), not from a subdirectory.
+#
+#   bash scripts/publish-static.sh          # production: served from the vHost root
 set -euo pipefail
 
 REPO="lakhi/health-research-agent-ui"
 TAG="hexgig-static-latest"
 ASSET="hexgig-static.tgz"
 BUILD_OUT="out"
-NAMESPACE="lehrprojeg67"
+NAMESPACE="hexg98"
 PODS_LIST="https://console-openshift-console.web.univie.ac.at/k8s/ns/${NAMESPACE}/pods"
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -59,9 +62,9 @@ NEXT — apply it on the webspace pod (you approve this live write):
        EXPECT=$sha bash /var/www/webspace-deploy-hexgig.sh
 
   4. Open in a PRIVATE window (the app persists its endpoint in localStorage):
-       https://statsbot.univie.ac.at/hexgig-test/
+       https://hex-gig.univie.ac.at/
 
-  5. Teardown when the test is done:
-       rm -rf /var/www/html/hexgig-test
+  5. If something is wrong, roll back to the previous site:
+       bash /var/www/webspace-deploy-hexgig.sh --rollback
 ────────────────────────────────────────────────────────────
 EOF
