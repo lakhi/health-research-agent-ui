@@ -243,7 +243,7 @@ const Sidebar = ({
 
   return (
     <motion.aside
-      className="relative flex h-screen shrink-0 grow-0 flex-col overflow-hidden px-2 py-3 font-dmmono"
+      className="relative flex h-dvh shrink-0 grow-0 flex-col overflow-hidden px-2 py-3 font-dmmono"
       initial={{ width: '16rem' }}
       animate={{ width: isCollapsed ? '2.5rem' : '16rem' }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}

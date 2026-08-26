@@ -85,7 +85,11 @@ const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   return (
     <ReactMarkdown
       className={cn(
-        'prose prose-h1:text-xl dark:prose-invert flex w-full flex-col gap-y-5 rounded-lg',
+        'prose prose-h1:text-xl dark:prose-invert flex w-full min-w-0 flex-col gap-y-5 rounded-lg',
+        // Agent output is unbounded: a single cited URL has a min-content width
+        // wider than a phone, which would widen every ancestor and shift the
+        // whole page. `anywhere` lets it break without affecting min-content.
+        '[overflow-wrap:anywhere]',
         classname
       )}
       components={{ ...resolvedComponents } as Components}

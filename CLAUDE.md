@@ -45,8 +45,19 @@ pnpm build        # production build
 pnpm lint:fix     # ESLint auto-fix
 pnpm format:fix   # Prettier write
 pnpm typecheck    # tsc --noEmit
-pnpm validate     # lint + format check + typecheck (run before marking work done)
+pnpm check:mobile # mobile horizontal-overflow guard (headless Chrome, ~4 min)
+pnpm validate     # lint + format check + typecheck + check:mobile (run before marking work done)
 ```
+
+`check:mobile` loads all three builds at 320/360/390px and fails if anything overflows
+horizontally. Mobile layout here is fragile in a specific way: every wrapper in the chat
+column is a flex item, and flex items default to `min-width: auto`, so a single
+unbreakable token (a cited URL, a `whitespace-nowrap` heading, a long code line) widens
+every ancestor past the viewport — which clips text and makes mobile Chrome zoom the page
+out. Since agent responses are unbounded, this needs a guard rather than a one-off fix.
+It renders the real components via `/dev-mobile-check` (a `page.dev.tsx` fixture that
+`pageExtensions` keeps out of production builds). Run it alone with
+`node scripts/check-mobile-width.mjs <project>`.
 
 ## Deployment
 
@@ -56,7 +67,8 @@ pnpm validate     # lint + format check + typecheck (run before marking work don
 
 ## Testing
 
-No test framework is configured. `pnpm validate` is the primary correctness check.
+No unit-test framework is configured. `pnpm validate` is the primary correctness check;
+it includes the `check:mobile` browser guard described above.
 
 ## Git Workflow
 

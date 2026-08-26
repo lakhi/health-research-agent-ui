@@ -28,7 +28,7 @@ const AgentMessage = ({ message }: MessageProps) => {
     )
   } else if (message.content) {
     messageContent = (
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex min-w-0 flex-1 flex-col gap-4">
         <MarkdownRenderer citations={message.citations}>
           {message.content}
         </MarkdownRenderer>
@@ -52,7 +52,7 @@ const AgentMessage = ({ message }: MessageProps) => {
       )
     } else {
       messageContent = (
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-4">
           <MarkdownRenderer citations={message.citations}>
             {message.response_audio.transcript}
           </MarkdownRenderer>
@@ -71,7 +71,7 @@ const AgentMessage = ({ message }: MessageProps) => {
   }
 
   return (
-    <div className="flex flex-row items-start gap-4 font-primary">
+    <div className="flex w-full min-w-0 flex-row items-start gap-4 font-primary">
       <div className="flex-shrink-0">
         <Icon type="agent" size="sm" />
       </div>
@@ -82,11 +82,11 @@ const AgentMessage = ({ message }: MessageProps) => {
 
 const UserMessage = memo(({ message }: MessageProps) => {
   return (
-    <div className="flex items-start gap-4 pt-4 text-start max-md:break-words">
+    <div className="flex w-full min-w-0 items-start gap-4 pt-4 text-start">
       <div className="flex-shrink-0">
         <Icon type="user" size="sm" />
       </div>
-      <div className="text-md rounded-lg font-primary text-secondary">
+      <div className="text-md min-w-0 flex-1 break-words rounded-lg font-primary text-secondary">
         {message.content}
       </div>
     </div>

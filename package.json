@@ -11,7 +11,8 @@
     "format": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "format:fix": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "typecheck": "tsc --noEmit",
-    "validate": "pnpm run lint && pnpm run format && pnpm run typecheck"
+    "check:mobile": "node scripts/check-mobile-width.mjs",
+    "validate": "pnpm run lint && pnpm run format && pnpm run typecheck && pnpm run check:mobile"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

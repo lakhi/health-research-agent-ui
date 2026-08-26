@@ -12,11 +12,19 @@ import type { NextConfig } from 'next'
  *
  * Image optimisation is disabled only in export mode — it needs the Next.js server, and
  * turning it off globally would silently degrade the container-hosted builds.
+ *
+ * `page.dev.tsx` files are routable in development only. That keeps the mobile-width
+ * fixture (`/dev-mobile-check`, used by scripts/check-mobile-width.mjs) out of every
+ * production artefact — both the container image and the static export — instead of
+ * shipping a blank public route.
  */
 const isExport = process.env.NEXT_OUTPUT === 'export'
 
+const isDev = process.env.NODE_ENV !== 'production'
+
 const nextConfig: NextConfig = {
   devIndicators: false,
+  pageExtensions: isDev ? ['dev.tsx', 'tsx', 'ts'] : ['tsx', 'ts'],
   output: isExport ? 'export' : 'standalone',
   ...(isExport ? { images: { unoptimized: true } } : {}),
   ...(process.env.NEXT_BASE_PATH

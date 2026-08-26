@@ -8,9 +8,9 @@ const ChatArea = () => {
   const { disclaimer } = getProjectConfig()
 
   return (
-    <main className="relative m-1.5 flex flex-grow flex-col rounded-xl bg-background">
+    <main className="relative m-1.5 flex min-w-0 flex-grow flex-col rounded-xl bg-background">
       <MessageArea />
-      <div className="sticky bottom-0 px-4 pb-2">
+      <div className="sticky bottom-0 min-w-0 px-4 pb-2">
         <ChatInput />
         {disclaimer && (
           <p className="mx-auto mt-1 w-full max-w-2xl text-center font-primary text-xs text-muted">

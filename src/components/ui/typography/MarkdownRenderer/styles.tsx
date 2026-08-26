@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -121,6 +121,18 @@ const HorizontalRule = ({ className, ...props }: HorizontalRuleProps) => (
   />
 )
 
+const PreBlock = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLPreElement>) => (
+  // A scroll container has a min-content width of zero, so a long code line
+  // scrolls inside the block instead of widening every ancestor.
+  <pre
+    className={cn(className, 'min-w-0 max-w-full overflow-x-auto')}
+    {...filterProps(props)}
+  />
+)
+
 const InlineCode: FC<PreparedTextProps> = ({ children }) => {
   return (
     <code className="relative whitespace-pre-wrap rounded-sm bg-background-secondary/50 p-1">
@@ -209,7 +221,7 @@ const Img = ({ src, alt }: ImgProps) => {
 }
 
 const Table = ({ className, ...props }: TableProps) => (
-  <div className="w-full max-w-[560px] overflow-hidden rounded-md border border-border">
+  <div className="w-full min-w-0 max-w-full overflow-hidden rounded-md border border-border">
     <div className="w-full overflow-x-auto">
       <table className={cn(className, 'w-full')} {...filterProps(props)} />
     </div>
@@ -269,6 +281,7 @@ export const components = {
   hr: HorizontalRule,
   blockquote: Blockquote,
   code: InlineCode,
+  pre: PreBlock,
   a: AnchorLink,
   img: Img,
   p: Paragraph,

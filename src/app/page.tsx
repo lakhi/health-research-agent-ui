@@ -30,7 +30,7 @@ export default function Home() {
       </AnimatePresence>
       <Suspense fallback={null}>
         <AgentParamNormalizer />
-        <div className="flex h-screen bg-background/80">
+        <div className="flex h-dvh min-w-0 overflow-x-clip bg-background/80">
           {sidebarEnabled && (
             <Sidebar hasEnvToken={hasEnvToken} envToken={envToken} />
           )}
