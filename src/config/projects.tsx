@@ -92,8 +92,8 @@ const projects: Record<ProjectId, ProjectConfig> = {
           className="underline hover:opacity-80"
         >
           publications in health
-        </a>
-        , and knows about the network&apos;s current{' '}
+        </a>{' '}
+        (updated: 23-Sep-2026), and knows about the network&apos;s current{' '}
         <a
           href="https://gig.univie.ac.at/en/about-us/news"
           target="_blank"
@@ -109,7 +109,29 @@ const projects: Record<ProjectId, ProjectConfig> = {
       <>
         <strong>Your privacy comes first.</strong> We don&apos;t store your
         conversations and never ask who you are — so there&apos;s no need to
-        share personal, sensitive, or confidential information.
+        share personal, sensitive, or confidential information. Website privacy
+        notice:{' '}
+        <a
+          href="https://gig.univie.ac.at/hex-bot/datenschutzerklaerung"
+          target="_blank"
+          rel="noopener noreferrer"
+          hrefLang="de"
+          aria-label="Website privacy notice in German"
+          className="underline hover:opacity-80"
+        >
+          DE
+        </a>{' '}
+        /{' '}
+        <a
+          href="https://gig.univie.ac.at/en/hex-bot/data-protection-declaration"
+          target="_blank"
+          rel="noopener noreferrer"
+          hrefLang="en"
+          aria-label="Website privacy notice in English"
+          className="underline hover:opacity-80"
+        >
+          EN
+        </a>
       </>
     ),
     inputPlaceholder: 'What would you like to explore?',
