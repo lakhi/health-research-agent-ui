@@ -102,8 +102,11 @@ fi
 
 # 6. Swap: clear the docroot's CONTENTS (never the directory — it lives on the PVC mount
 #    at /var/www) and move the validated build in. Stale hashed chunks must not linger.
+#    Not `cp -a`: the PVC refuses chown with EACCES, which cp reports as an error, so
+#    under `set -e` the script stopped here after copying. Ownership isn't needed —
+#    the copies belong to the pod user, which is correct.
 find "$DOCROOT" -mindepth 1 -delete
-cp -a "$STAGE"/. "$DOCROOT"/
+cp -R --preserve=mode,timestamps "$STAGE"/. "$DOCROOT"/
 chmod -R ug+rwX "$DOCROOT"
 log "published $(find "$DOCROOT" -type f | wc -l) files to $DOCROOT"
 
