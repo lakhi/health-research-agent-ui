@@ -29,7 +29,7 @@ export function SplashScreen() {
           className={splash.logoClassName ?? 'size-16 rounded-full'}
         />
         <span
-          className="text-5xl font-semibold tracking-tight"
+          className="text-4xl font-semibold tracking-tight min-[360px]:text-5xl"
           style={{
             color: splash.fg,
             fontFamily: 'var(--font-display, var(--font-primary))'
