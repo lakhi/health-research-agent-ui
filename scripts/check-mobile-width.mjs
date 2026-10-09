@@ -238,7 +238,12 @@ const run = async () => {
             NEXT_PUBLIC_PROJECT_ID: project,
             NEXT_PUBLIC_SIDEBAR_VIEW_ACCESS: 'false'
           },
-          stdio: 'ignore'
+          stdio: 'ignore',
+          // Own process group, so cleanup can signal the whole chain. With
+          // `packageManager` pinned, pnpm relaunches the pinned version as a
+          // child and doesn't forward SIGTERM — killing only the top pid left
+          // `next dev` running, which held the port and kept this script alive.
+          detached: true
         }
       )
 
@@ -274,7 +279,11 @@ const run = async () => {
           }
         }
       } finally {
-        server.kill('SIGTERM')
+        try {
+          process.kill(-server.pid, 'SIGTERM')
+        } catch {
+          /* group already gone */
+        }
       }
     }
   } finally {
