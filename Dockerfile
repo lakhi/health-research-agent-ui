@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:22-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -6,8 +6,8 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install pnpm globally
-RUN npm install -g pnpm
+# pnpm version comes from "packageManager" in package.json
+RUN corepack enable pnpm
 
 # Install dependencies using pnpm with frozen lockfile
 COPY pnpm-lock.yaml package.json ./
@@ -17,8 +17,8 @@ RUN pnpm install --frozen-lockfile
 FROM base AS builder
 WORKDIR /app
 
-# Install pnpm globally
-RUN npm install -g pnpm
+# pnpm version comes from "packageManager" in package.json
+RUN corepack enable pnpm
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

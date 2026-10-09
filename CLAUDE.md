@@ -61,7 +61,7 @@ It renders the real components via `/dev-mobile-check` (a `page.dev.tsx` fixture
 
 ## Deployment
 
-- Build output is `standalone` (Docker multi-stage, `node:18-alpine`)
+- Build output is `standalone` (Docker multi-stage, `node:22-alpine`; pnpm via corepack from `packageManager`)
 - Each project has its own GitHub Actions workflow deploying to Azure Container Registry + Container Apps
 - `NEXT_PUBLIC_PROJECT_ID` is passed as a Docker `--build-arg` — set per workflow
 
