@@ -2,6 +2,7 @@
 
 import MarkdownRenderer from '@/components/ui/typography/MarkdownRenderer'
 import ChatBlankState from '@/components/chat/ChatArea/Messages/ChatBlankState'
+import { LanguageToggle } from '@/components/LanguageToggle'
 
 /**
  * Development-only fixture for `scripts/check-mobile-width.mjs` (refs #7).
@@ -48,6 +49,7 @@ A wide table:
 export default function MobileCheckFixture() {
   return (
     <main className="relative m-1.5 flex min-w-0 flex-grow flex-col rounded-xl bg-background">
+      <LanguageToggle />
       <div className="relative mb-4 flex min-h-0 w-full min-w-0 flex-grow flex-col overflow-y-auto">
         <div className="mx-auto w-full min-w-0 max-w-2xl space-y-9 px-4 pb-4">
           <ChatBlankState />

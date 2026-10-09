@@ -46,10 +46,21 @@ export interface ProjectSplash {
   logoClassName?: string
 }
 
-export interface ProjectConfig {
+export type Locale = 'en' | 'de'
+
+/** Welcome-screen copy — the only text that differs between languages (refs #16) */
+export interface WelcomeCopy {
+  description: string | React.ReactNode
+  /** Small-print line(s) under the description, above the privacy notice */
+  note?: React.ReactNode
+  /** Short privacy reassurance shown as its own line under the description (blank state) */
+  privacyNotice?: string | React.ReactNode
+}
+
+/** The project's own fields are the default (EN) face of the welcome screen */
+export interface ProjectConfig extends WelcomeCopy {
   id: ProjectId
   name: string
-  description: string | React.ReactNode
   apiEndpoint: string
   theme: ProjectTheme
   metadata: {
@@ -60,8 +71,11 @@ export interface ProjectConfig {
   splash?: ProjectSplash
   /** Persistent notice rendered under the chat input (e.g. accuracy caveat) */
   disclaimer?: string
-  /** Short privacy reassurance shown as its own line under the description (blank state) */
-  privacyNotice?: string | React.ReactNode
+  /**
+   * German welcome-screen copy. When set, the blank state shows an EN/DE toggle and
+   * renders this copy for `?lang=de`; everything else in the UI stays English.
+   */
+  de?: WelcomeCopy
   /** Placeholder text for the chat input (defaults to 'Ask anything') */
   inputPlaceholder?: string
   /** Size classes for the landing-page title icon (defaults to 'size-8') */
@@ -76,64 +90,100 @@ export interface ProjectConfig {
   defaultAgentId?: string
 }
 
+const ExternalLink = ({
+  href,
+  children
+}: {
+  href: string
+  children: React.ReactNode
+}) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline hover:opacity-80"
+  >
+    {children}
+  </a>
+)
+
+// Shown on both welcome-screen languages — bump them together
+const HEX_GIG_LAST_UPDATE = { en: '8th October 2026', de: '8. Oktober 2026' }
+
+const HEX_GIG_WIKI = 'https://wiki.univie.ac.at/x/WB02Nw'
+
 const projects: Record<ProjectId, ProjectConfig> = {
   'hex-gig': {
     id: 'hex-gig',
     name: "HeX-GiG (GiG's Health Explorer)",
     description: (
       <>
-        HeX-GiG is an AI-powered knowledge assistant which captures the
-        expertise of the Health in Society Research Network members through
-        their{' '}
-        <a
-          href="https://ucloud.univie.ac.at/index.php/s/Aey6ydCDrBfigyX"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:opacity-80"
-        >
-          publications in health
-        </a>{' '}
-        (updated: 23-Sep-2026), and knows about the network&apos;s current{' '}
-        <a
-          href="https://gig.univie.ac.at/en/about-us/news"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:opacity-80"
-        >
-          activities
-        </a>
-        !
+        HeX-GiG is the AI-powered chatbot of the{' '}
+        <ExternalLink href="https://gig.univie.ac.at/en">
+          Health in Society Research Network (GiG)
+        </ExternalLink>{' '}
+        at the University of Vienna.
+        <br />
+        Here you can find out more about the health research carried out by our
+        members and about the GiG’s activities.
+      </>
+    ),
+    note: (
+      <>
+        In case you are a network member and would like to update your
+        representative health research, you can do it through this{' '}
+        <ExternalLink href={HEX_GIG_WIKI}>wiki link</ExternalLink>.
+        <br />
+        Last update: {HEX_GIG_LAST_UPDATE.en}
       </>
     ),
     privacyNotice: (
       <>
-        <strong>Your privacy comes first.</strong> We don&apos;t store your
-        conversations and never ask who you are — so there&apos;s no need to
-        share personal, sensitive, or confidential information. Website privacy
-        notice:{' '}
-        <a
-          href="https://gig.univie.ac.at/hex-bot/datenschutzerklaerung"
-          target="_blank"
-          rel="noopener noreferrer"
-          hrefLang="de"
-          aria-label="Website privacy notice in German"
-          className="underline hover:opacity-80"
-        >
-          DE
-        </a>{' '}
-        /{' '}
-        <a
-          href="https://gig.univie.ac.at/en/hex-bot/data-protection-declaration"
-          target="_blank"
-          rel="noopener noreferrer"
-          hrefLang="en"
-          aria-label="Website privacy notice in English"
-          className="underline hover:opacity-80"
-        >
-          EN
-        </a>
+        <strong>Your privacy is our top priority.</strong> We do not store your
+        chats and will never ask you for your identity. Please do not enter any
+        personal, sensitive or confidential information.
+        <br />
+        <ExternalLink href="https://gig.univie.ac.at/en/hex-gig/data-protection-declaration">
+          Data Protection Declaration
+        </ExternalLink>
       </>
     ),
+    de: {
+      description: (
+        <>
+          HeX-GiG ist der KI-gestützte Chatbot des{' '}
+          <ExternalLink href="https://gig.univie.ac.at/">
+            Forschungsverbundes Gesundheit in Gesellschaft (GiG)
+          </ExternalLink>{' '}
+          der Universität Wien.
+          <br />
+          Hier erfahren Sie mehr über die Gesundheitsforschung unserer
+          Mitglieder und über die Aktivitäten des GiG.
+        </>
+      ),
+      note: (
+        <>
+          Falls Sie Mitglied des Forschungsverbundes sind und Ihre
+          repräsentative Gesundheitsforschung aktualisieren möchten, können Sie
+          dies über diesen{' '}
+          <ExternalLink href={HEX_GIG_WIKI}>Wiki-Link</ExternalLink> tun.
+          <br />
+          Letzte Aktualisierung: {HEX_GIG_LAST_UPDATE.de}
+        </>
+      ),
+      privacyNotice: (
+        <>
+          <strong>Ihre Privatsphäre steht an erster Stelle.</strong> Wir
+          speichern Ihre Chats nicht und fragen Sie niemals nach Ihrer
+          Identität. Bitte geben Sie keine persönlichen, sensiblen oder
+          vertraulichen Informationen ein.
+          <br />
+          <ExternalLink href="https://gig.univie.ac.at/hex-gig/datenschutzerklaerung">
+            Datenschutzerklärung
+          </ExternalLink>
+        </>
+      )
+    },
     inputPlaceholder: 'What would you like to explore?',
     defaultAgentId: 'hex',
     apiEndpoint:
@@ -224,6 +274,11 @@ const projects: Record<ProjectId, ProjectConfig> = {
         share personal, sensitive, or confidential information.
       </>
     ),
+    // TODO(#16): placeholder — replace with the real German copy
+    de: {
+      description: '[DE] Beschreibung folgt.',
+      privacyNotice: '[DE] Datenschutzhinweis folgt.'
+    },
     inputPlaceholder: 'Ask about your psychology studies…',
     landingIconClassName: 'size-12',
     theme: {

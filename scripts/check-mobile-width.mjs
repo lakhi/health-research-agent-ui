@@ -41,6 +41,8 @@ const WIDTHS = [320, 360, 390]
  */
 const PAGES = [
   ['blank state', '/'],
+  // German welcome copy (refs #16); projects without it ignore the param
+  ['blank state (DE)', '/?lang=de'],
   ['agent answer', '/dev-mobile-check']
 ]
 
