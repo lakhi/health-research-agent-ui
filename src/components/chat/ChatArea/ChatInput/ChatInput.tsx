@@ -7,12 +7,13 @@ import { useStore } from '@/store'
 import useAIChatStreamHandler from '@/hooks/useAIStreamHandler'
 import { useQueryState } from 'nuqs'
 import Icon from '@/components/ui/icon'
-import { getProjectConfig } from '@/config/projects'
 import { useAgentId } from '@/hooks/useAgentId'
+import { localized, useLocale } from '@/hooks/useLocale'
 
 const ChatInput = () => {
   const { chatInputRef } = useStore()
-  const { inputPlaceholder } = getProjectConfig()
+  const [locale] = useLocale()
+  const placeholder = localized('inputPlaceholder', locale)
 
   const { handleStreamResponse } = useAIChatStreamHandler()
   const [selectedAgent] = useAgentId()
@@ -40,7 +41,9 @@ const ChatInput = () => {
   return (
     <div className="relative mx-auto mb-1 flex w-full min-w-0 max-w-2xl items-end justify-center gap-x-2 font-primary">
       <TextArea
-        placeholder={inputPlaceholder ?? 'Ask anything'}
+        placeholder={placeholder.text ?? 'Ask anything'}
+        // Whoever reads the German placeholder will likely type German too (spellcheck)
+        lang={placeholder.lang}
         value={inputMessage}
         onChange={(e) => setInputMessage(e.target.value)}
         onKeyDown={(e) => {

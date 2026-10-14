@@ -3,8 +3,14 @@
 import Link from 'next/link'
 
 import Icon from '@/components/ui/icon'
+import { type Locale } from '@/config/projects'
 import { useLocale } from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
+
+const COPY: Record<Locale, { label: string; newTab: string }> = {
+  en: { label: 'New chat', newTab: ' (opens in a new tab)' },
+  de: { label: 'Neuer Chat', newTab: ' (öffnet in einem neuen Tab)' }
+}
 
 /**
  * Opens a fresh copy of the app in a new tab (refs #17). Chats aren't persisted, so
@@ -18,6 +24,7 @@ import { cn } from '@/lib/utils'
  */
 export function NewChatLink({ className }: { className?: string }) {
   const [locale] = useLocale()
+  const copy = COPY[locale]
 
   return (
     <Link
@@ -27,6 +34,7 @@ export function NewChatLink({ className }: { className?: string }) {
       rel="noopener noreferrer"
       // Always opens a new tab, so warming this tab's router cache would be wasted
       prefetch={false}
+      lang={locale}
       className={cn('flex items-center gap-1.5', className)}
     >
       <span aria-hidden="true" className="flex">
@@ -37,7 +45,7 @@ export function NewChatLink({ className }: { className?: string }) {
           className="size-3.5"
         />
       </span>
-      New chat
+      {copy.label}
       <span aria-hidden="true" className="flex">
         <Icon
           type="arrow-up-right"
@@ -46,7 +54,7 @@ export function NewChatLink({ className }: { className?: string }) {
           className="size-3"
         />
       </span>
-      <span className="sr-only"> (opens in a new tab)</span>
+      <span className="sr-only">{copy.newTab}</span>
     </Link>
   )
 }

@@ -22,7 +22,8 @@ const CONTROL =
  * unmounted, so the row keeps its height when the first message swaps them — even for a
  * project with only one of the two — and the conversation never jumps. The row sits
  * above the column rather than floating over it, so a tall welcome text on a short
- * phone screen can never slide under it.
+ * phone screen can never slide under it. It mirrors the input row's gutters and width,
+ * so its right edge lines up with the send button's.
  */
 const ChatHeader = () => {
   const isBlankState = useStore((s) => s.messages.length === 0)
@@ -30,13 +31,17 @@ const ChatHeader = () => {
   if (!hasGerman && !showNewChat) return null
 
   return (
-    <div className="grid justify-items-end px-3 pt-3">
-      {hasGerman && (
-        <LanguageToggle className={cn(CONTROL, !isBlankState && 'invisible')} />
-      )}
-      {showNewChat && (
-        <NewChatLink className={cn(CONTROL, isBlankState && 'invisible')} />
-      )}
+    <div className="px-4 pt-3">
+      <div className="mx-auto grid w-full max-w-2xl justify-items-end">
+        {hasGerman && (
+          <LanguageToggle
+            className={cn(CONTROL, !isBlankState && 'invisible')}
+          />
+        )}
+        {showNewChat && (
+          <NewChatLink className={cn(CONTROL, isBlankState && 'invisible')} />
+        )}
+      </div>
     </div>
   )
 }

@@ -12,6 +12,8 @@
 
 import React from 'react'
 
+import { cn } from '@/lib/utils'
+
 export type ProjectId = 'hex-gig' | 'vax-study-chatbot' | 'ssc-psych-chatbot'
 
 export interface ProjectTheme {
@@ -48,17 +50,19 @@ export interface ProjectSplash {
 
 export type Locale = 'en' | 'de'
 
-/** Welcome-screen copy — the only text that differs between languages (refs #16) */
-export interface WelcomeCopy {
+/** Project copy that differs between languages: the welcome screen and the input (refs #16) */
+export interface LocalizedCopy {
   description: string | React.ReactNode
   /** Small-print line(s) under the description, above the privacy notice */
   note?: React.ReactNode
   /** Short privacy reassurance shown as its own line under the description (blank state) */
   privacyNotice?: string | React.ReactNode
+  /** Placeholder text for the chat input (defaults to 'Ask anything') */
+  inputPlaceholder?: string
 }
 
-/** The project's own fields are the default (EN) face of the welcome screen */
-export interface ProjectConfig extends WelcomeCopy {
+/** The project's own fields are its default (EN) copy */
+export interface ProjectConfig extends LocalizedCopy {
   id: ProjectId
   name: string
   apiEndpoint: string
@@ -72,12 +76,10 @@ export interface ProjectConfig extends WelcomeCopy {
   /** Persistent notice rendered under the chat input (e.g. accuracy caveat) */
   disclaimer?: string
   /**
-   * German welcome-screen copy. When set, the blank state shows an EN/DE toggle and
-   * renders this copy for `?lang=de`; everything else in the UI stays English.
+   * German copy. When set, the blank state shows an EN/DE toggle and `?lang=de` renders
+   * this copy (a field left out falls back to English). Agent answers aren't affected.
    */
-  de?: WelcomeCopy
-  /** Placeholder text for the chat input (defaults to 'Ask anything') */
-  inputPlaceholder?: string
+  de?: LocalizedCopy
   /** Size classes for the landing-page title icon (defaults to 'size-8') */
   landingIconClassName?: string
   /**
@@ -98,20 +100,26 @@ export interface ProjectConfig extends WelcomeCopy {
 
 const ExternalLink = ({
   href,
+  className,
   children
 }: {
   href: string
+  className?: string
   children: React.ReactNode
 }) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="underline hover:opacity-80"
+    className={cn('underline hover:opacity-80', className)}
   >
     {children}
   </a>
 )
+
+// Keeps a name on one line from tablet width up. Phones are narrower than the
+// name, and an unbreakable run would widen the whole page there (see check:mobile).
+const NAME_NOWRAP = 'sm:whitespace-nowrap'
 
 // Shown on both welcome-screen languages — bump them together
 const HEX_GIG_LAST_UPDATE = { en: '8th October 2026', de: '8. Oktober 2026' }
@@ -125,13 +133,14 @@ const projects: Record<ProjectId, ProjectConfig> = {
     description: (
       <>
         HeX-GiG is the AI-powered chatbot of the{' '}
-        <ExternalLink href="https://gig.univie.ac.at/en">
+        <ExternalLink
+          href="https://gig.univie.ac.at/en"
+          className={NAME_NOWRAP}
+        >
           Health in Society Research Network (GiG)
         </ExternalLink>{' '}
-        at the University of Vienna.
-        <br />
-        Here you can find out more about the health research carried out by our
-        members and about the GiG’s activities.
+        at the University of Vienna. Here you can find out more about the health
+        research carried out by our members and about the GiG’s activities.
       </>
     ),
     note: (
@@ -158,13 +167,15 @@ const projects: Record<ProjectId, ProjectConfig> = {
       description: (
         <>
           HeX-GiG ist der KI-gestützte Chatbot des{' '}
-          <ExternalLink href="https://gig.univie.ac.at/">
+          <ExternalLink
+            href="https://gig.univie.ac.at/"
+            className={NAME_NOWRAP}
+          >
             Forschungsverbundes Gesundheit in Gesellschaft (GiG)
           </ExternalLink>{' '}
-          der Universität Wien.
-          <br />
-          Hier erfahren Sie mehr über die Gesundheitsforschung unserer
-          Mitglieder und über die Aktivitäten des GiG.
+          der Universität Wien. Hier erfahren Sie mehr über die
+          Gesundheitsforschung unserer Mitglieder und über die Aktivitäten des
+          GiG.
         </>
       ),
       note: (
@@ -188,9 +199,12 @@ const projects: Record<ProjectId, ProjectConfig> = {
             Datenschutzerklärung
           </ExternalLink>
         </>
-      )
+      ),
+      inputPlaceholder:
+        'Was möchten Sie über die Forschung des Forschungsverbundes wissen?'
     },
-    inputPlaceholder: 'What would you like to explore?',
+    inputPlaceholder:
+      'What would you like to know about the network’s research?',
     defaultAgentId: 'hex',
     showNewChat: true,
     apiEndpoint:

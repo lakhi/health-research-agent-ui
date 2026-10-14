@@ -12,7 +12,7 @@ const MIN_HEIGHT = 40
 const MAX_HEIGHT = 96
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, value, onChange, ...props }, forwardedRef) => {
+  ({ className, value, onChange, placeholder, ...props }, forwardedRef) => {
     const [showScroll, setShowScroll] = React.useState(false)
     const textareaRef = React.useRef<HTMLTextAreaElement | null>(null)
 
@@ -21,7 +21,14 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       if (!textarea) return
 
       textarea.style.height = `${MIN_HEIGHT}px`
+      // While empty, fit the placeholder so a long one isn't cut off on phones. Chrome
+      // counts it in scrollHeight, but nothing guarantees that elsewhere (Safari), so
+      // measure it as the value for a moment instead — no input event fires, and the
+      // empty value is back before paint.
+      const fitPlaceholder = !textarea.value && !!textarea.placeholder
+      if (fitPlaceholder) textarea.value = textarea.placeholder
       const { scrollHeight } = textarea
+      if (fitPlaceholder) textarea.value = ''
       const newHeight = Math.min(Math.max(scrollHeight, MIN_HEIGHT), MAX_HEIGHT)
       textarea.style.height = `${newHeight}px`
       setShowScroll(scrollHeight > MAX_HEIGHT)
@@ -66,7 +73,24 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       if (textareaRef.current) {
         adjustHeight()
       }
-    }, [value, adjustHeight])
+    }, [value, placeholder, adjustHeight])
+
+    // The same text needs more lines in a narrower box (phone rotation, window resize),
+    // and a late web font can rewrap it too
+    React.useEffect(() => {
+      const textarea = textareaRef.current
+      if (!textarea) return
+      let width = textarea.offsetWidth
+      const observer = new ResizeObserver(() => {
+        // Only width changes matter; the height is ours, and reacting to it would loop
+        if (textarea.offsetWidth === width) return
+        width = textarea.offsetWidth
+        adjustHeight()
+      })
+      observer.observe(textarea)
+      document.fonts?.ready.then(adjustHeight)
+      return () => observer.disconnect()
+    }, [adjustHeight])
 
     return (
       <textarea
@@ -88,6 +112,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         }}
         ref={handleRef}
         value={value}
+        placeholder={placeholder}
         onChange={handleChange}
         {...props}
       />

@@ -2,29 +2,13 @@
 
 import { motion } from 'framer-motion'
 import React from 'react'
-import {
-  getProjectConfig,
-  type Locale,
-  type WelcomeCopy
-} from '@/config/projects'
+import { getProjectConfig } from '@/config/projects'
 import Icon from '@/components/ui/icon/Icon'
 import { type IconType } from '@/components/ui/icon/types'
-import { useLocale } from '@/hooks/useLocale'
+import { localized, useLocale } from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 
 const projectConfig = getProjectConfig()
-
-/**
- * One welcome-screen field in the active language. A field missing from the German
- * copy falls back to English instead of vanishing (a dropped privacy notice would
- * otherwise go unnoticed), and carries its own `lang` so screen readers stay right.
- */
-const localized = (key: keyof WelcomeCopy, locale: Locale) => {
-  const german = locale === 'de' ? projectConfig.de?.[key] : undefined
-  return german
-    ? { text: german, lang: 'de' }
-    : { text: projectConfig[key], lang: 'en' }
-}
 
 const ChatBlankState = () => {
   const [locale] = useLocale()
@@ -64,7 +48,7 @@ const ChatBlankState = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-muted-foreground max-w-2xl text-center text-lg"
+          className="text-muted-foreground text-center text-lg"
           lang={description.lang}
         >
           {description.text}
@@ -74,7 +58,9 @@ const ChatBlankState = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
-            className="flex max-w-2xl flex-col gap-y-4 text-center text-sm text-muted"
+            // The small print keeps the chat column's 640px while the description
+            // above uses the welcome block's full 768px
+            className="mx-auto flex w-full max-w-[40rem] flex-col gap-y-4 text-center text-sm text-muted"
           >
             {note.text && <p lang={note.lang}>{note.text}</p>}
             {privacy.text && <p lang={privacy.lang}>{privacy.text}</p>}

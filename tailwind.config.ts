@@ -6,7 +6,9 @@ export default {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}'
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    // Project copy carries classes too (e.g. the welcome text's link styles)
+    './src/config/**/*.{ts,tsx}'
   ],
   theme: {
     extend: {
