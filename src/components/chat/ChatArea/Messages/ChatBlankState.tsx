@@ -48,7 +48,7 @@ const ChatBlankState = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-muted-foreground text-center text-lg"
+          className="text-muted-foreground text-pretty text-left text-lg"
           lang={description.lang}
         >
           {description.text}
@@ -58,9 +58,7 @@ const ChatBlankState = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
-            // The small print keeps the chat column's 640px while the description
-            // above uses the welcome block's full 768px
-            className="mx-auto flex w-full max-w-[40rem] flex-col gap-y-4 text-center text-sm text-muted"
+            className="flex flex-col gap-y-4 text-pretty text-left text-sm text-muted"
           >
             {note.text && <p lang={note.lang}>{note.text}</p>}
             {privacy.text && <p lang={privacy.lang}>{privacy.text}</p>}

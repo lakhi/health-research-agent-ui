@@ -19,9 +19,10 @@ const MessageArea = () => {
         <div
           className={cn(
             'mx-auto w-full min-w-0 space-y-9 px-4 pb-4',
-            // The welcome text reads better wider than a chat turn: 768px of text
-            // (50rem = 48rem + the px-4 gutters) until the first message
-            messages.length === 0 ? 'max-w-[50rem]' : 'max-w-2xl'
+            // Until the first message, the welcome text spans the input box exactly
+            // (44rem = its 42rem + these px-4 gutters), so the left-aligned text
+            // shares its left edge and the header's right edge
+            messages.length === 0 ? 'max-w-[44rem]' : 'max-w-2xl'
           )}
         >
           <Messages messages={messages} />

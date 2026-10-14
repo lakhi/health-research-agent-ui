@@ -117,12 +117,17 @@ const ExternalLink = ({
   </a>
 )
 
-// Keeps a name on one line from tablet width up. Phones are narrower than the
-// name, and an unbreakable run would widen the whole page there (see check:mobile).
-const NAME_NOWRAP = 'sm:whitespace-nowrap'
+// The welcome text flows freely (no <br />), so short phrases that read badly split
+// across lines are kept whole instead: dates via non-breaking spaces, links via this.
+// Only for short runs — an unbreakable one wider than a phone widens the whole page.
+const NO_SPLIT = 'whitespace-nowrap'
 
-// Shown on both welcome-screen languages — bump them together
-const HEX_GIG_LAST_UPDATE = { en: '8th October 2026', de: '8. Oktober 2026' }
+// Shown on both welcome-screen languages — bump them together. Non-breaking spaces
+// (\u00a0) keep each date on one line.
+const HEX_GIG_LAST_UPDATE = {
+  en: '8th\u00a0October\u00a02026',
+  de: '8.\u00a0Oktober\u00a02026'
+}
 
 const HEX_GIG_WIKI = 'https://wiki.univie.ac.at/x/WB02Nw'
 
@@ -133,10 +138,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
     description: (
       <>
         HeX-GiG is the AI-powered chatbot of the{' '}
-        <ExternalLink
-          href="https://gig.univie.ac.at/en"
-          className={NAME_NOWRAP}
-        >
+        <ExternalLink href="https://gig.univie.ac.at/en">
           Health in Society Research Network (GiG)
         </ExternalLink>{' '}
         at the University of Vienna. Here you can find out more about the health
@@ -147,18 +149,21 @@ const projects: Record<ProjectId, ProjectConfig> = {
       <>
         In case you are a network member and would like to update your
         representative health research, you can do it through this{' '}
-        <ExternalLink href={HEX_GIG_WIKI}>wiki link</ExternalLink>.
-        <br />
-        Last update: {HEX_GIG_LAST_UPDATE.en}
+        <ExternalLink href={HEX_GIG_WIKI} className={NO_SPLIT}>
+          wiki link
+        </ExternalLink>
+        . Last update: {HEX_GIG_LAST_UPDATE.en}
       </>
     ),
     privacyNotice: (
       <>
-        <strong>Your privacy is our top priority.</strong> We do not store your
-        chats and will never ask you for your identity. Please do not enter any
-        personal, sensitive or confidential information.
-        <br />
-        <ExternalLink href="https://gig.univie.ac.at/en/hex-gig/data-protection-declaration">
+        Your privacy is our top priority. We do not store your chats and will
+        never ask you for your identity. Please do not enter any personal,
+        sensitive or confidential information.{' '}
+        <ExternalLink
+          href="https://gig.univie.ac.at/en/hex-gig/data-protection-declaration"
+          className={NO_SPLIT}
+        >
           Data Protection Declaration
         </ExternalLink>
       </>
@@ -167,10 +172,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
       description: (
         <>
           HeX-GiG ist der KI-gestützte Chatbot des{' '}
-          <ExternalLink
-            href="https://gig.univie.ac.at/"
-            className={NAME_NOWRAP}
-          >
+          <ExternalLink href="https://gig.univie.ac.at/">
             Forschungsverbundes Gesundheit in Gesellschaft (GiG)
           </ExternalLink>{' '}
           der Universität Wien. Hier erfahren Sie mehr über die
@@ -183,28 +185,25 @@ const projects: Record<ProjectId, ProjectConfig> = {
           Falls Sie Mitglied des Forschungsverbundes sind und Ihre
           repräsentative Gesundheitsforschung aktualisieren möchten, können Sie
           dies über diesen{' '}
-          <ExternalLink href={HEX_GIG_WIKI}>Wiki-Link</ExternalLink> tun.
-          <br />
-          Letzte Aktualisierung: {HEX_GIG_LAST_UPDATE.de}
+          <ExternalLink href={HEX_GIG_WIKI} className={NO_SPLIT}>
+            Wiki-Link
+          </ExternalLink>{' '}
+          tun. Letzte Aktualisierung: {HEX_GIG_LAST_UPDATE.de}
         </>
       ),
       privacyNotice: (
         <>
-          <strong>Ihre Privatsphäre steht an erster Stelle.</strong> Wir
-          speichern Ihre Chats nicht und fragen Sie niemals nach Ihrer
-          Identität. Bitte geben Sie keine persönlichen, sensiblen oder
-          vertraulichen Informationen ein.
-          <br />
+          Ihre Privatsphäre steht an erster Stelle. Wir speichern Ihre Chats
+          nicht und fragen Sie niemals nach Ihrer Identität. Bitte geben Sie
+          keine persönlichen, sensiblen oder vertraulichen Informationen ein.{' '}
           <ExternalLink href="https://gig.univie.ac.at/hex-gig/datenschutzerklaerung">
             Datenschutzerklärung
           </ExternalLink>
         </>
       ),
-      inputPlaceholder:
-        'Was möchten Sie über die Forschung des Forschungsverbundes wissen?'
+      inputPlaceholder: 'Was möchten Sie wissen?'
     },
-    inputPlaceholder:
-      'What would you like to know about the network’s research?',
+    inputPlaceholder: 'What do you want to know?',
     defaultAgentId: 'hex',
     showNewChat: true,
     apiEndpoint:
@@ -291,9 +290,9 @@ const projects: Record<ProjectId, ProjectConfig> = {
     showNewChat: true,
     privacyNotice: (
       <>
-        <strong>Your privacy comes first.</strong> We don&apos;t store your
-        conversations and never ask who you are — so there&apos;s no need to
-        share personal, sensitive, or confidential information.
+        Your privacy comes first. We don&apos;t store your conversations and
+        never ask who you are — so there&apos;s no need to share personal,
+        sensitive, or confidential information.
       </>
     ),
     // TODO(#16): placeholder — replace with the real German copy
