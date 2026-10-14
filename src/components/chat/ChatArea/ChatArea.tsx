@@ -1,8 +1,8 @@
 'use client'
 
+import ChatHeader from './ChatHeader'
 import ChatInput from './ChatInput'
 import MessageArea from './MessageArea'
-import { LanguageToggle } from '@/components/LanguageToggle'
 import { getProjectConfig } from '@/config/projects'
 
 const ChatArea = () => {
@@ -10,7 +10,7 @@ const ChatArea = () => {
 
   return (
     <main className="relative m-1.5 flex min-w-0 flex-grow flex-col rounded-xl bg-background">
-      <LanguageToggle />
+      <ChatHeader />
       <MessageArea />
       <div className="sticky bottom-0 min-w-0 px-4 pb-2">
         <ChatInput />

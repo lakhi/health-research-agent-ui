@@ -1,8 +1,10 @@
 'use client'
 
+import { useEffect } from 'react'
 import MarkdownRenderer from '@/components/ui/typography/MarkdownRenderer'
 import ChatBlankState from '@/components/chat/ChatArea/Messages/ChatBlankState'
-import { LanguageToggle } from '@/components/LanguageToggle'
+import ChatHeader from '@/components/chat/ChatArea/ChatHeader'
+import { useStore } from '@/store'
 
 /**
  * Development-only fixture for `scripts/check-mobile-width.mjs` (refs #7).
@@ -47,9 +49,17 @@ A wide table:
 `
 
 export default function MobileCheckFixture() {
+  const setMessages = useStore((s) => s.setMessages)
+
+  // An answer is on screen, so put the store mid-chat too: the header row then shows
+  // the New chat link instead of the EN/DE toggle, as the real app does (refs #17).
+  useEffect(() => {
+    setMessages([{ role: 'user', content: 'Zulassung?', created_at: 0 }])
+  }, [setMessages])
+
   return (
     <main className="relative m-1.5 flex min-w-0 flex-grow flex-col rounded-xl bg-background">
-      <LanguageToggle />
+      <ChatHeader />
       <div className="relative mb-4 flex min-h-0 w-full min-w-0 flex-grow flex-col overflow-y-auto">
         <div className="mx-auto w-full min-w-0 max-w-2xl space-y-9 px-4 pb-4">
           <ChatBlankState />

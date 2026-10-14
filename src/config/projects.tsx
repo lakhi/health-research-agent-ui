@@ -88,6 +88,12 @@ export interface ProjectConfig extends WelcomeCopy {
    * the real id into the URL. Leave undefined for projects that auto-select an agent.
    */
   defaultAgentId?: string
+  /**
+   * Show the "New chat" link, which opens a fresh copy of the app (its own root, base
+   * path included) in a new tab once a conversation has started — chats aren't
+   * persisted, so starting over in place would lose the current thread (refs #17).
+   */
+  showNewChat?: boolean
 }
 
 const ExternalLink = ({
@@ -186,6 +192,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
     },
     inputPlaceholder: 'What would you like to explore?',
     defaultAgentId: 'hex',
+    showNewChat: true,
     apiEndpoint:
       'https://hex-gig-agent-api.bravemeadow-0cb4208f.swedencentral.azurecontainerapps.io',
     theme: {
@@ -267,6 +274,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
     apiEndpoint:
       'https://ssc-psych-api.politesmoke-3283667d.swedencentral.azurecontainerapps.io',
     defaultAgentId: 'ssc',
+    showNewChat: true,
     privacyNotice: (
       <>
         <strong>Your privacy comes first.</strong> We don&apos;t store your

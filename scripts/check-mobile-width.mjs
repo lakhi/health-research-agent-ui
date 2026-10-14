@@ -37,7 +37,8 @@ const WIDTHS = [320, 360, 390]
  * `/` is the real app on its blank state. `/dev-mobile-check` is a dev-only
  * fixture that renders the genuine ChatBlankState and MarkdownRenderer against
  * content designed to break a narrow viewport — long cited URLs, an unbroken
- * German compound, a wide code block and a wide table.
+ * German compound, a wide code block and a wide table — under the mid-chat
+ * header (the New chat link).
  */
 const PAGES = [
   ['blank state', '/'],
@@ -146,7 +147,9 @@ const connect = async () => {
  * So: lift the backstop, then flag any element whose scrollable width exceeds
  * its client width. Blocks that are *deliberately* side-scrollable (`<pre>` and
  * the table wrapper, both marked with `overflow-x-auto`) are excluded — they
- * contain their own overflow by design and never widen an ancestor.
+ * contain their own overflow by design and never widen an ancestor. So is
+ * `.sr-only` screen-reader text: a 1px clipped, absolutely positioned box whose
+ * text overflows it on purpose and can't push the layout.
  */
 const MEASURE = `
 (() => {
@@ -156,7 +159,8 @@ const MEASURE = `
   void document.documentElement.offsetWidth // force reflow
 
   const vw = document.documentElement.clientWidth
-  const intentional = (el) => el.closest('pre, .overflow-x-auto') !== null
+  const intentional = (el) =>
+    el.closest('pre, .overflow-x-auto, .sr-only') !== null
 
   const overflowing = new Set()
   for (const el of document.querySelectorAll('body, body *')) {

@@ -38,6 +38,8 @@ export type IconType =
   | 'plus-icon'
   | 'references'
   | 'trash'
+  | 'square-pen'
+  | 'arrow-up-right'
 
 export interface IconProps {
   type: IconType
