@@ -1,4 +1,4 @@
-import { RunResponseContent } from '@/types/os'
+import { RunEvent, RunResponseContent } from '@/types/os'
 import { useCallback } from 'react'
 
 /**
@@ -33,6 +33,34 @@ function isLegacyFormat(data: RunResponseContent): boolean {
 interface NewFormatData {
   event: string
   data: string | Record<string, unknown>
+}
+
+/**
+ * No bytes for this long ends the request with an error. Healthy runs go quiet for
+ * ~1–2 s at most (model call, knowledge search) — measured on HeX in Oct 2026 — so 30 s
+ * means the connection is gone: without this the reply sat on "…" forever.
+ */
+const STREAM_INACTIVITY_TIMEOUT_MS = 30_000
+
+/** Every complete run ends with one of these; a stream that closes without one was cut off */
+const TERMINAL_EVENTS = new Set<string>([
+  RunEvent.RunCompleted,
+  RunEvent.RunError,
+  RunEvent.RunCancelled,
+  RunEvent.TeamRunCompleted,
+  RunEvent.TeamRunError,
+  RunEvent.TeamRunCancelled
+])
+
+/** streamingErrorMessage value MessageItem renders as the localized "connection interrupted" text */
+export const STREAM_INTERRUPTED = 'stream-interrupted'
+
+/** The stream went silent or closed before the run finished */
+class StreamInterruptedError extends Error {
+  constructor() {
+    super(STREAM_INTERRUPTED)
+    this.name = 'StreamInterruptedError'
+  }
 }
 
 class HttpStatusError extends Error {
@@ -209,8 +237,30 @@ export default function useAIResponseStream() {
       // Buffer to accumulate partial JSON data.
       let buffer = ''
 
+      // Inactivity watchdog: re-armed on every received chunk. Firing aborts the fetch, so
+      // the server cancels the run and a late answer can't appear under the error.
+      const controller = new AbortController()
+      let watchdog: ReturnType<typeof setTimeout> | undefined
+      const armWatchdog = () => {
+        clearTimeout(watchdog)
+        watchdog = setTimeout(
+          () => controller.abort(),
+          STREAM_INACTIVITY_TIMEOUT_MS
+        )
+      }
+
+      let sawTerminalEvent = false
+      const trackChunk = (chunk: RunResponseContent) => {
+        if (chunk.event && TERMINAL_EVENTS.has(chunk.event)) {
+          sawTerminalEvent = true
+        }
+        onChunk(chunk)
+      }
+
       try {
+        armWatchdog()
         const response = await fetch(apiUrl, {
+          signal: controller.signal,
           method: 'POST',
           headers: {
             // Set content-type only for non-FormData requests.
@@ -259,19 +309,31 @@ export default function useAIResponseStream() {
           const { done, value } = await reader.read()
           if (done) {
             // Process any final data in the buffer.
-            buffer = parseBuffer(buffer, onChunk)
+            buffer = parseBuffer(buffer, trackChunk)
+            if (!sawTerminalEvent) {
+              throw new StreamInterruptedError()
+            }
             onComplete()
             return
           }
+          armWatchdog()
           // Decode, sanitize, and accumulate the chunk
           buffer += decoder.decode(value, { stream: true })
 
           // Parse any complete JSON objects available in the buffer.
-          buffer = parseBuffer(buffer, onChunk)
+          buffer = parseBuffer(buffer, trackChunk)
           await processStream()
         }
         await processStream()
       } catch (error) {
+        if (
+          controller.signal.aborted ||
+          error instanceof StreamInterruptedError
+        ) {
+          onError(new StreamInterruptedError())
+          return
+        }
+
         if (error instanceof HttpStatusError) {
           onError(error)
           return
@@ -288,6 +350,8 @@ export default function useAIResponseStream() {
         }
 
         onError(new Error(String(error)))
+      } finally {
+        clearTimeout(watchdog)
       }
     },
     []

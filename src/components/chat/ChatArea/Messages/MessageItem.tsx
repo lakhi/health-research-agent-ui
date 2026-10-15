@@ -6,16 +6,32 @@ import Videos from './Multimedia/Videos'
 import Images from './Multimedia/Images'
 import Audios from './Multimedia/Audios'
 import { memo } from 'react'
+import { type Locale } from '@/config/projects'
+import { STREAM_INTERRUPTED } from '@/hooks/useAIResponseStream'
+import { useLocale } from '@/hooks/useLocale'
 import AgentThinkingLoader from './AgentThinkingLoader'
+import StillWorkingHint from './StillWorkingHint'
 
 interface MessageProps {
   message: ChatMessage
 }
 
+const INTERRUPTED_COPY: Record<Locale, string> = {
+  en: 'The connection was interrupted before the answer arrived. Please ask your question again.',
+  de: 'Die Verbindung wurde unterbrochen, bevor die Antwort ankam. Bitte stellen Sie Ihre Frage erneut.'
+}
+
 const AgentMessage = ({ message }: MessageProps) => {
   const { streamingErrorMessage } = useStore()
+  const [locale] = useLocale()
   let messageContent
-  if (message.streamingError) {
+  if (message.streamingError && streamingErrorMessage === STREAM_INTERRUPTED) {
+    messageContent = (
+      <p className="text-destructive" lang={locale}>
+        {INTERRUPTED_COPY[locale]}
+      </p>
+    )
+  } else if (message.streamingError) {
     messageContent = (
       <p className="text-destructive">
         Oops! Something went wrong while streaming.{' '}
@@ -64,8 +80,9 @@ const AgentMessage = ({ message }: MessageProps) => {
     }
   } else {
     messageContent = (
-      <div className="mt-2">
+      <div className="mt-2 flex flex-col items-start gap-2">
         <AgentThinkingLoader />
+        <StillWorkingHint />
       </div>
     )
   }
