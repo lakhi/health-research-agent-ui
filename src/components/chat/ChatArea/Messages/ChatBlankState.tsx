@@ -18,7 +18,7 @@ const ChatBlankState = () => {
 
   return (
     <section
-      className="flex w-full min-w-0 flex-col items-center text-center font-primary"
+      className="flex w-full min-w-0 flex-col text-center font-primary"
       aria-label="Welcome message"
     >
       <div className="flex w-full min-w-0 max-w-3xl flex-col gap-y-8">
@@ -48,7 +48,7 @@ const ChatBlankState = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-muted-foreground text-pretty text-left text-lg"
+          className="text-muted-foreground text-balance text-lg"
           lang={description.lang}
         >
           {description.text}
@@ -58,7 +58,7 @@ const ChatBlankState = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
-            className="flex flex-col gap-y-4 text-pretty text-left text-sm text-muted"
+            className="flex flex-col gap-y-4 text-balance text-sm text-muted"
           >
             {note.text && <p lang={note.lang}>{note.text}</p>}
             {privacy.text && <p lang={privacy.lang}>{privacy.text}</p>}

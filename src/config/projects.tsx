@@ -118,15 +118,15 @@ const ExternalLink = ({
 )
 
 // The welcome text flows freely (no <br />), so short phrases that read badly split
-// across lines are kept whole instead: dates via non-breaking spaces, links via this.
-// Only for short runs — an unbreakable one wider than a phone widens the whole page.
+// across lines are kept whole instead. nowrap blocks hyphenation inside them too,
+// which non-breaking spaces wouldn't. Only for short runs — an unbreakable one wider
+// than a phone widens the whole page.
 const NO_SPLIT = 'whitespace-nowrap'
 
-// Shown on both welcome-screen languages — bump them together. Non-breaking spaces
-// (\u00a0) keep each date on one line.
+// Shown on both welcome-screen languages — bump them together
 const HEX_GIG_LAST_UPDATE = {
-  en: '8th\u00a0October\u00a02026',
-  de: '8.\u00a0Oktober\u00a02026'
+  en: <span className={NO_SPLIT}>8th October 2026</span>,
+  de: <span className={NO_SPLIT}>8. Oktober 2026</span>
 }
 
 const HEX_GIG_WIKI = 'https://wiki.univie.ac.at/x/WB02Nw'
@@ -196,7 +196,10 @@ const projects: Record<ProjectId, ProjectConfig> = {
           Ihre Privatsphäre steht an erster Stelle. Wir speichern Ihre Chats
           nicht und fragen Sie niemals nach Ihrer Identität. Bitte geben Sie
           keine persönlichen, sensiblen oder vertraulichen Informationen ein.{' '}
-          <ExternalLink href="https://gig.univie.ac.at/hex-gig/datenschutzerklaerung">
+          <ExternalLink
+            href="https://gig.univie.ac.at/hex-gig/datenschutzerklaerung"
+            className={NO_SPLIT}
+          >
             Datenschutzerklärung
           </ExternalLink>
         </>
