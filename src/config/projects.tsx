@@ -122,6 +122,10 @@ const ExternalLink = ({
 // which non-breaking spaces wouldn't. Only for short runs — an unbreakable one wider
 // than a phone widens the whole page.
 const NO_SPLIT = 'whitespace-nowrap'
+// For longer runs: kept whole while they fit on a line, wrapped inside themselves only
+// when a full line is too narrow (large system text on a phone), so they can't widen
+// the page. Only where nothing follows them: a full stop after one could wrap alone.
+const KEEP_WHOLE = 'inline-block'
 
 // Shown on both welcome-screen languages — bump them together
 const HEX_GIG_LAST_UPDATE = {
@@ -162,7 +166,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
         sensitive or confidential information.{' '}
         <ExternalLink
           href="https://gig.univie.ac.at/en/hex-gig/data-protection-declaration"
-          className={NO_SPLIT}
+          className={KEEP_WHOLE}
         >
           Data Protection Declaration
         </ExternalLink>
@@ -198,7 +202,7 @@ const projects: Record<ProjectId, ProjectConfig> = {
           keine persönlichen, sensiblen oder vertraulichen Informationen ein.{' '}
           <ExternalLink
             href="https://gig.univie.ac.at/hex-gig/datenschutzerklaerung"
-            className={NO_SPLIT}
+            className={KEEP_WHOLE}
           >
             Datenschutzerklärung
           </ExternalLink>

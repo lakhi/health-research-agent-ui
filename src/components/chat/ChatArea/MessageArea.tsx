@@ -8,6 +8,7 @@ import { StickToBottom } from 'use-stick-to-bottom'
 
 const MessageArea = () => {
   const { messages } = useStore()
+  const isBlankState = messages.length === 0
 
   return (
     <StickToBottom
@@ -16,16 +17,19 @@ const MessageArea = () => {
       initial="smooth"
     >
       <StickToBottom.Content className="flex min-h-full flex-col justify-center">
-        <div
-          className={cn(
-            'mx-auto w-full min-w-0 space-y-9 px-4 pb-4',
-            // Until the first message, the welcome text spans the input box exactly
-            // (44rem = its 42rem + these px-4 gutters), so the left-aligned text
-            // shares its left edge and the header's right edge
-            messages.length === 0 ? 'max-w-[44rem]' : 'max-w-2xl'
-          )}
-        >
-          <Messages messages={messages} />
+        {/* On the welcome screen the gutters sit outside the max-w-2xl column, as in the
+            input row and ChatHeader, so the text spans the input box exactly: same left
+            edge, and the header's right edge. The conversation keeps them inside, as it
+            always has, so its column is a little narrower than the input. */}
+        <div className={cn('w-full min-w-0 pb-4', isBlankState && 'px-4')}>
+          <div
+            className={cn(
+              'mx-auto w-full min-w-0 max-w-2xl space-y-9',
+              !isBlankState && 'px-4'
+            )}
+          >
+            <Messages messages={messages} />
+          </div>
         </div>
       </StickToBottom.Content>
       <ScrollToBottom />
