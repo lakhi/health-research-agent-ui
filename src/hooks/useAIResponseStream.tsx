@@ -241,18 +241,31 @@ export default function useAIResponseStream() {
       // the server cancels the run and a late answer can't appear under the error.
       const controller = new AbortController()
       let watchdog: ReturnType<typeof setTimeout> | undefined
+      let sawTerminalEvent = false
+      // A phone suspends a backgrounded page's timers and reads alike, and on return the
+      // overdue timer may run before the data that arrived meanwhile is read. So time
+      // spent hidden never counts as silence: the watchdog starts over instead.
+      let hiddenSinceArmed = document.hidden
       const armWatchdog = () => {
         clearTimeout(watchdog)
-        watchdog = setTimeout(
-          () => controller.abort(),
-          STREAM_INACTIVITY_TIMEOUT_MS
-        )
+        hiddenSinceArmed = document.hidden
+        watchdog = setTimeout(() => {
+          if (hiddenSinceArmed) armWatchdog()
+          else controller.abort()
+        }, STREAM_INACTIVITY_TIMEOUT_MS)
       }
+      const onVisibilityChange = () => {
+        if (document.hidden) hiddenSinceArmed = true
+        else if (!sawTerminalEvent) armWatchdog()
+      }
+      document.addEventListener('visibilitychange', onVisibilityChange)
 
-      let sawTerminalEvent = false
       const trackChunk = (chunk: RunResponseContent) => {
         if (chunk.event && TERMINAL_EVENTS.has(chunk.event)) {
+          // The run is over; the API may keep the stream open a while (usage writes,
+          // citations), and that is no reason to abort it
           sawTerminalEvent = true
+          clearTimeout(watchdog)
         }
         onChunk(chunk)
       }
@@ -316,7 +329,7 @@ export default function useAIResponseStream() {
             onComplete()
             return
           }
-          armWatchdog()
+          if (!sawTerminalEvent) armWatchdog()
           // Decode, sanitize, and accumulate the chunk
           buffer += decoder.decode(value, { stream: true })
 
@@ -326,6 +339,12 @@ export default function useAIResponseStream() {
         }
         await processStream()
       } catch (error) {
+        // The answer is complete; a connection lost after that costs nothing
+        if (sawTerminalEvent) {
+          onComplete()
+          return
+        }
+
         if (
           controller.signal.aborted ||
           error instanceof StreamInterruptedError
@@ -352,6 +371,7 @@ export default function useAIResponseStream() {
         onError(new Error(String(error)))
       } finally {
         clearTimeout(watchdog)
+        document.removeEventListener('visibilitychange', onVisibilityChange)
       }
     },
     []

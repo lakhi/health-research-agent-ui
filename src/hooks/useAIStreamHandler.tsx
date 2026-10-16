@@ -387,12 +387,14 @@ const useAIChatStreamHandler = () => {
             } else if (
               chunk.event === RunEvent.RunError ||
               chunk.event === RunEvent.TeamRunError ||
+              chunk.event === RunEvent.RunCancelled ||
               chunk.event === RunEvent.TeamRunCancelled
             ) {
               updateMessagesWithErrorState()
               const errorContent =
                 (chunk.content as string) ||
-                (chunk.event === RunEvent.TeamRunCancelled
+                (chunk.event === RunEvent.RunCancelled ||
+                chunk.event === RunEvent.TeamRunCancelled
                   ? 'Run cancelled'
                   : 'Error during run')
               setStreamingErrorMessage(errorContent)
