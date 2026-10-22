@@ -129,8 +129,8 @@ const KEEP_WHOLE = 'inline-block'
 
 // Shown on both welcome-screen languages — bump them together
 const HEX_GIG_LAST_UPDATE = {
-  en: <span className={NO_SPLIT}>8th October 2026</span>,
-  de: <span className={NO_SPLIT}>8. Oktober 2026</span>
+  en: <span className={NO_SPLIT}>22nd October 2026</span>,
+  de: <span className={NO_SPLIT}>22. Oktober 2026</span>
 }
 
 const HEX_GIG_WIKI = 'https://wiki.univie.ac.at/x/WB02Nw'
